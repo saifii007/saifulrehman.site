@@ -1609,18 +1609,27 @@ ol {
 .angunet-news-box {
     overflow: hidden;
 }
+.main-angunetpage .shadow-box,
+.angunet-news-box,
+.angunet-stack,
+.angunet-info-card {
+    overflow: hidden;
+}
 .angunet-news-box .bg-img,
 .angunet-hero .bg-img,
 .angunet-stack .bg-img,
 .angunet-info-card .bg-img {
+    display: block;
     opacity: 0.08;
-    position: absolute;
+    position: absolute !important;
     left: 0;
     top: 0;
+    z-index: 0 !important;
     border-radius: 30px;
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: cover;
+    pointer-events: none;
 }
 .angunet-news-box .overlay-link {
     z-index: 8;
@@ -1698,6 +1707,7 @@ ol {
     padding: 42px;
     overflow: hidden;
     isolation: isolate;
+    min-height: 520px;
 }
 .angunet-hero::before {
     content: '';
@@ -1719,7 +1729,7 @@ ol {
     z-index: 2;
 }
 .angunet-visual-panel {
-    min-height: 370px;
+    min-height: 380px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1750,16 +1760,19 @@ ol {
     margin: 34px 0;
 }
 .angunet-visual-icons span {
-    min-height: 92px;
+    min-height: 104px;
     display: grid;
     place-items: center;
+    overflow: hidden;
     border: 1px solid rgba(255,255,255,0.09);
     border-radius: 22px;
     background: rgba(255,255,255,0.05);
 }
 .angunet-visual-icons img {
-    width: 56px;
-    height: 56px;
+    width: 62px !important;
+    height: 62px !important;
+    max-width: 62px !important;
+    max-height: 62px !important;
     object-fit: contain;
 }
 .angunet-visual-panel p {
@@ -1820,6 +1833,7 @@ ol {
 }
 .angunet-stack {
     padding: 34px;
+    overflow: hidden;
 }
 .angunet-stack h2 {
     font-size: 32px;
@@ -1832,8 +1846,10 @@ ol {
 .angunet-stack-grid img,
 .angunet-stack-grid i,
 .angunet-card-icon {
-    width: 58px;
-    height: 58px;
+    width: 58px !important;
+    height: 58px !important;
+    max-width: 58px !important;
+    max-height: 58px !important;
     object-fit: contain;
     color: #ffffff;
     font-size: 58px;
@@ -1842,6 +1858,7 @@ ol {
 .angunet-info-card {
     height: 100%;
     padding: 28px;
+    overflow: hidden;
 }
 .angunet-card-icon {
     display: block;
