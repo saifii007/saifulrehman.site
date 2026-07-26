@@ -1,0 +1,236 @@
+/* ==========================================================================
+   Career Journey — horizontal walking-character milestone road.
+   Desktop: pinned section, scroll-linked horizontal translation (journey.js).
+   Mobile (<=900px): native horizontally-scrollable swipeable strip.
+   ========================================================================== */
+.journey-pin {
+  position: relative;
+  /* height set inline by journey.js on desktop; ignored on mobile */
+}
+
+.journey-track {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(ellipse 50% 60% at 15% 50%, rgba(var(--accent-1-rgb), 0.1), transparent),
+    radial-gradient(ellipse 40% 50% at 90% 30%, rgba(var(--accent-2-rgb), 0.08), transparent);
+}
+
+.journey-road {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  will-change: transform;
+  padding-inline: 26vw 20vw;
+}
+
+.journey-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  transform: translateY(-50%);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--border-glass-strong) 0 22px,
+    transparent 22px 38px
+  );
+  z-index: 1;
+}
+
+.journey-walker {
+  position: absolute;
+  left: 18vw;
+  top: 50%;
+  width: 76px;
+  transform: translateY(-58%);
+  z-index: 3;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+  animation: walkerBob 0.55s ease-in-out infinite alternate;
+}
+
+.journey-walker img {
+  width: 100%;
+  height: auto;
+}
+
+.journey-stops {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.journey-stop {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-inline: 30px;
+  position: relative;
+  opacity: 0.32;
+  transform: translateY(18px) scale(0.94);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.journey-stop.is-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.journey-stop-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--surface-glass-strong);
+  border: 2px solid var(--border-glass-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  backdrop-filter: blur(10px);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.journey-stop.is-big .journey-stop-icon {
+  width: 76px;
+  height: 76px;
+  font-size: 2rem;
+  border-color: var(--accent-2);
+}
+
+.journey-stop.is-big.is-active .journey-stop-icon {
+  box-shadow: var(--shadow-glow-2);
+  transform: scale(1.08);
+}
+
+.journey-stop-card {
+  margin-top: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-md);
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.journey-stop-card h3 {
+  font-size: 0.98rem;
+  margin-bottom: 0.15rem;
+}
+
+.journey-stop-place {
+  color: var(--accent-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.journey-stop-period {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  margin-bottom: 0.5rem;
+}
+
+.journey-stop-card p.journey-stop-detail {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.journey-progress {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  gap: 6px;
+}
+
+.journey-progress span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border-glass-strong);
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.journey-progress span.is-active {
+  background: var(--accent-2);
+  transform: scale(1.4);
+}
+
+.confetti-dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  pointer-events: none;
+  animation: confettiPop 900ms ease-out forwards;
+}
+
+@keyframes walkerBob {
+  from { transform: translateY(-58%) rotate(-2deg); }
+  to { transform: translateY(-64%) rotate(2deg); }
+}
+
+@keyframes confettiPop {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
+}
+
+/* ---- Mobile: native swipeable strip instead of scroll-jacked pin ---- */
+@media (max-width: 900px) {
+  .journey-pin {
+    height: auto !important;
+  }
+
+  .journey-track {
+    position: static;
+    height: auto;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-block: 2rem 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .journey-road {
+    padding-inline: 6vw;
+  }
+
+  .journey-walker {
+    position: static;
+    width: 60px;
+    margin-right: 1rem;
+    transform: none;
+    animation: walkerBobMobile 0.55s ease-in-out infinite alternate;
+  }
+
+  .journey-stop {
+    width: 240px;
+    scroll-snap-align: center;
+    opacity: 1;
+    transform: none;
+  }
+
+  .journey-progress {
+    display: none;
+  }
+
+  @keyframes walkerBobMobile {
+    from { transform: translateY(0) rotate(-2deg); }
+    to { transform: translateY(-6px) rotate(2deg); }
+  }
+}

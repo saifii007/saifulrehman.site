@@ -1,0 +1,949 @@
+/* ==========================================================================
+   Reusable components
+   ========================================================================== */
+
+/* ---- Glass panel ---- */
+.glass {
+  background: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-glass);
+}
+
+/* ---- Mouse-driven 3D tilt target (see js/tilt.js) ---- */
+.js-tilt {
+  transition: transform 150ms var(--ease-out);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(var(--accent-1-rgb), 0.3);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 28px rgba(var(--accent-1-rgb), 0.5);
+}
+
+.btn-secondary {
+  position: relative;
+  background: transparent;
+  color: var(--text-primary);
+  border-color: transparent;
+  isolation: isolate;
+}
+
+.btn-secondary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, rgba(var(--accent-1-rgb), 0.8), transparent 40%, transparent 60%, rgba(var(--accent-1-rgb), 0.8));
+  background-size: 220% 220%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+  animation: borderFlow 5s linear infinite;
+}
+
+@keyframes borderFlow {
+  to { background-position: 220% 220%; }
+}
+
+.btn-ghost {
+  color: var(--text-secondary);
+  border-color: var(--border-glass);
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--border-glass-strong);
+}
+
+/* ---- Badges ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--border-glass);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.badge-sm {
+  padding: 0.25rem 0.65rem;
+  font-size: 0.74rem;
+}
+
+.tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: 0.75rem;
+}
+
+/* ==========================================================================
+   1. HERO
+   ========================================================================== */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-3);
+  box-shadow: 0 0 8px var(--accent-3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.terminal-cursor {
+  color: var(--accent-2);
+  animation: blink 1s step-end infinite;
+}
+
+/* Streaming "is generating" cursor — trails whatever text is being
+   revealed by js/stream.js (explorer response + sidebar project view). */
+.is-streaming::after {
+  content: "▍";
+  display: inline-block;
+  margin-left: 1px;
+  color: var(--accent-1);
+  animation: blink 0.9s step-end infinite;
+}
+
+/* ==========================================================================
+   2. PROFILE CARD
+   ========================================================================== */
+.profile-card-top {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+}
+
+.profile-avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.profile-avatar svg,
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--border-glass-strong);
+}
+
+.availability-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  color: var(--accent-3);
+  background: var(--bg-primary);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  border: 2px solid var(--bg-primary);
+}
+
+.profile-main {
+  flex: 1;
+  min-width: 240px;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.profile-role {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.profile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat strong {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+}
+
+.stat span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0 2rem 2rem;
+}
+
+/* ==========================================================================
+   3. CONTRIBUTION HEATMAP
+   ========================================================================== */
+.heatmap-wrapper {
+  padding: 1.75rem;
+}
+
+.heatmap-scroll {
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+  width: max-content;
+}
+
+.heatmap-grid .cell {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: transform var(--transition-fast), outline var(--transition-fast);
+  /* background color comes from the .level-N classes below —
+     kept out of this rule so specificity doesn't override them */
+}
+
+.heatmap-grid .cell:hover,
+.heatmap-grid .cell:focus-visible {
+  transform: scale(1.35);
+}
+
+.level-0 { background: var(--heat-0); }
+.level-1 { background: var(--heat-1); }
+.level-2 { background: var(--heat-2); }
+.level-3 { background: var(--heat-3); }
+.level-4 { background: var(--heat-4); }
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.heatmap-legend .cell {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  cursor: default;
+}
+
+.heatmap-tooltip {
+  margin-top: 1rem;
+  min-height: 1.5rem;
+  color: var(--accent-2);
+  font-size: 0.9rem;
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   4. ACTIVITY TIMELINE (feed)
+   ========================================================================== */
+.activity-feed {
+  border-left: 2px solid var(--border-glass);
+  margin-left: 0.6rem;
+}
+
+.activity-item {
+  position: relative;
+  padding: 0.9rem 0 0.9rem 2rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.activity-item::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 1.3rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow: 0 0 0 3px var(--bg-primary);
+}
+
+.activity-icon {
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.activity-item time {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  margin-top: 0.15rem;
+}
+
+/* ==========================================================================
+   5. SKILLS DASHBOARD
+   ========================================================================== */
+.skill-category {
+  padding: 1.75rem;
+}
+
+.skill-category h3 {
+  margin-bottom: 1.25rem;
+  font-size: 1.05rem;
+}
+
+.skill-bar-item {
+  margin-bottom: 1rem;
+}
+
+.skill-bar-item:last-child {
+  margin-bottom: 0;
+}
+
+.skill-bar-label {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.skill-bar-label span:first-child {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.skill-icon-sm {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.skill-bar-label span:last-child {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.skill-bar-track {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  transition: width 1.1s var(--ease-out);
+}
+
+/* ==========================================================================
+   6. PROJECTS
+   ========================================================================== */
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.75rem;
+}
+
+.filter-chip {
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+
+.filter-chip:hover {
+  color: var(--text-primary);
+  border-color: var(--border-glass-strong);
+}
+
+.filter-chip.is-active {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #fff;
+  border-color: transparent;
+}
+
+.project-card.is-hidden {
+  display: none;
+}
+
+.noscript-projects {
+  color: var(--text-secondary);
+  line-height: 1.9;
+}
+
+.noscript-projects li {
+  list-style: disc;
+  margin-left: 1.2rem;
+}
+
+.project-card {
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glass), var(--shadow-glow-1);
+}
+
+.project-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.project-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.project-name {
+  font-size: 1.15rem;
+  margin-bottom: 0.15rem;
+}
+
+.project-tagline {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.expand-indicator {
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  transition: transform var(--transition-base);
+  flex-shrink: 0;
+}
+
+.project-card.is-expanded .expand-indicator {
+  transform: rotate(45deg);
+  color: var(--accent-2);
+}
+
+.project-thumb {
+  margin-top: 1rem;
+  height: 160px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-glass);
+}
+
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform var(--transition-slow);
+}
+
+.project-card:hover .project-thumb img {
+  transform: scale(1.05);
+}
+
+.project-thumb.placeholder-thumb {
+  background: linear-gradient(135deg, rgba(var(--accent-1-rgb), 0.14), rgba(var(--accent-2-rgb), 0.1));
+  border: 1px dashed var(--border-glass-strong);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.project-desc {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.82rem;
+  margin-top: 0.5rem;
+}
+
+.project-links a {
+  color: var(--accent-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.project-expand {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-slow);
+}
+
+.project-card.is-expanded .project-expand {
+  max-height: 640px;
+  margin-top: 1rem;
+}
+
+.project-expand h4 {
+  font-size: 0.85rem;
+  color: var(--accent-2);
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.project-expand ul {
+  padding-left: 1.1rem;
+  list-style: disc;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
+.project-expand li {
+  margin-bottom: 0.3rem;
+}
+
+.project-expand p {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
+/* ==========================================================================
+   7 & 9. TIMELINE (experience / education)
+   ========================================================================== */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  border-left: 2px solid var(--border-glass);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -2.44rem;
+  top: 1.6rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 3px solid var(--accent-1);
+}
+
+.timeline-card {
+  padding: 1.5rem 1.75rem;
+}
+
+.timeline-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.timeline-card-head h3 {
+  font-size: 1.15rem;
+}
+
+.timeline-period {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.timeline-company {
+  color: var(--accent-2);
+  font-size: 0.88rem;
+  margin-bottom: 0.75rem;
+}
+
+.timeline-card p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-compact .timeline-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   8. CERTIFICATIONS
+   ========================================================================== */
+.cert-badge {
+  padding: 1.75rem;
+  text-align: center;
+  transition: transform var(--transition-base);
+}
+
+.cert-badge:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.cert-badge-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.cert-badge h3 {
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.cert-badge p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.cert-date {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--accent-3);
+  font-family: var(--font-mono);
+}
+
+.cert-badge-empty {
+  background: transparent;
+  border: 1px dashed var(--border-glass-strong);
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   10. CONTACT
+   ========================================================================== */
+.contact-card {
+  padding: 1.75rem;
+  text-align: center;
+  transition: transform var(--transition-base), border-color var(--transition-base);
+}
+
+.contact-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-glass-strong);
+}
+
+.contact-icon {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.contact-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.contact-card p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  word-break: break-word;
+}
+
+/* ==========================================================================
+   11. CHATBOT
+   ========================================================================== */
+.chatbot {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 900;
+}
+
+.chatbot-toggle {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-glow-1);
+  transition: transform var(--transition-fast);
+}
+
+.chatbot-toggle:hover {
+  transform: scale(1.08);
+}
+
+.chatbot-panel {
+  position: absolute;
+  bottom: 72px;
+  right: 0;
+  width: min(340px, 88vw);
+  height: min(480px, 70vh);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-glass-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-glass);
+  overflow: hidden;
+  transform-origin: bottom right;
+  transform: scale(0.9) translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.chatbot-panel.is-open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.chatbot-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border-glass);
+  background: var(--surface-glass-strong);
+}
+
+.chatbot-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.chatbot-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 8%;
+}
+
+.chatbot-header strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.chatbot-subtitle {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.chatbot-close {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.chatbot-close:hover {
+  color: var(--text-primary);
+}
+
+.chatbot-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.chat-msg {
+  max-width: 85%;
+  padding: 0.55rem 0.85rem;
+  border-radius: 14px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  animation: msgIn var(--transition-base);
+}
+
+.chat-msg-bot {
+  align-self: flex-start;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--border-glass);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-msg-user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--accent-1), #8b7bff);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-goto-btn {
+  align-self: flex-start;
+  margin-top: -0.3rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-2);
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border-glass);
+  border-radius: 999px;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.chat-goto-btn:hover {
+  border-color: var(--accent-2);
+  background: var(--surface-glass-strong);
+}
+
+.chat-typing {
+  align-self: flex-start;
+  display: flex;
+  gap: 4px;
+  padding: 0.7rem 0.9rem;
+  background: var(--surface-glass-strong);
+  border-radius: 14px;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: typingDot 1.2s ease-in-out infinite;
+}
+
+.chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+
+.chatbot-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0 1rem 0.75rem;
+}
+
+.suggestion-chip {
+  font-size: 0.72rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.suggestion-chip:hover {
+  border-color: var(--accent-2);
+  color: var(--text-primary);
+}
+
+.chatbot-input-row {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-top: 1px solid var(--border-glass);
+}
+
+.chatbot-input-row input {
+  flex: 1;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--border-glass);
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.chatbot-input-row input:focus-visible {
+  border-color: var(--accent-2);
+}
+
+.chatbot-input-row button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #fff;
+  flex-shrink: 0;
+}

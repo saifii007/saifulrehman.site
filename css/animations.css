@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Keyframes & scroll-reveal system
+   ========================================================================== */
+
+/* Generic scroll-reveal: JS toggles .is-visible via IntersectionObserver */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(6px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out), filter 0.7s var(--ease-out);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Stagger children of a revealed group via inline --delay set by JS */
+[data-reveal] {
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes floatShape {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-22px) rotate(6deg); }
+}
+
+@keyframes floatMonitor {
+  0%, 100% { transform: translateY(0) rotateX(4deg) rotateY(-6deg); }
+  50% { transform: translateY(-16px) rotateX(2deg) rotateY(-3deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--accent-3); }
+  50% { opacity: 0.5; box-shadow: 0 0 14px var(--accent-3); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typingDot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+@keyframes spin3d {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"/c/Users/hp/Desktop/\" | grep -i \"saif\")",
+      "Read(//c/Users/hp/Desktop//**)",
+      "Bash(python3 -c ' *)",
+      "Bash(mkdir -p \"/c/Users/hp/Downloads/saif-ortfolio/css\" \"/c/Users/hp/Downloads/saif-ortfolio/js\" \"/c/Users/hp/Downloads/saif-ortfolio/assets/images/projects\" \"/c/Users/hp/Downloads/saif-ortfolio/assets/resume\" \"/c/Users/hp/Downloads/saif-ortfolio/assets/icons\" *)",
+      "Bash(chromium-cli --help)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\hp\\Downloads\\saif-ortfolio"
+    ]
+  }
+}

@@ -1,0 +1,428 @@
+/* ==========================================================================
+   Quick Metrics band + AI Portfolio Explorer — a single morphing
+   input+response component, not a chat UI. No bubbles, no avatars,
+   no left/right layout. Blue accent only, generous spacing.
+   ========================================================================== */
+
+/* ---- Locked first screen (100vh, no scroll until "Web View") ----
+   Full-height layout: compact greeting up top, then the explorer panel
+   fills essentially all remaining space, input pinned at its top and
+   the response filling downward beneath it — not a small card floating
+   in empty space. */
+.chat-gate-screen {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-primary);
+  padding: clamp(1.25rem, 3vh, 2.5rem) 1.5rem;
+}
+
+.chat-gate-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1320px;
+  width: 100%;
+  margin-inline: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  text-align: center;
+}
+
+.chat-gate-greeting {
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-block: 0.75rem 0.5rem;
+  flex-shrink: 0;
+}
+
+.chat-gate-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  max-width: 52ch;
+  margin-inline: auto;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+
+.chat-gate-screen .explorer-panel {
+  text-align: left;
+  max-width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* ---- Quick Metrics ---- */
+.metrics-band {
+  padding-block: 3rem;
+  border-block: 1px solid var(--border-glass);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.metric-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.metric-tile strong {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.metric-tile span {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ---- Explorer panel ---- */
+.explorer {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+.explorer-panel {
+  max-width: 880px;
+  margin-inline: auto;
+  padding: clamp(1.75rem, 4vw, 3rem);
+  border-radius: 18px;
+  border: 1px solid var(--border-glass);
+  background: var(--surface-glass);
+}
+
+.explorer-head {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.explorer-head h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.explorer-head p {
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+}
+
+.explorer-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 0.5rem 0.4rem 1.5rem;
+  border-radius: 18px;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--border-glass-strong);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.explorer-input-row:focus-within {
+  border-color: var(--accent-1);
+  box-shadow: 0 0 0 4px rgba(var(--accent-1-rgb), 0.14);
+}
+
+.explorer-input-icon {
+  color: var(--accent-1);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.explorer-input-row input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1rem;
+  padding-block: 0.85rem;
+}
+
+.explorer-input-row input:focus-visible {
+  outline: none;
+}
+
+.explorer-input-row button {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--accent-1);
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(var(--accent-1-rgb), 0.3);
+  transition: box-shadow var(--transition-fast);
+}
+
+.explorer-input-row button:hover {
+  box-shadow: 0 6px 22px rgba(var(--accent-1-rgb), 0.45);
+}
+
+.explorer-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  flex-shrink: 0;
+}
+
+.explorer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.1rem 0.45rem 0.45rem;
+  border-radius: 14px;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), background var(--transition-fast);
+}
+
+.explorer-chip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  font-size: 0.95rem;
+  background: var(--surface-glass-strong); /* fallback if color-mix() is unsupported */
+  background: color-mix(in srgb, var(--chip-color, var(--accent-1)) 22%, transparent);
+  flex-shrink: 0;
+}
+
+.explorer-chip:hover {
+  color: var(--text-primary);
+  border-color: var(--chip-color, var(--accent-1));
+  transform: translateY(-2px);
+}
+
+.explorer-chip.is-active {
+  background: var(--chip-color, var(--accent-1)); /* fallback if color-mix() is unsupported */
+  background: color-mix(in srgb, var(--chip-color, var(--accent-1)) 85%, var(--bg-primary) 15%);
+  border-color: transparent;
+  color: #fff;
+}
+
+.explorer-chip.is-active .explorer-chip-icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ---- Response area — fills all remaining space below the pinned
+   input/chips, scrolling internally if content runs taller than that. ---- */
+.explorer-response-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.explorer-response-wrap.is-open {
+  margin-top: 1.75rem;
+}
+
+.explorer-response {
+  min-height: 0;
+}
+
+.explorer-response-inner > * {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(4px);
+  animation: explorerRise 550ms var(--ease-out) forwards;
+}
+
+.explorer-response-inner > *:nth-child(1) { animation-delay: 40ms; }
+.explorer-response-inner > *:nth-child(2) { animation-delay: 110ms; }
+.explorer-response-inner > *:nth-child(3) { animation-delay: 180ms; }
+.explorer-response-inner > *:nth-child(4) { animation-delay: 250ms; }
+.explorer-response-inner > *:nth-child(5) { animation-delay: 320ms; }
+
+@keyframes explorerRise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.explorer-response-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.6rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-glass);
+}
+
+.explorer-response-text {
+  color: var(--text-secondary);
+  font-size: 0.96rem;
+  line-height: 1.7;
+  max-width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.explorer-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.explorer-metric {
+  flex: 1;
+  min-width: 140px;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--border-glass);
+  text-align: center;
+}
+
+.explorer-metric strong {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-1);
+}
+
+.explorer-metric span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.explorer-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.explorer-cta {
+  display: flex;
+  margin-bottom: 1.75rem;
+}
+
+.explorer-followups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.explorer-followups-label {
+  width: 100%;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* ---- Dynamic project cards: tilt (js/tilt.js) + gradient border + mouse light ---- */
+.explorer-card {
+  position: relative;
+  padding: 1.25rem;
+  border-radius: 18px;
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--border-glass);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.explorer-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(var(--accent-1-rgb), 0.6), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  pointer-events: none;
+}
+
+.explorer-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(var(--accent-1-rgb), 0.16), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  pointer-events: none;
+}
+
+.explorer-card:hover::before,
+.explorer-card:hover::after {
+  opacity: 1;
+}
+
+.explorer-card-thumb {
+  height: 130px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0.85rem;
+}
+
+.explorer-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.explorer-card h4 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.explorer-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.explorer-card-links {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+}
+
+.explorer-card-links a {
+  color: var(--accent-1);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explorer-response-inner > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 1rem;
+  }
+}

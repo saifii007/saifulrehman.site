@@ -1,0 +1,152 @@
+/* ==========================================================================
+   Responsive breakpoints
+   ========================================================================== */
+
+/* ---- Tablet ---- */
+@media (max-width: 900px) {
+  .profile-card-top {
+    padding: 1.5rem;
+  }
+
+  .badge-row {
+    padding: 0 1.5rem 1.5rem;
+  }
+}
+
+/* ---- Mobile nav ---- */
+@media (max-width: 760px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: calc(var(--header-height) + 0.25rem);
+    right: 1rem;
+    left: 1rem;
+    background: rgba(13, 15, 22, 0.96);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-radius: 24px;
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    transform: translateY(-16px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+  }
+
+  .nav-menu.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-resume {
+    display: none;
+  }
+
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+/* ---- Small screens ---- */
+@media (max-width: 600px) {
+  /* One-line heading isn't readable this narrow — allow it to wrap, sized
+     for two lines instead of forcing tiny nowrap text. */
+  .stage-heading {
+    white-space: normal;
+    font-size: clamp(1.6rem, 7vw, 2rem);
+  }
+
+  .chat-gate-skip {
+    font-size: 0.72rem;
+    padding: 0.45rem 0.8rem;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .chat-gate-inner {
+    padding-top: 2.75rem;
+  }
+
+  .chat-gate-suggestions {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding-inline: 1.1rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+  }
+
+  .hero-terminal {
+    max-width: 100%;
+  }
+
+  .timeline {
+    padding-left: 1.4rem;
+  }
+
+  .timeline-dot {
+    left: -1.85rem;
+  }
+
+  .timeline-card {
+    padding: 1.25rem;
+  }
+
+  .chatbot-panel {
+    width: calc(100vw - 2rem);
+    right: -0.5rem;
+  }
+
+  .profile-stats {
+    gap: 1.25rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ---- Very small screens ---- */
+@media (max-width: 380px) {
+  .hero-name {
+    font-size: 2.1rem;
+  }
+
+  .chatbot-toggle {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+}
+
+/* ---- Reduce hero motion complexity on shorter viewports ---- */
+@media (max-height: 700px) {
+  .floating-monitor,
+  .floating-shape {
+    display: none;
+  }
+}
