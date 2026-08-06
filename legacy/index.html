@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en" class="chat-locked">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saif Ul Rehman — Senior Software Engineer &amp; Founder of ANGUNET</title>
+  <meta name="description" content="Portfolio of Saif Ul Rehman, Senior Software Engineer at Cedar Financial and founder of ANGUNET. 6 years building SaaS platforms, microservices, and AI-powered applications with .NET, Angular, React, and MCP." />
+  <meta name="keywords" content="Saif Ul Rehman, Senior Software Engineer, .NET Developer, Angular Developer, System Architect, ANGUNET, Model Context Protocol, MCP, Agentic AI, Lahore Pakistan Software Engineer" />
+  <meta name="author" content="Saif Ul Rehman" />
+  <meta name="theme-color" content="#1f1e1b" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Saif Ul Rehman — Senior Software Engineer & Founder of ANGUNET" />
+  <meta property="og:description" content="6 years building SaaS platforms, microservices, and AI-powered applications with .NET, Angular, React, and MCP." />
+  <meta property="og:image" content="assets/images/og-cover.svg" />
+  <meta property="og:url" content="https://saifii007.github.io/saif-ortfolio/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Saif Ul Rehman — Senior Software Engineer & Founder of ANGUNET" />
+  <meta name="twitter:description" content="6 years building SaaS platforms, microservices, and AI-powered applications with .NET, Angular, React, and MCP." />
+  <meta name="twitter:image" content="assets/images/og-cover.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  <link rel="canonical" href="https://saifii007.github.io/saif-ortfolio/" />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/hero-premium.css" />
+  <link rel="stylesheet" href="css/explorer.css" />
+  <link rel="stylesheet" href="css/sidebar.css" />
+  <link rel="stylesheet" href="css/journey.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Not deferred: sets data-theme before first paint to avoid a flash of the wrong theme -->
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ============ HEADER / NAV ============ -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-bar" aria-label="Primary">
+      <a href="#hero" class="nav-logo" aria-label="Saif Ul Rehman — home">
+        <span class="logo-bracket">&lt;</span>Saif<span class="logo-accent">.dev</span><span class="logo-bracket">/&gt;</span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#profile" class="nav-link">Profile</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#journey" class="nav-link">Journey</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to light theme">
+        <span class="theme-toggle-icon theme-icon-sun" aria-hidden="true">☀️</span>
+        <span class="theme-toggle-icon theme-icon-moon" aria-hidden="true">🌙</span>
+      </button>
+
+      <a href="assets/resume/Saif-Ul-Rehman-Resume.pdf" class="btn btn-ghost nav-resume" download>Resume</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ============ 1. HERO — locked AI Portfolio Explorer gateway (100vh, no scroll) ============ -->
+    <section class="chat-gate-screen" id="hero" aria-label="Introduction">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+      </div>
+
+      <div class="claude-shell" id="claudeShell">
+        <!-- ---- Collapsible sidebar (Claude-style) ---- -->
+        <aside class="claude-sidebar" id="claudeSidebar" aria-label="Projects sidebar">
+          <div class="sidebar-top">
+            <a href="#hero" class="sidebar-logo">
+              <span class="logo-bracket">&lt;</span>Saif<span class="logo-accent">.dev</span><span class="logo-bracket">/&gt;</span>
+            </a>
+            <div class="sidebar-top-actions">
+              <button class="sidebar-icon-btn" id="sidebarSearchBtn" type="button" aria-label="Search projects" title="Search projects">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><line x1="16" y1="16" x2="12.6" y2="12.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </button>
+              <button class="sidebar-icon-btn" id="sidebarCollapseBtn" type="button" aria-label="Collapse sidebar (Ctrl+B)" title="Collapse sidebar (Ctrl+B)">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5" stroke="currentColor" stroke-width="1.4"/><line x1="7.5" y1="3.5" x2="7.5" y2="16.5" stroke="currentColor" stroke-width="1.4"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <button class="sidebar-new-btn" id="sidebarNewBtn" type="button">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span>New conversation</span>
+          </button>
+
+          <nav class="sidebar-accordion" id="sidebarAccordion" aria-label="Sections">
+            <!-- Projects (collapsible) -->
+            <section class="sidebar-group" data-group="projects">
+              <button class="sidebar-group-header" type="button" aria-expanded="false" aria-controls="sidebarGroupProjects">
+                <span class="sidebar-group-icon" aria-hidden="true">🗂️</span>
+                <span class="sidebar-group-label">Projects</span>
+                <svg class="sidebar-group-chevron" width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="sidebar-group-content" id="sidebarGroupProjects" hidden>
+                <div class="sidebar-search">
+                  <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><line x1="16" y1="16" x2="12.6" y2="12.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                  <label for="sidebarSearchInput" class="visually-hidden">Search projects</label>
+                  <input type="text" id="sidebarSearchInput" placeholder="Search projects…" autocomplete="off" />
+                </div>
+                <ul class="sidebar-project-list" id="sidebarProjectList"></ul>
+              </div>
+            </section>
+
+            <!-- Open Source (collapsible) -->
+            <section class="sidebar-group" data-group="opensource">
+              <button class="sidebar-group-header" type="button" aria-expanded="false" aria-controls="sidebarGroupOpenSource">
+                <span class="sidebar-group-icon" aria-hidden="true">📦</span>
+                <span class="sidebar-group-label">Open Source</span>
+                <svg class="sidebar-group-chevron" width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="sidebar-group-content" id="sidebarGroupOpenSource" hidden>
+                <ul class="sidebar-project-list">
+                  <li><button type="button" class="sidebar-project-item" data-id="angunet"><span class="sidebar-project-item-icon" aria-hidden="true">📦</span><span class="sidebar-project-item-label">ANGUNET</span></button></li>
+                </ul>
+              </div>
+            </section>
+
+            <!-- Experience / Companies (collapsible) -->
+            <section class="sidebar-group" data-group="experience">
+              <button class="sidebar-group-header" type="button" aria-expanded="false" aria-controls="sidebarGroupExperience">
+                <span class="sidebar-group-icon" aria-hidden="true">💼</span>
+                <span class="sidebar-group-label">Experience</span>
+                <svg class="sidebar-group-chevron" width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="sidebar-group-content" id="sidebarGroupExperience" hidden>
+                <ul class="sidebar-info-list">
+                  <li><strong>Cedar Financial</strong><span>Senior Software Engineer · Current</span></li>
+                  <li><strong>Solvefy</strong><span>Software Engineer</span></li>
+                  <li><strong>EraTech</strong><span>Software Engineer</span></li>
+                  <li><strong>Sizdom Technologies</strong><span>Frontend Developer</span></li>
+                  <li><strong>Direct Client</strong><span>Freelance — Clinic &amp; Stock Management</span></li>
+                </ul>
+              </div>
+            </section>
+
+            <!-- Resume & Contact (collapsible) -->
+            <section class="sidebar-group" data-group="contact">
+              <button class="sidebar-group-header" type="button" aria-expanded="false" aria-controls="sidebarGroupContact">
+                <span class="sidebar-group-icon" aria-hidden="true">✉️</span>
+                <span class="sidebar-group-label">Resume &amp; Contact</span>
+                <svg class="sidebar-group-chevron" width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="sidebar-group-content" id="sidebarGroupContact" hidden>
+                <ul class="sidebar-info-list sidebar-info-links">
+                  <li><a href="assets/resume/Saif-Ul-Rehman-Resume.pdf" download>📄 Download Resume</a></li>
+                  <li><a href="mailto:saifighourii000@gmail.com">✉️ saifighourii000@gmail.com</a></li>
+                  <li><a href="tel:+923249705067">📱 +92 324 970 5067</a></li>
+                  <li><a href="https://www.linkedin.com/in/saif-ul-rehman777/" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a></li>
+                  <li><a href="https://github.com/saifii007" target="_blank" rel="noopener noreferrer">🐙 GitHub</a></li>
+                </ul>
+              </div>
+            </section>
+          </nav>
+
+          <div class="sidebar-bottom">
+            <a class="sidebar-profile" href="#profile">
+              <img src="assets/images/avatar.jpeg" alt="" />
+              <span class="sidebar-profile-info">
+                <strong>Saif Ul Rehman</strong>
+                <small>View full profile</small>
+              </span>
+            </a>
+          </div>
+        </aside>
+
+        <button class="sidebar-expand-btn" id="sidebarExpandBtn" type="button" aria-label="Expand sidebar (Ctrl+B)" title="Expand sidebar (Ctrl+B)" hidden>
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5" stroke="currentColor" stroke-width="1.4"/><line x1="7.5" y1="3.5" x2="7.5" y2="16.5" stroke="currentColor" stroke-width="1.4"/></svg>
+        </button>
+
+        <!-- ---- Main chat/response column ---- -->
+        <div class="claude-main">
+          <!-- This wrapper is the ONLY element that scrolls. The composer
+               below is a sibling positioned against .claude-main itself
+               (not this scroller), so it never scrolls with the content —
+               an absolutely-positioned child of a scrolling element still
+               scrolls with it if that element is its own containing block. -->
+          <div class="claude-scroll" id="claudeScroll">
+          <div class="chat-gate-inner container" id="chatGateInner">
+            <div class="explorer-intro" id="explorerIntro">
+              <div class="profile-intro-card" data-reveal>
+                <div class="profile-intro-banner">
+                  <div class="profile-intro-avatar">
+                    <img src="assets/images/avatar-profile-card.png" alt="Saif Ul Rehman" />
+                  </div>
+                </div>
+                <div class="profile-intro-body">
+                  <h1 class="profile-intro-name">Saif Ul Rehman </h1>
+                  <p class="profile-intro-tagline">Senior Software Engineer | Founder of ANGUNET | System Architect | .NET Ecosystem | Angular | React | SQL/NoSQL | Design AI-Powered Applications | Agentic AI | MCP Servers | LLM Integration &amp; Token Optimization</p>
+                  <p class="profile-intro-meta">Lahore, Punjab, Pakistan · <a href="#contact" class="profile-intro-contact-link">Contact info</a></p>
+                </div>
+              </div>
+
+              <div class="explorer-greeting" data-reveal>
+                <span class="explorer-greeting-icon" aria-hidden="true">✳</span>
+                <span class="explorer-greeting-text" id="explorerGreetingText">Ask me anything about my work</span>
+              </div>
+            </div>
+
+            <div class="explorer-panel" id="explorerPanel" data-reveal>
+              <!-- Responses stack here, newest turn scrolled to the top of view -->
+              <div class="explorer-response-wrap" id="explorerResponseWrap">
+                <div class="explorer-response" id="explorerResponse"></div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <!-- Composer is a fixed bar pinned to the bottom of the chat column at
+               all times (even before any conversation) — a sibling of the
+               scrollable content above, not part of the flow that scrolls. -->
+          <div class="explorer-composer" id="explorerComposer">
+            <div class="explorer-composer-inner">
+              <div class="explorer-chips" id="explorerChips"></div>
+
+              <form class="explorer-input-row" id="explorerForm">
+                <span class="explorer-input-icon" aria-hidden="true">✦</span>
+                <label for="explorerInput" class="visually-hidden">Ask about my work</label>
+                <input type="text" id="explorerInput" autocomplete="off" placeholder="Show enterprise projects…" />
+                <button type="submit" aria-label="Explore">→</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- ---- Full-page project view (Claude "project" style) ---- -->
+          <div class="project-view" id="projectView" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INTRO (revealed once "Web View" is chosen) ============ -->
+    <section class="hero" id="intro" aria-label="Overview">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+        <div class="hero-noise"></div>
+      </div>
+
+      <div class="hero-inner container">
+        <div class="hero-copy">
+          <p class="hero-eyebrow" data-reveal><span class="status-dot" aria-hidden="true"></span>Currently @ Cedar Financial — Lahore, Pakistan</p>
+          <h1 class="hero-title" data-reveal>Building enterprise-grade<br />software with <span class="text-accent">precision</span>.</h1>
+          <p class="hero-subtitle" data-reveal>
+            I'm Saif Ul Rehman, a Senior Software Engineer and founder of ANGUNET —
+            6 years designing scalable systems, clean architectures, and AI-powered
+            applications with .NET, Angular, and React.
+          </p>
+          <div class="hero-tech-row" data-reveal>
+            <span class="tech-pill">.NET</span>
+            <span class="tech-pill">Angular</span>
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">Model Context Protocol</span>
+            <span class="tech-pill">Agentic AI</span>
+          </div>
+          <div class="hero-cta" data-reveal>
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="assets/resume/Saif-Ul-Rehman-Resume.pdf" class="btn btn-secondary" download>Download Resume</a>
+          </div>
+        </div>
+
+        <div class="hero-object" data-reveal aria-hidden="true">
+          <div class="cube-scene" id="cubeScene">
+            <div class="cube-glow"></div>
+            <div class="cube-ring cube-ring-1"></div>
+            <div class="cube-ring cube-ring-2"></div>
+            <div class="cube">
+              <div class="cube-face cube-front"><span class="cube-icon">⌘</span>System Architecture</div>
+              <div class="cube-face cube-back"><span class="cube-icon">{ }</span>.NET</div>
+              <div class="cube-face cube-right"><span class="cube-icon">◆</span>Angular</div>
+              <div class="cube-face cube-left"><span class="cube-icon">⬡</span>MCP</div>
+              <div class="cube-face cube-top"><span class="cube-icon">⚙</span>Microservices</div>
+              <div class="cube-face cube-bottom"><span class="cube-icon">☁</span>Docker</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ QUICK METRICS ============ -->
+    <section class="metrics-band" aria-label="Quick metrics">
+      <div class="container metrics-grid">
+        <div class="metric-tile" data-reveal>
+          <strong>6+</strong>
+          <span>Years Experience</span>
+        </div>
+        <div class="metric-tile" data-reveal>
+          <strong>17</strong>
+          <span>Real Projects</span>
+        </div>
+        <div class="metric-tile" data-reveal>
+          <strong>20+</strong>
+          <span>Clients Worldwide</span>
+        </div>
+        <div class="metric-tile" data-reveal>
+          <strong>4</strong>
+          <span>Companies</span>
+        </div>
+        <div class="metric-tile" data-reveal>
+          <strong>1</strong>
+          <span>Open-Source Framework</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. PROFILE CARD ============ -->
+    <section class="section" id="profile" aria-labelledby="profile-heading">
+      <div class="container">
+        <h2 class="section-title" id="profile-heading" data-reveal>Profile</h2>
+
+        <div class="profile-card glass" data-reveal>
+          <div class="profile-card-top">
+            <div class="profile-avatar">
+              <img src="assets/images/avatar.jpeg" alt="Saif Ul Rehman" />
+              <span class="availability-badge" title="Open to work">●</span>
+            </div>
+
+            <div class="profile-main">
+              <h3 class="profile-name">Saif Ul Rehman</h3>
+              <p class="profile-role">Senior Software Engineer · Founder of ANGUNET · System Architect</p>
+              <ul class="profile-meta">
+                <li>📍 Lahore, Punjab, Pakistan</li>
+                <li>🏢 Currently @ Cedar Financial</li>
+                <li>🧭 6+ years of experience</li>
+                <li>✅ Open to work — On-site · Hybrid · Remote</li>
+              </ul>
+              <div class="profile-stats">
+                <div class="stat"><strong>6+</strong><span>Years Experience</span></div>
+                <div class="stat"><strong>20+</strong><span>Clients Worldwide</span></div>
+                <div class="stat"><strong>40+</strong><span>Total Projects</span></div>
+                <div class="stat"><strong>2,514</strong><span>LinkedIn Followers</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-row">
+            <span class="badge">.NET</span>
+            <span class="badge">Angular</span>
+            <span class="badge">React</span>
+            <span class="badge">SQL Server</span>
+            <span class="badge">MongoDB</span>
+            <span class="badge">Docker</span>
+            <span class="badge">Model Context Protocol</span>
+            <span class="badge">Agentic AI</span>
+            <span class="badge">Microservices</span>
+            <span class="badge">System Architecture</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. CONTRIBUTION HEATMAP ============ -->
+    <section class="section section-alt" id="heatmap" aria-labelledby="heatmap-heading">
+      <div class="container">
+        <h2 class="section-title" id="heatmap-heading" data-reveal>Contribution Heatmap</h2>
+        <p class="section-subtitle" data-reveal>
+          Hover or focus any cell to see what was actually happening career-wise. Milestone
+          highlights are real; day-to-day density is illustrative since LinkedIn has no commit-level data.
+        </p>
+
+        <div class="heatmap-wrapper glass" data-reveal>
+          <div class="heatmap-scroll">
+            <div class="heatmap-grid" id="heatmapGrid" role="img" aria-label="Contribution heatmap of career milestones"></div>
+          </div>
+          <div class="heatmap-legend">
+            <span>Less</span>
+            <span class="cell level-0"></span>
+            <span class="cell level-1"></span>
+            <span class="cell level-2"></span>
+            <span class="cell level-3"></span>
+            <span class="cell level-4"></span>
+            <span>More</span>
+          </div>
+        </div>
+        <div class="heatmap-tooltip" id="heatmapTooltip" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ============ 4. CAREER JOURNEY (horizontal walking timeline) ============ -->
+    <section class="section journey-section" id="journey" aria-labelledby="journey-heading">
+      <div class="container">
+        <h2 class="section-title" id="journey-heading" data-reveal>Career Journey</h2>
+        <p class="section-subtitle" data-reveal>
+          Scroll down to walk the road — on desktop the journey scrolls horizontally as you scroll the page;
+          on mobile, swipe the road directly.
+        </p>
+      </div>
+
+      <div class="journey-pin" id="journeyPin">
+        <div class="journey-track" id="journeyTrack">
+          <div class="journey-walker" id="journeyWalker" aria-hidden="true">
+            <img src="assets/images/walker-character.webp" alt="" loading="lazy" />
+          </div>
+          <div class="journey-road" id="journeyRoad">
+            <div class="journey-line" aria-hidden="true"></div>
+            <div class="journey-stops" id="journeyStops"></div>
+          </div>
+        </div>
+      </div>
+
+      <noscript>
+        <div class="container">
+          <ul class="noscript-projects">
+            <li>Nov 2021 — Joined Sizdom Technologies as Frontend Developer</li>
+            <li>Oct 2022 — Joined EraTech as Software Engineer</li>
+            <li>Jan 2025 – Aug 2025 — Freelance: Clinic Management System, Stock Management System</li>
+            <li>Sep 2025 — Joined Solvefy; led NokNok microservices platform</li>
+            <li>Jun 2026 — Launched ANGUNET; promoted to Senior Software Engineer at Cedar Financial</li>
+          </ul>
+        </div>
+      </noscript>
+    </section>
+
+    <!-- ============ 5. SKILLS DASHBOARD ============ -->
+    <section class="section section-alt" id="skills" aria-labelledby="skills-heading">
+      <div class="container">
+        <h2 class="section-title" id="skills-heading" data-reveal>Skills Dashboard</h2>
+        <p class="section-subtitle" data-reveal>
+          Levels are a transparent heuristic, not an official rating: <strong>Expert</strong> = LinkedIn
+          "Top Skills", <strong>Advanced</strong> = named in Core Expertise, <strong>Working</strong> = mentioned
+          in a single role/project.
+        </p>
+
+        <div class="skills-grid">
+          <div class="skill-category glass" data-reveal>
+            <h3>🤖 AI Engineering</h3>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Model Context Protocol (MCP)</span><span>Expert</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="95"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Agentic AI</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>LLM Integration</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Prompt Engineering / Token Optimization</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>RAG</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+          </div>
+
+          <div class="skill-category glass" data-reveal>
+            <h3>⚙️ Backend</h3>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span><img class="skill-icon-sm" src="assets/images/tech/dotnet.png" alt="" />ASP.NET</span><span>Expert</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="95"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>.NET / ASP.NET Core</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span><img class="skill-icon-sm" src="assets/images/tech/aspnetzero.png" alt="" />ABP Framework / ASP.NET Zero</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>EF Core / gRPC / REST APIs</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+          </div>
+
+          <div class="skill-category glass" data-reveal>
+            <h3>🎨 Frontend</h3>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span><img class="skill-icon-sm" src="assets/images/tech/angular.png" alt="" />Angular</span><span>Expert</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="95"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span><img class="skill-icon-sm" src="assets/images/tech/react.webp" alt="" />React</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span><img class="skill-icon-sm" src="assets/images/tech/typescript.png" alt="" />TypeScript / JavaScript</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Tailwind CSS</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>HTML / CSS / Bootstrap</span><span>Working</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="65"></div></div></div>
+          </div>
+
+          <div class="skill-category glass" data-reveal>
+            <h3>🗄️ Database</h3>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span><img class="skill-icon-sm" src="assets/images/tech/sql.png" alt="" />SQL Server</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span><img class="skill-icon-sm" src="assets/images/tech/mongo.webp" alt="" />MongoDB</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+          </div>
+
+          <div class="skill-category glass" data-reveal>
+            <h3>🏗️ Architecture</h3>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>System Architecture</span><span>Expert</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="95"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Clean Architecture</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Microservices / CQRS</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Multi-Tenant SaaS</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+          </div>
+
+          <div class="skill-category glass" data-reveal>
+            <h3>☁️ Cloud &amp; DevOps</h3>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Docker</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Redis</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+            <div class="skill-bar-item"><div class="skill-bar-label"><span>Git / CI/CD</span><span>Advanced</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-level="85"></div></div></div>
+          </div>
+        </div>
+        <p class="section-note">Note: LinkedIn lists 28 skills total but only surfaces 2 without an extra click (System Architecture, Process Automation). The categories above are compiled from the "Top skills" list and the "Core Expertise" bullets in the About section — <span class="placeholder-inline">[REVIEW: open your LinkedIn profile → Skills → "Show all 28" and tell me if anything important is missing]</span>.</p>
+      </div>
+    </section>
+
+    <!-- ============ 6. PROJECTS ============ -->
+    <section class="section" id="projects" aria-labelledby="projects-heading">
+      <div class="container">
+        <h2 class="section-title" id="projects-heading" data-reveal>Projects</h2>
+        <p class="section-subtitle" data-reveal>17 real projects — ANGUNET plus the 16 pulled from my live portfolio, all with real screenshots. Filter by category, click any card to expand key features, architecture notes, and challenges.</p>
+
+        <div class="project-filters" id="projectFilters" role="tablist" aria-label="Filter projects by category"></div>
+
+        <div class="projects-grid" id="projectsGrid">
+          <!-- Rendered by js/projects.js from PROJECTS in js/data.js -->
+        </div>
+
+        <noscript>
+          <ul class="noscript-projects">
+            <li><a href="https://github.com/saifii007/angunet">ANGUNET</a> — Angular + .NET full-stack starter with an MCP server</li>
+            <li>NokNok — .NET microservices platform</li>
+            <li>BLOCKPOS, ECOM, QSR, DailyBook — multi-tenant SaaS POS suite</li>
+            <li>Clinic Management System, Stock Management System — freelance projects</li>
+            <li>CollectCo, PMS, Fastlane, HR Management System, CRM Dashboard, AutoApply, CedarRPS, ConsumerPortal, Inventory Management System</li>
+          </ul>
+          <p>JavaScript is disabled — enable it to browse full project details, or see <a href="https://github.com/saifii007">github.com/saifii007</a>.</p>
+        </noscript>
+      </div>
+    </section>
+
+
+    <!-- ============ 7. EXPERIENCE TIMELINE ============ -->
+    <section class="section section-alt" id="experience" aria-labelledby="experience-heading">
+      <div class="container">
+        <h2 class="section-title" id="experience-heading" data-reveal>Experience</h2>
+
+        <p class="section-subtitle" data-reveal>
+          Reconciled from saifulrehman.site (primary source) and LinkedIn — a few month-level dates
+          differ slightly between the two; see PLACEHOLDERS.md for the one conflict (Solvefy) and how
+          it was resolved.
+        </p>
+
+        <div class="timeline">
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass">
+              <div class="timeline-card-head">
+                <h3>Senior Software Engineer</h3>
+                <span class="timeline-period">Jun 2026 – Present</span>
+              </div>
+              <p class="timeline-company">Cedar Financial · Full-time · Lahore, Punjab, Pakistan · On-site</p>
+              <p>
+                Designing and developing financial technology systems with .NET, Angular, secure APIs,
+                and SQL/NoSQL workflows. Working across enterprise modules, system design, AI-powered
+                application patterns, MCP server concepts, and performance-focused integrations.
+              </p>
+              <div class="tech-badges">
+                <span class="badge badge-sm">Model Context Protocol (MCP)</span>
+                <span class="badge badge-sm">AI-Driven Content</span>
+                <span class="badge badge-sm placeholder-inline">+4 more skills [ADD FROM LINKEDIN]</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass">
+              <div class="timeline-card-head">
+                <h3>Software Engineer</h3>
+                <span class="timeline-period">Sep 2025 – Jun 2026</span>
+              </div>
+              <p class="timeline-company">Solvefy · Full-time · Lahore, Punjab, Pakistan · On-site</p>
+              <p>
+                Developed and optimized enterprise-grade systems including a PMS management system, a
+                Twilio call center, and an AI interview assistant. Led development of NokNok, a .NET
+                microservices platform, using ASP.NET Zero and Boilerplate frameworks with Angular and
+                .NET for scalable, multi-tenant architectures.
+              </p>
+              <p><strong>Projects:</strong> NokNok, AutoApply, PMS, Twilio Call Center / AI Interview Assistant</p>
+              <div class="tech-badges">
+                <span class="badge badge-sm">ASP.NET Zero</span>
+                <span class="badge badge-sm">ASP.NET</span>
+                <span class="badge badge-sm placeholder-inline">+6 more skills [ADD FROM LINKEDIN]</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass">
+              <div class="timeline-card-head">
+                <h3>Developer <span class="badge badge-sm">Freelance</span></h3>
+                <span class="timeline-period">Jan 2025 – Aug 2025</span>
+              </div>
+              <p class="timeline-company">Direct Client · Freelance · Remote</p>
+              <p>
+                Independent freelance work delivered alongside my EraTech role: a Clinic Management
+                System and a Stock Management System built end-to-end for a direct client.
+              </p>
+              <p><strong>Projects:</strong> Clinic Management System, Stock Management System</p>
+              <div class="tech-badges">
+                <span class="badge badge-sm">Angular</span>
+                <span class="badge badge-sm">ASP.NET</span>
+                <span class="badge badge-sm">SQL Server</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass">
+              <div class="timeline-card-head">
+                <h3>Software Engineer</h3>
+                <span class="timeline-period">Oct 2022 – Sep 2025</span>
+              </div>
+              <p class="timeline-company">EraTech · Full-time · Gujranwala District, Punjab, Pakistan · On-site</p>
+              <p>
+                Developed and optimized a large-scale, subscription-based POS system, ensuring seamless
+                transaction processing and efficient inventory management. Implemented scalable
+                architecture using .NET and Angular for multi-tenant, multi-database subscriptions.
+              </p>
+              <p><strong>Projects:</strong> BLOCKPOS, ECOM, QSR, DailyBook</p>
+              <div class="tech-badges">
+                <span class="badge badge-sm">ASP.NET Web API</span>
+                <span class="badge badge-sm">Angular</span>
+                <span class="badge badge-sm placeholder-inline">+2 more skills [ADD FROM LINKEDIN]</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass">
+              <div class="timeline-card-head">
+                <h3>Frontend Developer</h3>
+                <span class="timeline-period">Nov 2021 – Aug 2022</span>
+              </div>
+              <p class="timeline-company">Sizdom Technologies · Full-time · Gujranwala, Punjab, Pakistan · On-site</p>
+              <p>
+                Hands-on experience with Angular and React, developing and optimizing user-friendly
+                interfaces and improving performance and responsiveness for web applications.
+                Collaborated with backend teams to integrate APIs and improve UI/UX design.
+              </p>
+              <p><strong>Projects:</strong> Blogs App, Custom HTML/CSS Designs</p>
+              <div class="tech-badges">
+                <span class="badge badge-sm">CSS</span>
+                <span class="badge badge-sm">HTML</span>
+                <span class="badge badge-sm placeholder-inline">+4 more skills [ADD FROM LINKEDIN]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 8. CERTIFICATIONS ============ -->
+    <section class="section" id="certifications" aria-labelledby="certifications-heading">
+      <div class="container">
+        <h2 class="section-title" id="certifications-heading" data-reveal>Certifications</h2>
+        <p class="section-subtitle" data-reveal>Collected achievement badges.</p>
+
+        <div class="badges-grid">
+          <div class="cert-badge glass" data-reveal>
+            <div class="cert-badge-icon">🎓</div>
+            <h3>Introduction to Data Analytics</h3>
+            <p>SkillUp by Simplilearn</p>
+            <span class="cert-date">May 2026</span>
+          </div>
+
+          <div class="cert-badge cert-badge-empty" data-reveal>
+            <div class="cert-badge-icon">➕</div>
+            <h3 class="placeholder-inline">[ADD CERTIFICATION]</h3>
+            <p class="placeholder-inline">e.g. Microsoft/Azure, AWS, or other credentials</p>
+          </div>
+
+          <div class="cert-badge cert-badge-empty" data-reveal>
+            <div class="cert-badge-icon">➕</div>
+            <h3 class="placeholder-inline">[ADD CERTIFICATION]</h3>
+            <p class="placeholder-inline">Slot open for a second credential</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 9. EDUCATION ============ -->
+    <section class="section section-alt" id="education" aria-labelledby="education-heading">
+      <div class="container">
+        <h2 class="section-title" id="education-heading" data-reveal>Education</h2>
+
+        <div class="timeline timeline-compact">
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass">
+              <div class="timeline-card-head">
+                <h3>Bachelor's Degree, Information Technology</h3>
+                <span class="timeline-period placeholder-inline">[ADD YEARS ATTENDED]</span>
+              </div>
+              <p class="timeline-company">University of the Punjab</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10. CONTACT ============ -->
+    <section class="section" id="contact" aria-labelledby="contact-heading">
+      <div class="container">
+        <h2 class="section-title" id="contact-heading" data-reveal>Contact</h2>
+        <p class="section-subtitle" data-reveal>Always open to connecting with teams building SaaS, enterprise, and AI-powered products.</p>
+
+        <div class="contact-grid">
+          <a class="contact-card glass" href="mailto:saifighourii000@gmail.com" data-reveal>
+            <span class="contact-icon">✉️</span>
+            <h3>Email</h3>
+            <p>saifighourii000@gmail.com</p>
+          </a>
+
+          <a class="contact-card glass" href="tel:+923249705067" data-reveal>
+            <span class="contact-icon">📱</span>
+            <h3>Phone</h3>
+            <p>+92 324 970 5067</p>
+          </a>
+
+          <a class="contact-card glass" href="https://www.linkedin.com/in/saif-ul-rehman777/" target="_blank" rel="noopener noreferrer" data-reveal>
+            <span class="contact-icon">💼</span>
+            <h3>LinkedIn</h3>
+            <p>linkedin.com/in/saif-ul-rehman777</p>
+          </a>
+
+          <a class="contact-card glass" href="https://github.com/saifii007" target="_blank" rel="noopener noreferrer" data-reveal>
+            <span class="contact-icon">🐙</span>
+            <h3>GitHub</h3>
+            <p>github.com/saifii007</p>
+          </a>
+
+          <a class="contact-card glass" href="https://wa.me/923249705067" target="_blank" rel="noopener noreferrer" data-reveal>
+            <span class="contact-icon">💬</span>
+            <h3>WhatsApp</h3>
+            <p>+92 324 970 5067</p>
+          </a>
+
+          <a class="contact-card glass" href="assets/resume/Saif-Ul-Rehman-Resume.pdf" download data-reveal>
+            <span class="contact-icon">📄</span>
+            <h3>Resume</h3>
+            <p class="placeholder-inline">[ADD RESUME PDF to assets/resume/]</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="footerYear"></span> Saif Ul Rehman. Built with HTML5, CSS3 &amp; vanilla JavaScript — no frameworks.</p>
+      <a href="#hero" class="back-to-top" aria-label="Back to top">↑ Top</a>
+    </div>
+  </footer>
+
+  <!-- ============ 11. FLOATING CHATBOT ============ -->
+  <div class="chatbot" id="chatbot">
+    <button class="chatbot-toggle" id="chatbotToggle" aria-expanded="false" aria-controls="chatbotPanel" aria-label="Open chat assistant">
+      <span class="chatbot-toggle-icon">💬</span>
+    </button>
+
+    <div class="chatbot-panel" id="chatbotPanel" role="dialog" aria-label="FAQ chat assistant" hidden>
+      <div class="chatbot-header">
+        <div class="chatbot-avatar" aria-hidden="true"><img src="assets/images/avatar-illustration.png" alt="" /></div>
+        <div>
+          <strong>Saif's Assistant</strong>
+          <span class="chatbot-subtitle">Scripted FAQ bot · not AI-powered</span>
+        </div>
+        <button class="chatbot-close" id="chatbotClose" aria-label="Close chat">✕</button>
+      </div>
+
+      <div class="chatbot-messages" id="chatbotMessages" aria-live="polite"></div>
+
+      <div class="chatbot-suggestions" id="chatbotSuggestions"></div>
+
+      <form class="chatbot-input-row" id="chatbotForm">
+        <label for="chatbotInput" class="visually-hidden">Type a question</label>
+        <input type="text" id="chatbotInput" placeholder="Ask about projects, skills, experience…" autocomplete="off" />
+        <button type="submit" aria-label="Send message">➤</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/data.js" defer></script>
+  <script src="js/faqMatch.js" defer></script>
+  <script src="js/scrollReveal.js" defer></script>
+  <script src="js/hero.js" defer></script>
+  <script src="js/journey.js" defer></script>
+  <script src="js/heatmap.js" defer></script>
+  <script src="js/skills.js" defer></script>
+  <script src="js/projects.js" defer></script>
+  <script src="js/chatbot.js" defer></script>
+  <script src="js/tilt.js" defer></script>
+  <script src="js/stream.js" defer></script>
+  <script src="js/explorer.js" defer></script>
+  <script src="js/sidebar.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
