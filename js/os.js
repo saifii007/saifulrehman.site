@@ -163,8 +163,8 @@
   }
 
   /* ---------------- Resume PDF viewer (pdf.js, lazy-loaded from CDN) ---------------- */
-  const RESUME_PATH = "assets/resume/Saif-Ul-Rehman-Resume.pdf";
-  const PDFJS_CDN = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379";
+  const RESUME_PATH = "Saif_Ul_Rehman_Resume_eng_2026.pdf";
+  const PDFJS_CDN = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174";
   const pdfModal = document.getElementById("pdfModal");
   const pdfModalBackdrop = document.getElementById("pdfModalBackdrop");
   const pdfModalClose = document.getElementById("pdfModalClose");
@@ -295,12 +295,63 @@
     </button>`;
   }
 
-  function recentMarkup(p) {
-    const thumb = p.image
-      ? `<img src="${p.image}" alt="" loading="lazy" />`
-      : `<div class="start-recent-thumb-fallback">${p.icon || "📦"}</div>`;
-    return `<button type="button" class="start-recent-item" data-file="${p.id}">
-      <div class="start-recent-thumb">${thumb}</div>
+  // Card backdrop colors for the Recommended grid — shuffled per page load
+  // (rather than a fixed 1-2-3-4 cycle) so the grid doesn't read as a
+  // mechanical repeating pattern.
+  const RECENT_PALETTE = [
+    ["#6366f1", "#4338ca"],
+    ["#f97316", "#c2410c"],
+    ["#10b981", "#047857"],
+    ["#ec4899", "#be185d"],
+    ["#0ea5e9", "#0369a1"],
+    ["#f59e0b", "#b45309"],
+    ["#8b5cf6", "#6d28d9"],
+    ["#14b8a6", "#0f766e"],
+    ["#ef4444", "#b91c1c"],
+    ["#84cc16", "#4d7c0f"],
+    ["#a855f7", "#7e22ce"],
+    ["#06b6d4", "#0e7490"],
+  ];
+
+  function shuffled(arr) {
+    const out = arr.slice();
+    for (let i = out.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [out[i], out[j]] = [out[j], out[i]];
+    }
+    return out;
+  }
+
+  // Real per-project glyph, derived from its actual tech stack / category
+  // (most PROJECTS entries have no dedicated `icon`, so a flat fallback
+  // made every card look identical) so cards read as visually distinct.
+  const TECH_ICONS = {
+    "Angular": "🅰️", "React": "⚛️", ".NET": "🟣", "ASP.NET Core": "🟣",
+    "ASP.NET Zero": "🟣", "ASP.NET Web API": "🟣", "TypeScript": "🔷",
+    "JavaScript": "🟨", "SQL Server": "🗄️", "MongoDB": "🍃", "Docker": "🐳",
+    "Microservices": "🧩", "Clean Architecture": "🏛️", "Bootstrap": "🎨",
+    "Multi-Tenant SaaS": "🏬", "MCP": "🔌", "npm CLI": "📦",
+  };
+  const CATEGORY_ICONS = { framework: "🧩", enterprise: "🏢", web: "🌐", software: "💻" };
+
+  function iconFor(p) {
+    const fromTech = (p.tech || []).map((t) => TECH_ICONS[t]).find(Boolean);
+    return fromTech || CATEGORY_ICONS[p.category] || p.icon || "📦";
+  }
+
+  function recentMarkup(p, i, colors) {
+    const [c1, c2] = colors[i % colors.length];
+    const badge = p.categoryLabel ? `<span class="start-recent-badge">${p.categoryLabel}</span>` : "";
+    const tilt = i % 3 === 0 ? "" : i % 3 === 1 ? " style=\"--tilt: -1.4deg;\"" : " style=\"--tilt: 1.4deg;\"";
+    return `<button type="button" class="start-recent-item"${tilt} data-file="${p.id}">
+      <div class="start-recent-thumb" style="background: linear-gradient(135deg, ${c1}, ${c2});">
+        ${badge}
+        <div class="start-recent-phone">
+          <span class="start-recent-phone-glyph">${iconFor(p)}</span>
+          <span class="start-recent-phone-bar"></span>
+          <span class="start-recent-phone-bar short"></span>
+        </div>
+      </div>
       <div class="start-recent-info">
         <div class="start-recent-name">${p.name}</div>
         <div class="start-recent-sub">${p.tagline || "Recently added"}</div>
@@ -311,9 +362,10 @@
   if (startPinnedGrid) startPinnedGrid.innerHTML = PINNED_TILES.map(tileMarkup).join("");
 
   if (startRecentGrid && typeof PROJECTS !== "undefined") {
+    const colors = shuffled(RECENT_PALETTE);
     startRecentGrid.innerHTML = PROJECTS.filter((p) => p.image)
-      .slice(0, 6)
-      .map(recentMarkup)
+      .slice(0, 12)
+      .map((p, i) => recentMarkup(p, i, colors))
       .join("");
   }
 

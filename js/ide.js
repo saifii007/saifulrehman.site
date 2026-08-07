@@ -23,6 +23,24 @@
   const esc = (s) =>
     String(s == null ? "" : s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 
+  // Browser-tab chrome shown at the top of every "Live Preview" panel, so
+  // the preview reads as a persistent embedded tab rather than a floating
+  // card.
+  function browserChrome(tabLabel, urlPath) {
+    return `<div class="preview-browser-tabs">
+      <div class="preview-browser-tab"><span class="preview-browser-tab-dot"></span>${esc(tabLabel)}</div>
+    </div>
+    <div class="preview-browser-bar">
+      <span class="preview-browser-nav">‹</span>
+      <span class="preview-browser-nav">›</span>
+      <span class="preview-browser-nav">⟳</span>
+      <div class="preview-browser-url">
+        <svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><rect x="5" y="10" width="14" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>localhost:4200${esc(urlPath)}</span>
+      </div>
+    </div>`;
+  }
+
   // Small VS-Code-style "file with a colored stripe" icon — same base shape,
   // just a different accent color per file type, so every icon in the
   // sidebar/tabbar reads as a coherent set instead of mixed emoji.
@@ -251,7 +269,7 @@
     return "";
   }
 
-  const RESUME_PATH = "assets/resume/Saif-Ul-Rehman-Resume.pdf";
+  const RESUME_PATH = "Saif_Ul_Rehman_Resume_eng_2026.pdf";
 
   const RESUME_ENUMS = [
     {
@@ -364,7 +382,7 @@ ${expMethods}
 <span class="ln">19</span><span class="tok-punct">}</span>
       </div>
       <aside class="preview-card">
-        <div class="preview-card-header"><span>👁 Live Preview</span><span>about.md</span></div>
+        ${browserChrome("about.md", "/about")}
         <div class="preview-card-body">
           <div class="preview-avatar"><img src="assets/images/avatar-profile-card.png" alt="Saif Ul Rehman" /></div>
           <div class="preview-name">Saif Ul Rehman</div>
@@ -438,7 +456,7 @@ ${expMethods}
 <span class="contact-line"><span class="tok-key">STATUS</span><span class="tok-punct">=</span><span class="tok-string">"open_to_work"</span></span>
       </div>
       <aside class="preview-card">
-        <div class="preview-card-header"><span>Live Preview</span><span>CONTACT.ENV</span></div>
+        ${browserChrome("CONTACT.ENV", "/contact")}
         <div class="preview-card-body">
           <div class="preview-avatar"><img src="assets/images/avatar-profile-card.png" alt="Saif Ul Rehman" /></div>
           <div class="preview-name">Get in touch</div>
@@ -470,7 +488,7 @@ ${expMethods}
     if (p.npm) links.push(`<a class="preview-btn" href="${p.npm}" target="_blank" rel="noopener noreferrer">📦 npm</a>`);
     if (!links.length) links.push(`<span class="preview-btn" style="opacity:0.6;">Private project</span>`);
     const nextProject = PROJECTS[(PROJECTS.findIndex((x) => x.id === p.id) + 1) % PROJECTS.length];
-    links.push(`<button type="button" class="preview-btn preview-btn-next" data-next-project="${esc(nextProject.id)}">Next Project →</button>`);
+    links.push(`<button type="button" class="preview-btn is-primary preview-btn-next" data-next-project="${esc(nextProject.id)}">Next Project →</button>`);
 
     const thumb = p.image
       ? `<div class="preview-thumb"><img src="${p.image}" alt="${esc(p.name)} screenshot" loading="lazy" /></div>`
@@ -498,7 +516,7 @@ ${importLines}
 <span class="ln">${baseLn + 14}</span><span class="tok-punct">};</span>
       </div>
       <aside class="preview-card">
-        <div class="preview-card-header"><span>👁 Live Preview</span><span>${esc(FILES[p.id] ? FILES[p.id].label : "")}</span></div>
+        ${browserChrome(FILES[p.id] ? FILES[p.id].label : p.name, `/projects/${esc(p.id)}`)}
         ${thumb}
         <div class="preview-card-body">
           <div class="preview-name">${esc(p.name)}</div>

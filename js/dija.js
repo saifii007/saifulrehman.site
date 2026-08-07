@@ -133,7 +133,14 @@
   /* ---------------- Project detail drawer ---------------- */
   function projectDrawerMarkup(p) {
     const thumb = p.image
-      ? `<div class="project-drawer-thumb"><img src="${p.image}" alt="${esc(p.name)} screenshot" loading="lazy" /></div>`
+      ? `<div class="project-drawer-thumb-card">
+          <div class="project-drawer-thumb-dots">
+            <span class="win-dot win-dot-red"></span>
+            <span class="win-dot win-dot-yellow"></span>
+            <span class="win-dot win-dot-green"></span>
+          </div>
+          <div class="project-drawer-thumb"><img src="${p.image}" alt="${esc(p.name)} screenshot" loading="lazy" /></div>
+        </div>`
       : "";
     const links = [];
     if (p.demo) links.push(`<a href="${p.demo}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>`);
@@ -141,17 +148,19 @@
     if (p.npm) links.push(`<a href="${p.npm}" target="_blank" rel="noopener noreferrer">npm ↗</a>`);
 
     return `${thumb}
-      <div class="project-drawer-name">${esc(p.name)}</div>
-      <div class="project-drawer-tagline">${esc(p.tagline || "")}</div>
-      <div class="dija-project-tags">${(p.tech || []).map((t) => `<span class="dija-project-tag">${esc(t)}</span>`).join("")}</div>
-      <div class="dija-project-detail-inner">
-        <h4>Overview</h4>
-        <p>${esc(p.description || "")}</p>
-        ${p.features && p.features.length ? `<h4>Key Features</h4><ul>${p.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
-        ${links.length ? `<div class="dija-project-detail-links">${links.join("")}</div>` : ""}
-      </div>
-      <div class="project-drawer-nav">
-        <button type="button" class="preview-btn is-primary" id="projectDrawerNext">Next Project →</button>
+      <div class="project-drawer-scroll">
+        <div class="project-drawer-name">${esc(p.name)}</div>
+        <div class="project-drawer-tagline">${esc(p.tagline || "")}</div>
+        <div class="dija-project-tags">${(p.tech || []).map((t) => `<span class="dija-project-tag">${esc(t)}</span>`).join("")}</div>
+        <div class="dija-project-detail-inner">
+          <h4>Overview</h4>
+          <p>${esc(p.description || "")}</p>
+          ${p.features && p.features.length ? `<h4>Key Features</h4><ul>${p.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
+          ${links.length ? `<div class="dija-project-detail-links">${links.join("")}</div>` : ""}
+        </div>
+        <div class="project-drawer-nav">
+          <button type="button" class="preview-btn is-primary" id="projectDrawerNext">Next Project →</button>
+        </div>
       </div>`;
   }
 
@@ -174,8 +183,8 @@
     projectDrawerBackdrop.hidden = false;
     void projectDrawer.offsetWidth;
     projectDrawer.classList.add("is-open");
-    projectDrawerBody.scrollTop = 0;
-    projectDrawer.scrollTop = 0;
+    const scrollArea = projectDrawerBody.querySelector(".project-drawer-scroll");
+    if (scrollArea) scrollArea.scrollTop = 0;
   }
 
   function closeProjectDrawer() {
