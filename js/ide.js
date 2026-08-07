@@ -44,17 +44,40 @@
     FILES[p.id] = { label: `${p.name.replace(/\s+/g, "")}.tsx`, icon: fileIconSvg("#4fc1ff") };
   });
 
-  const SKILLS = [
-    { name: "Angular", level: "Expert", pct: 95 },
-    { name: ".NET / ASP.NET Core", level: "Expert", pct: 95 },
-    { name: "Model Context Protocol", level: "Expert", pct: 95 },
-    { name: "System Architecture", level: "Expert", pct: 95 },
-    { name: "React", level: "Advanced", pct: 85 },
-    { name: "TypeScript", level: "Advanced", pct: 85 },
-    { name: "SQL Server / MongoDB", level: "Advanced", pct: 85 },
-    { name: "Microservices / CQRS", level: "Advanced", pct: 85 },
-    { name: "Docker", level: "Advanced", pct: 85 },
-    { name: "Agentic AI / LLM Integration", level: "Advanced", pct: 85 },
+  const SKILL_GROUPS = [
+    {
+      category: "Frameworks & Languages",
+      items: [
+        { name: "Angular", level: "Expert", pct: 95 },
+        { name: "React", level: "Advanced", pct: 85 },
+        { name: "TypeScript", level: "Advanced", pct: 85 },
+        { name: "JavaScript", level: "Advanced", pct: 85 },
+      ],
+    },
+    {
+      category: "Backend & Architecture",
+      items: [
+        { name: ".NET / ASP.NET Core", level: "Expert", pct: 95 },
+        { name: "System Architecture", level: "Expert", pct: 95 },
+        { name: "Microservices / CQRS", level: "Advanced", pct: 85 },
+        { name: "Monolithic Architecture", level: "Advanced", pct: 85 },
+      ],
+    },
+    {
+      category: "Data & Infrastructure",
+      items: [
+        { name: "SQL Server / MongoDB", level: "Advanced", pct: 85 },
+        { name: "Docker", level: "Advanced", pct: 85 },
+        { name: "Redis", level: "Advanced", pct: 80 },
+      ],
+    },
+    {
+      category: "AI & Tooling",
+      items: [
+        { name: "Model Context Protocol", level: "Expert", pct: 95 },
+        { name: "Agentic AI / LLM Integration", level: "Advanced", pct: 85 },
+      ],
+    },
   ];
 
   const EXPERIENCE = [
@@ -144,7 +167,57 @@
     updateBreadcrumbs(id);
   }
 
+  panes.addEventListener("click", (e) => {
+    const nextBtn = e.target.closest("[data-next-project]");
+    if (nextBtn) openFile(nextBtn.dataset.nextProject);
+    const resumeBtn = e.target.closest("[data-open-resume-pdf]");
+    if (resumeBtn && typeof window.openPdfViewer === "function") window.openPdfViewer(RESUME_PATH);
+  });
+
   /* ---------------- Opening a file ---------------- */
+  function bootTerminalMarkup() {
+    return `<div class="ide-boot-terminal">
+      <div class="ide-boot-line"><span class="terminal-prompt">guest@portfolio</span>:~$ <span class="ide-boot-cmd"></span><span class="ide-boot-cursor">▌</span></div>
+      <div class="ide-boot-log" hidden></div>
+    </div>`;
+  }
+
+  function runBootSequence(pane, id) {
+    if (prefersReducedMotion) {
+      pane.innerHTML = buildPaneMarkup(id);
+      wirePaneStreaming(pane, id);
+      return;
+    }
+    pane.innerHTML = bootTerminalMarkup();
+    const cmdEl = pane.querySelector(".ide-boot-cmd");
+    const logEl = pane.querySelector(".ide-boot-log");
+    window.streamText(cmdEl, "npm run dev", {
+      minChunk: 1,
+      maxChunk: 2,
+      onDone: () => {
+        setTimeout(() => {
+          if (!logEl) return;
+          logEl.hidden = false;
+          logEl.textContent = "> portfolio@1.0.0 dev\n> vite\n\n  compiling…";
+          setTimeout(() => {
+            pane.innerHTML = buildPaneMarkup(id);
+            wirePaneStreaming(pane, id);
+          }, 900 + Math.random() * 500);
+        }, 300);
+      },
+    });
+  }
+
+  function flashReload(pane) {
+    if (prefersReducedMotion) return;
+    const overlay = document.createElement("div");
+    overlay.className = "ide-reload-overlay";
+    overlay.innerHTML = '<span class="ide-reload-spinner"></span>';
+    pane.appendChild(overlay);
+    requestAnimationFrame(() => overlay.classList.add("is-visible"));
+    setTimeout(() => overlay.remove(), 380);
+  }
+
   function openFile(id) {
     if (!FILES[id]) return;
     activeId = id;
@@ -156,11 +229,13 @@
       pane = document.createElement("div");
       pane.className = "ide-pane";
       pane.id = `pane-${id}`;
-      pane.innerHTML = buildPaneMarkup(id);
       panes.appendChild(pane);
-      wirePaneStreaming(pane, id);
+      showPane(id);
+      runBootSequence(pane, id);
+      return;
     }
     showPane(id);
+    flashReload(pane);
   }
   window.ideOpenFile = openFile;
 
@@ -226,7 +301,7 @@ ${lines}
       <div class="resume-left">
         <div class="resume-photo"><img src="assets/images/avatar-profile-card.png" alt="Saif Ul Rehman" /></div>
         <pre class="code-block resume-enums">${enumsCode}</pre>
-        <a class="preview-btn" href="${RESUME_PATH}" target="_blank" rel="noopener noreferrer">📄 Open official PDF</a>
+        <button type="button" class="preview-btn" data-open-resume-pdf>📄 Open official PDF</button>
       </div>
       <div class="resume-right">
         <pre class="code-block">
@@ -311,20 +386,29 @@ ${expMethods}
   }
 
   function skillsMarkup() {
-    const rows = SKILLS.map(
-      (s) => `<div class="skill-row">
-        <span>${esc(s.name)}</span>
-        <span class="skill-bar-track"><span class="skill-bar-fill" data-pct="${s.pct}"></span></span>
-        <span class="skill-pct">${s.pct}%</span>
+    const groups = SKILL_GROUPS.map(
+      (g) => `<div class="skills-group">
+        <h4 class="skills-group-title">${esc(g.category)}</h4>
+        <div class="skills-grid">
+          ${g.items
+            .map(
+              (s) => `<div class="skill-card">
+                <div class="skill-card-head">
+                  <span class="skill-card-name">${esc(s.name)}</span>
+                  <span class="skill-card-level">${esc(s.level)} · ${s.pct}%</span>
+                </div>
+                <span class="skill-bar-track"><span class="skill-bar-fill" data-pct="${s.pct}"></span></span>
+              </div>`
+            )
+            .join("")}
+        </div>
       </div>`
     ).join("");
 
-    return `<div class="terminal-pane">
-      <div><span class="terminal-prompt">guest@portfolio</span>:~$ <span class="terminal-cmd">npm run list-skills</span></div>
-      <div style="color:var(--vsc-text-muted);margin-bottom:0.75rem;">&gt; portfolio@1.0.0 list-skills<br />&gt; node scripts/analyze-proficiencies.js</div>
-      ${rows}
-      <div style="margin-top:1rem;color:var(--vsc-text-muted);">Done in 2.43s.</div>
-      <div><span class="terminal-prompt">guest@portfolio</span>:~$ <span class="is-streaming"></span></div>
+    return `<div class="skills-pane">
+      <div class="skills-terminal-line"><span class="terminal-prompt">guest@portfolio</span>:~$ <span class="terminal-cmd">npm run list-skills</span></div>
+      <div class="skills-terminal-log">&gt; portfolio@1.0.0 list-skills<br />&gt; node scripts/analyze-proficiencies.js<br />Done in 2.43s.</div>
+      ${groups}
     </div>`;
   }
 
@@ -385,6 +469,8 @@ ${expMethods}
     if (p.github) links.push(`<a class="preview-btn" href="${p.github}" target="_blank" rel="noopener noreferrer">&lt;/&gt; Source</a>`);
     if (p.npm) links.push(`<a class="preview-btn" href="${p.npm}" target="_blank" rel="noopener noreferrer">📦 npm</a>`);
     if (!links.length) links.push(`<span class="preview-btn" style="opacity:0.6;">Private project</span>`);
+    const nextProject = PROJECTS[(PROJECTS.findIndex((x) => x.id === p.id) + 1) % PROJECTS.length];
+    links.push(`<button type="button" class="preview-btn preview-btn-next" data-next-project="${esc(nextProject.id)}">Next Project →</button>`);
 
     const thumb = p.image
       ? `<div class="preview-thumb"><img src="${p.image}" alt="${esc(p.name)} screenshot" loading="lazy" /></div>`

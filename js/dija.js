@@ -21,6 +21,11 @@
   const carouselBody = document.getElementById("dijaCarouselBody");
   const carouselBack = document.getElementById("dijaCarouselBack");
 
+  const projectDrawer = document.getElementById("projectDrawer");
+  const projectDrawerBackdrop = document.getElementById("projectDrawerBackdrop");
+  const projectDrawerBody = document.getElementById("projectDrawerBody");
+  const projectDrawerClose = document.getElementById("projectDrawerClose");
+
   if (!alertEl || typeof PROJECTS === "undefined") return;
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -75,6 +80,9 @@
     { label: "React", img: "assets/images/tech/react.webp" },
     { label: "TypeScript", img: "assets/images/tech/typescript.png" },
     { label: "JavaScript", img: "assets/images/tech/javascript.png" },
+    { label: "HTML5", icon: "🧡" },
+    { label: "CSS3", icon: "🎨" },
+    { label: "Bootstrap", icon: "🅱️" },
     { label: "SQL Server", img: "assets/images/tech/sql.png" },
     { label: "MongoDB", img: "assets/images/tech/mongo.webp" },
     { label: "ASP.NET Zero", img: "assets/images/tech/aspnetzero.png" },
@@ -83,7 +91,10 @@
     { label: "Model Context Protocol", icon: "🔌" },
     { label: "Agentic AI / LLM", icon: "🤖" },
     { label: "Microservices", icon: "🧱" },
+    { label: "Monolithic Architecture", icon: "🏛️" },
     { label: "System Architecture", icon: "🏗️" },
+    { label: "REST APIs", icon: "🔗" },
+    { label: "CI/CD", icon: "🚀" },
   ];
 
   /* ---------------- Panel builders ---------------- */
@@ -91,10 +102,6 @@
     const thumb = p.image
       ? `<img src="${p.image}" alt="${esc(p.name)} screenshot" loading="lazy" />`
       : `<div class="dija-project-thumb-fallback">${p.icon || "📦"}</div>`;
-    const links = [];
-    if (p.demo) links.push(`<a href="${p.demo}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>`);
-    if (p.github) links.push(`<a href="${p.github}" target="_blank" rel="noopener noreferrer">Source ↗</a>`);
-    if (p.npm) links.push(`<a href="${p.npm}" target="_blank" rel="noopener noreferrer">npm ↗</a>`);
 
     return `<div class="dija-project-row" data-id="${p.id}">
       <div class="dija-project-thumb">${thumb}</div>
@@ -107,14 +114,6 @@
           <svg class="dija-project-chevron" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="dija-project-tags">${(p.tech || []).map((t) => `<span class="dija-project-tag">${esc(t)}</span>`).join("")}</div>
-        <div class="dija-project-detail">
-          <div class="dija-project-detail-inner">
-            <h4>Overview</h4>
-            <p>${esc(p.description || "")}</p>
-            ${p.features && p.features.length ? `<h4>Key Features</h4><ul>${p.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
-            ${links.length ? `<div class="dija-project-detail-links">${links.join("")}</div>` : ""}
-          </div>
-        </div>
       </div>
     </div>`;
   }
@@ -125,11 +124,73 @@
     panel.innerHTML = PROJECTS.map(projectRowMarkup).join("");
     panel.addEventListener("click", (e) => {
       const row = e.target.closest(".dija-project-row");
-      if (!row || e.target.closest("a")) return;
-      row.classList.toggle("is-expanded");
+      if (!row) return;
+      openProjectDrawer(row.dataset.id);
     });
     return panel;
   }
+
+  /* ---------------- Project detail drawer ---------------- */
+  function projectDrawerMarkup(p) {
+    const thumb = p.image
+      ? `<div class="project-drawer-thumb"><img src="${p.image}" alt="${esc(p.name)} screenshot" loading="lazy" /></div>`
+      : "";
+    const links = [];
+    if (p.demo) links.push(`<a href="${p.demo}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>`);
+    if (p.github) links.push(`<a href="${p.github}" target="_blank" rel="noopener noreferrer">Source ↗</a>`);
+    if (p.npm) links.push(`<a href="${p.npm}" target="_blank" rel="noopener noreferrer">npm ↗</a>`);
+
+    return `${thumb}
+      <div class="project-drawer-name">${esc(p.name)}</div>
+      <div class="project-drawer-tagline">${esc(p.tagline || "")}</div>
+      <div class="dija-project-tags">${(p.tech || []).map((t) => `<span class="dija-project-tag">${esc(t)}</span>`).join("")}</div>
+      <div class="dija-project-detail-inner">
+        <h4>Overview</h4>
+        <p>${esc(p.description || "")}</p>
+        ${p.features && p.features.length ? `<h4>Key Features</h4><ul>${p.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
+        ${links.length ? `<div class="dija-project-detail-links">${links.join("")}</div>` : ""}
+      </div>
+      <div class="project-drawer-nav">
+        <button type="button" class="preview-btn is-primary" id="projectDrawerNext">Next Project →</button>
+      </div>`;
+  }
+
+  function openProjectDrawer(id) {
+    if (!projectDrawer) return;
+    const idx = PROJECTS.findIndex((p) => p.id === id);
+    if (idx === -1) return;
+    const p = PROJECTS[idx];
+
+    projectDrawerBody.innerHTML = projectDrawerMarkup(p);
+    const nextBtn = document.getElementById("projectDrawerNext");
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        const next = PROJECTS[(idx + 1) % PROJECTS.length];
+        openProjectDrawer(next.id);
+      });
+    }
+
+    projectDrawer.hidden = false;
+    projectDrawerBackdrop.hidden = false;
+    void projectDrawer.offsetWidth;
+    projectDrawer.classList.add("is-open");
+    projectDrawerBody.scrollTop = 0;
+    projectDrawer.scrollTop = 0;
+  }
+
+  function closeProjectDrawer() {
+    projectDrawer.classList.remove("is-open");
+    projectDrawerBackdrop.hidden = true;
+    setTimeout(() => {
+      projectDrawer.hidden = true;
+    }, prefersReducedMotion ? 0 : 320);
+  }
+
+  if (projectDrawerClose) projectDrawerClose.addEventListener("click", closeProjectDrawer);
+  if (projectDrawerBackdrop) projectDrawerBackdrop.addEventListener("click", closeProjectDrawer);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && projectDrawer && projectDrawer.classList.contains("is-open")) closeProjectDrawer();
+  });
 
   function buildExperiencePanel() {
     const panel = document.createElement("div");
