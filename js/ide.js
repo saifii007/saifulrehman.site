@@ -23,6 +23,22 @@
   const esc = (s) =>
     String(s == null ? "" : s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 
+  // Flat glyph standing in for a screenshot — derived from the project's
+  // real tech stack / category so each preview still reads as distinct
+  // without relying on the (heavily branded, off-theme) marketing mockups.
+  const TECH_ICONS = {
+    "Angular": "🅰️", "React": "⚛️", ".NET": "🟣", "ASP.NET Core": "🟣",
+    "ASP.NET Zero": "🟣", "ASP.NET Web API": "🟣", "TypeScript": "🔷",
+    "JavaScript": "🟨", "SQL Server": "🗄️", "MongoDB": "🍃", "Docker": "🐳",
+    "Microservices": "🧩", "Clean Architecture": "🏛️", "Bootstrap": "🎨",
+    "Multi-Tenant SaaS": "🏬", "MCP": "🔌", "npm CLI": "📦",
+  };
+  const CATEGORY_ICONS = { framework: "🧩", enterprise: "🏢", web: "🌐", software: "💻" };
+  function iconFor(p) {
+    const fromTech = (p.tech || []).map((t) => TECH_ICONS[t]).find(Boolean);
+    return fromTech || CATEGORY_ICONS[p.category] || p.icon || "📦";
+  }
+
   // Browser-tab chrome shown at the top of every "Live Preview" panel, so
   // the preview reads as a persistent embedded tab rather than a floating
   // card.
@@ -440,7 +456,30 @@ ${expMethods}
         </div>
       </div>`
     ).join("");
-    return `<div class="terminal-pane"><div style="margin-bottom:0.5rem;color:var(--vsc-text-muted);">$ git log --oneline --graph --all</div>${rows}</div>`;
+
+    const expRows = EXPERIENCE.map(
+      (e) => `<div class="exp-preview-row">
+        <div class="exp-preview-row-head">
+          <span class="exp-preview-company">${esc(e.company)}</span>
+          <span class="exp-preview-period">${esc(e.period)}</span>
+        </div>
+        <div class="exp-preview-role">${esc(e.role)}</div>
+        <div class="exp-preview-note">${esc(e.note)}</div>
+      </div>`
+    ).join("");
+
+    return `<div class="ide-pane-split">
+      <div class="terminal-pane"><div style="margin-bottom:0.5rem;color:var(--vsc-text-muted);">$ git log --oneline --graph --all</div>${rows}</div>
+      <aside class="preview-card">
+        ${browserChrome("Experience.json", "/experience")}
+        <div class="preview-card-body">
+          <div class="preview-icon-tile"><span>📜</span></div>
+          <div class="preview-name">Career Timeline</div>
+          <div class="preview-role">6+ years across enterprise, freelance, and SaaS teams</div>
+          <div class="exp-preview-list">${expRows}</div>
+        </div>
+      </aside>
+    </div>`;
   }
 
   function contactMarkup() {
@@ -462,13 +501,27 @@ ${expMethods}
           <div class="preview-name">Get in touch</div>
           <div class="preview-role">Saif Ul Rehman &middot; Lahore, Pakistan</div>
           <div class="preview-status">● Open to work</div>
-          <p class="preview-quote">Always happy to talk about SaaS platforms, enterprise architecture, or AI-powered tooling — reach out any way that's easiest for you.</p>
-          <div class="preview-links" style="flex-direction:column;">
-            <a class="preview-btn is-primary" href="mailto:saifighourii000@gmail.com">✉️ Email</a>
-            <a class="preview-btn" href="tel:+923249705067">📞 Call</a>
-            <a class="preview-btn" href="https://wa.me/923249705067" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
-            <a class="preview-btn" href="https://www.linkedin.com/in/saif-ul-rehman777/" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
-            <a class="preview-btn" href="https://github.com/saifii007" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
+          <div class="contact-method-grid">
+            <a class="contact-method-card" href="mailto:saifighourii000@gmail.com">
+              <span class="contact-method-icon">✉️</span>
+              <span class="contact-method-label">Email</span>
+            </a>
+            <a class="contact-method-card" href="tel:+923249705067">
+              <span class="contact-method-icon">📞</span>
+              <span class="contact-method-label">Call</span>
+            </a>
+            <a class="contact-method-card" href="https://wa.me/923249705067" target="_blank" rel="noopener noreferrer">
+              <span class="contact-method-icon">💬</span>
+              <span class="contact-method-label">WhatsApp</span>
+            </a>
+            <a class="contact-method-card" href="https://www.linkedin.com/in/saif-ul-rehman777/" target="_blank" rel="noopener noreferrer">
+              <span class="contact-method-icon">💼</span>
+              <span class="contact-method-label">LinkedIn</span>
+            </a>
+            <a class="contact-method-card" href="https://github.com/saifii007" target="_blank" rel="noopener noreferrer">
+              <span class="contact-method-icon">🐙</span>
+              <span class="contact-method-label">GitHub</span>
+            </a>
           </div>
         </div>
       </aside>
@@ -489,10 +542,6 @@ ${expMethods}
     if (!links.length) links.push(`<span class="preview-btn" style="opacity:0.6;">Private project</span>`);
     const nextProject = PROJECTS[(PROJECTS.findIndex((x) => x.id === p.id) + 1) % PROJECTS.length];
     links.push(`<button type="button" class="preview-btn is-primary preview-btn-next" data-next-project="${esc(nextProject.id)}">Next Project →</button>`);
-
-    const thumb = p.image
-      ? `<div class="preview-thumb"><img src="${p.image}" alt="${esc(p.name)} screenshot" loading="lazy" /></div>`
-      : "";
 
     return `<div class="ide-pane-split">
       <div class="code-block">
@@ -517,12 +566,16 @@ ${importLines}
       </div>
       <aside class="preview-card">
         ${browserChrome(FILES[p.id] ? FILES[p.id].label : p.name, `/projects/${esc(p.id)}`)}
-        ${thumb}
         <div class="preview-card-body">
-          <div class="preview-name">${esc(p.name)}</div>
+          <div class="preview-icon-tile"><span>${iconFor(p)}</span></div>
+          ${p.categoryLabel ? `<div class="preview-category-badge">${esc(p.categoryLabel)}</div>` : ""}
+          <div class="preview-name-row">
+            <div class="preview-name">${esc(p.name)}</div>
+            ${p.contribution ? `<span class="preview-contribution">${esc(p.contribution)}</span>` : ""}
+          </div>
           <div class="preview-role">${esc(p.tagline || "")}</div>
           <div class="preview-tags">${(p.tech || []).map((t) => `<span class="preview-tag">${esc(t)}</span>`).join("")}</div>
-          ${p.features && p.features.length ? `<p class="preview-quote"><strong>Key features:</strong> ${p.features.map(esc).join(" · ")}</p>` : ""}
+          ${p.features && p.features.length ? `<div class="dija-project-detail-inner"><h4>Key Features</h4><ul>${p.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul></div>` : ""}
           <div class="preview-links">${links.join("")}</div>
         </div>
       </aside>
