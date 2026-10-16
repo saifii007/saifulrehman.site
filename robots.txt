@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://saif-ul-rehman777.github.io/sitemap.xml
+Sitemap: https://saifii007.github.io/saifulrehman.site/sitemap.xml
