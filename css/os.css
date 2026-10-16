@@ -3026,3 +3026,27 @@ button.win-dot-red:hover {
 .about-action-primary:hover { background:#8062c8; }
 @media(max-width:650px) { .about-highlights { grid-template-columns:1fr; } .about-actions { flex-direction:column; } .about-action { width:100%; } }
 @media(prefers-reduced-motion:reduce) { .about-action { transition:none; } }
+
+/* Portfolio content polish: make the About story and its actions visible together */
+.preview-card-body:has(.about-highlights) { padding: 1rem; }
+.preview-card-body:has(.about-highlights) .preview-avatar { width: 54px; height: 54px; margin-bottom: .55rem; }
+.preview-card-body:has(.about-highlights) .preview-name { font-size: 1.04rem; }
+.preview-card-body:has(.about-highlights) .preview-status { margin-top: .45rem; }
+.preview-card-body:has(.about-highlights) .preview-quote { margin-top: .7rem; padding: .75rem .85rem .75rem 1rem; font-size: .76rem; line-height: 1.5; }
+.preview-card-body:has(.about-highlights) .about-highlights { gap: 8px; margin: .7rem 0; }
+.preview-card-body:has(.about-highlights) .about-highlight { padding: 10px; }
+.preview-card-body:has(.about-highlights) .about-highlight-label { margin-bottom: 5px; font-size: 9px; }
+.preview-card-body:has(.about-highlights) .about-highlight strong { font-size: 12px; }
+.preview-card-body:has(.about-highlights) .about-highlight p { margin-top: 5px; font-size: 11px; line-height: 1.45; }
+.preview-card-body:has(.about-highlights) .preview-tags { gap: 5px; margin-top: .65rem; }
+.preview-card-body:has(.about-highlights) .preview-tag { font-size: 10px; padding: 4px 8px; }
+.preview-card-body:has(.about-highlights) .about-actions { gap: 7px; margin-top: .8rem; }
+.preview-card-body:has(.about-highlights) .about-action { min-height: 32px; padding: 6px 10px; font-size: 11px; }
+.dija-project-detail-inner { margin-top: 1rem; padding: 1rem; border: 1px solid var(--panel-border); border-radius: 9px; background: var(--panel-bg-2); }
+.dija-project-detail-inner h4 { margin: 0 0 .6rem; font-size: .78rem; color: var(--vsc-text); letter-spacing: .02em; }
+.dija-project-detail-inner ul { margin: 0; padding-left: 1.1rem; color: var(--vsc-text-muted); font-size: .75rem; line-height: 1.65; }
+.dija-project-detail-inner li + li { margin-top: .25rem; }
+.preview-links { display:flex; flex-wrap:wrap; gap:8px; margin-top:1rem; }
+.preview-links .preview-btn { display:inline-flex; align-items:center; justify-content:center; min-height:34px; }
+@media(max-height:760px) { .preview-card-body:has(.about-highlights) { padding: .8rem; } .preview-card-body:has(.about-highlights) .about-highlight p { line-height:1.35; } }
+@media(max-width:650px) { .preview-card-body:has(.about-highlights) .about-highlights { grid-template-columns:1fr; } }
