@@ -121,10 +121,10 @@ Open `http://localhost:8000`.
    ```
 3. GitHub → **Settings → Pages → Build and deployment → Source** → **Deploy
    from a branch** → branch **main**, folder **/ (root)** → **Save**.
-4. Live in ~1 minute at `https://<your-username>.github.io/<repo-name>/`.
+4. Live in ~1 minute at `https://saifii007.github.io/saifulrehman.site/`.
 5. Update `og:url` / `canonical` in `index.html` and the `Sitemap:` line in
    `robots.txt` to match your real URL — they currently point to a
-   placeholder (`https://saifii007.github.io/saif-ortfolio/`).
+   placeholder (`https://saifii007.github.io/saifulrehman.site/`).
 
 ## Before you publish
 
