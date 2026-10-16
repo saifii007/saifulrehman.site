@@ -2924,3 +2924,90 @@ button.win-dot-red:hover {
     overflow-x: auto;
   }
 }
+
+
+/* ---------------- DIJA question guide: polished, compact, accessible ---------------- */
+.dija-ask {
+  margin: 1rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+.dija-ask-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #c7c9d4;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.dija-ask-controls {
+  display: flex;
+  align-items: stretch;
+  gap: 0.45rem;
+}
+.dija-ask-controls input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.72rem 0.8rem;
+  color: #f3f4f8;
+  background: rgba(8, 10, 16, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9px;
+  font: inherit;
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.dija-ask-controls input::placeholder { color: #85899a; }
+.dija-ask-controls input:focus-visible {
+  border-color: var(--win-accent-tint);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.18);
+}
+.dija-ask-controls button {
+  flex: 0 0 auto;
+  padding: 0.65rem 0.95rem;
+  border: 1px solid rgba(167, 139, 250, 0.45);
+  border-radius: 9px;
+  background: rgba(139, 92, 246, 0.2);
+  color: #eee7ff;
+  font-size: 0.8rem;
+  font-weight: 650;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+.dija-ask-controls button:hover:not(:disabled) {
+  background: rgba(139, 92, 246, 0.34);
+  border-color: var(--win-accent-tint);
+}
+.dija-ask-controls button:disabled { opacity: 0.55; cursor: wait; }
+.dija-ask-status {
+  margin-top: 0.55rem;
+  color: #9da2b2;
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+.dija-ask-answer {
+  margin-top: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  color: #e3e4ec;
+  background: rgba(167, 139, 250, 0.09);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  border-left: 2px solid var(--win-accent-tint);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.dija-ask-answer[hidden] { display: none; }
+.dija-ask button:focus-visible,
+.dija-ask input:focus-visible {
+  outline: 2px solid var(--win-accent-tint);
+  outline-offset: 2px;
+}
+@media (max-width: 520px) {
+  .dija-ask-controls input { font-size: 16px; }
+  .dija-ask-controls button { padding-inline: 0.8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dija-ask-controls input,
+  .dija-ask-controls button { transition: none; }
+}
