@@ -570,15 +570,20 @@ ${importLines}
       <aside class="preview-card">
         ${browserChrome(FILES[p.id] ? FILES[p.id].label : p.name, `/projects/${esc(p.id)}`)}
         <div class="preview-card-body">
-          <div class="preview-icon-tile"><span>${iconFor(p)}</span></div>
-          ${p.categoryLabel ? `<div class="preview-category-badge">${esc(p.categoryLabel)}</div>` : ""}
-          <div class="preview-name-row">
+          <div class="project-preview-hero">
+            ${p.image ? `<img class="project-preview-image" src="${esc(p.image)}" alt="${esc(p.name)} project preview" loading="lazy" onerror="this.hidden=true; this.nextElementSibling.hidden=false;" /><div class="project-preview-fallback" hidden><span>${iconFor(p)}</span><span>Project preview</span></div>` : `<div class="project-preview-fallback"><span>${iconFor(p)}</span><span>Project overview</span></div>`}
+            <div class="project-preview-hero-meta"><span>${esc(p.categoryLabel || "Software project")}</span><span class="project-preview-status"><i></i> Portfolio case study</span></div>
+          </div>
+          <div class="preview-name-row project-preview-title">
             <div class="preview-name">${esc(p.name)}</div>
             ${p.contribution ? `<span class="preview-contribution">${esc(p.contribution)}</span>` : ""}
           </div>
           <div class="preview-role">${esc(p.tagline || "")}</div>
+          <p class="project-preview-description">${esc(p.description || "Project details will be added when verified information is available.")}</p>
+          <div class="project-preview-section-label">TECHNOLOGY</div>
           <div class="preview-tags">${(p.tech || []).map((t) => `<span class="preview-tag">${esc(t)}</span>`).join("")}</div>
-          ${p.features && p.features.length ? `<div class="dija-project-detail-inner"><h4>Key Features</h4><ul>${p.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul></div>` : ""}
+          ${p.features && p.features.length ? `<div class="dija-project-detail-inner"><h4>What it delivers</h4><ul>${p.features.filter((f) => !/^\[ADD/i.test(f)).map((f) => `<li>${esc(f)}</li>`).join("")}</ul></div>` : ""}
+          ${p.architecture && !/^\[ADD/i.test(p.architecture) ? `<div class="project-architecture"><span class="project-preview-section-label">ENGINEERING NOTES</span><p>${esc(p.architecture)}</p></div>` : ""}
           <div class="preview-links">${links.join("")}</div>
         </div>
       </aside>
