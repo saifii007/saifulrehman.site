@@ -42,6 +42,114 @@
   // desktop, so the alert appears the same moment the icons do.
   setTimeout(startGreeting, prefersReducedMotion ? 300 : 2050);
 
+
+  /* ---------------- DIJA question box: local answers + optional secure AI endpoint ---------------- */
+  // The assistant works without a backend using verified portfolio data. To enable a real
+  // model later, define window.PORTFOLIO_AI_ENDPOINT as your serverless endpoint URL.
+  // Never place a model API key in this public frontend.
+  function installQuestionBox() {
+    if (!alertEl || alertEl.querySelector(".dija-ask")) return;
+    const box = document.createElement("section");
+    box.className = "dija-ask";
+    box.setAttribute("aria-label", "Ask DIJA about Saif");
+    box.innerHTML = `
+      <form class="dija-ask-form" id="dijaAskForm">
+        <label class="dija-ask-label" for="dijaAskInput">Ask about Saif's work</label>
+        <div class="dija-ask-controls">
+          <input id="dijaAskInput" name="question" type="text" maxlength="240"
+            placeholder="e.g. Which projects use .NET?" autocomplete="off" />
+          <button type="submit" aria-label="Ask question">Ask</button>
+        </div>
+      </form>
+      <p class="dija-ask-status" id="dijaAskStatus" role="status" aria-live="polite">
+        Try a question about projects, skills, or experience.
+      </p>
+      <div class="dija-ask-answer" id="dijaAskAnswer" hidden></div>`;
+    if (prompts) prompts.insertAdjacentElement("afterend", box);
+    else alertEl.appendChild(box);
+
+    const form = box.querySelector("#dijaAskForm");
+    const input = box.querySelector("#dijaAskInput");
+    const status = box.querySelector("#dijaAskStatus");
+    const answer = box.querySelector("#dijaAskAnswer");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const question = input.value.trim();
+      if (!question) {
+        status.textContent = "Type a question first.";
+        input.focus();
+        return;
+      }
+      const askButton = form.querySelector('button[type="submit"]');
+      askButton.disabled = true;
+      status.textContent = "Looking through the portfolio…";
+      answer.hidden = true;
+      try {
+        const endpoint = window.PORTFOLIO_AI_ENDPOINT;
+        let reply;
+        if (typeof endpoint === "string" && endpoint.startsWith("https://")) {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question }),
+          });
+          if (!response.ok) throw new Error("Assistant service is temporarily unavailable.");
+          const payload = await response.json();
+          reply = typeof payload.answer === "string" ? payload.answer : "";
+          if (!reply) throw new Error("The assistant returned an empty answer.");
+        } else {
+          reply = answerFromPortfolio(question);
+        }
+        answer.textContent = reply;
+        answer.hidden = false;
+        status.textContent = endpoint ? "DIJA's answer" : "Portfolio guide · local mode";
+      } catch (error) {
+        const fallback = answerFromPortfolio(question);
+        answer.textContent = fallback + " The live AI service is unavailable, so I used the local portfolio guide instead.";
+        answer.hidden = false;
+        status.textContent = "Local fallback";
+      } finally {
+        askButton.disabled = false;
+      }
+    });
+  }
+
+  function answerFromPortfolio(question) {
+    const q = question.toLowerCase();
+    const projects = (typeof PROJECTS !== "undefined" ? PROJECTS : []);
+    const techTerms = [...new Set(projects.flatMap((p) => p.tech || []))];
+    const matchingTech = techTerms.filter((tech) => q.includes(tech.toLowerCase()));
+    const matches = projects.filter((p) => {
+      const haystack = [p.name, p.tagline, p.description, p.categoryLabel, ...(p.tech || []), ...(p.features || [])]
+        .join(" ").toLowerCase();
+      const words = q.split(/[^a-z0-9+#.]+/).filter((word) => word.length > 2);
+      return words.some((word) => haystack.includes(word)) ||
+        matchingTech.some((tech) => (p.tech || []).some((t) => t.toLowerCase() === tech.toLowerCase()));
+    }).slice(0, 3);
+
+    if (/contact|email|hire|reach|linkedin|resume|cv/.test(q)) {
+      return "You can use the Contact.env item in the portfolio explorer, or the LinkedIn and GitHub icons in the taskbar. Open Resume.pdf to view or download the résumé.";
+    }
+    if (/experience|career|work history|company|cedar|solvefy|eratech|sizdom/.test(q)) {
+      return "The experience section covers Cedar Financial, Solvefy, EraTech, and Sizdom Technologies. Choose “Show his Experiences?” to browse roles, dates, and summaries.";
+    }
+    if (/skill|expertise|technology|tech stack/.test(q) && !matchingTech.length) {
+      return "The portfolio highlights .NET / ASP.NET Core, Angular, React, TypeScript, JavaScript, SQL Server, MongoDB, Docker, MCP, and AI tooling. Choose “Show his Expertise?” to browse the full skills panel.";
+    }
+    if (matches.length) {
+      return "Here are relevant projects: " + matches.map((p) => {
+        const stack = (p.tech || []).slice(0, 5).join(", ");
+        return p.name + (p.tagline ? " — " + p.tagline : "") + (stack ? " ( " + stack + " )" : "");
+      }).join("; ") + ". Choose “Show you his projects?” to open project details.";
+    }
+    if (/project|portfolio|angunet|mcp|angular|\.net|dotnet|microservice|saas|pos|ai/.test(q)) {
+      return "ANGUNET is Saif's Angular + .NET starter with an MCP server. Other projects include NokNok, BLOCKPOS, ECOM, QSR, DailyBook, and client systems. Choose “Show you his projects?” to explore them.";
+    }
+    return "I can help you explore Saif's projects, skills, and experience. Try asking about Angular, .NET, MCP, microservices, a specific project, or how to contact him.";
+  }
+
+  installQuestionBox();
+
   /* ---------------- Open / minimize / close ---------------- */
   function showAlert() {
     alertEl.hidden = false;
