@@ -3050,3 +3050,19 @@ button.win-dot-red:hover {
 .preview-links .preview-btn { display:inline-flex; align-items:center; justify-content:center; min-height:34px; }
 @media(max-height:760px) { .preview-card-body:has(.about-highlights) { padding: .8rem; } .preview-card-body:has(.about-highlights) .about-highlight p { line-height:1.35; } }
 @media(max-width:650px) { .preview-card-body:has(.about-highlights) .about-highlights { grid-template-columns:1fr; } }
+
+/* Project previews: visual, evidence-based case-study layout */
+.project-preview-hero { position:relative; overflow:hidden; border:1px solid var(--panel-border); border-radius:10px; margin-bottom:1rem; background:#101219; }
+.project-preview-image { display:block; width:100%; height:148px; object-fit:cover; object-position:center; }
+.project-preview-fallback { min-height:130px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; color:var(--vsc-text-muted); background:#191c24; font-size:11px; }
+.project-preview-fallback span:first-child { font-size:30px; }
+.project-preview-hero-meta { display:flex; flex-wrap:wrap; justify-content:space-between; gap:7px; padding:9px 11px; border-top:1px solid var(--panel-border); color:var(--vsc-text-muted); font-size:10px; }
+.project-preview-status { display:inline-flex; align-items:center; gap:5px; }
+.project-preview-status i { width:6px; height:6px; border-radius:50%; background:#39d98a; }
+.project-preview-title { align-items:flex-start; margin-top:4px; }
+.project-preview-description { color:var(--vsc-text-muted); font-size:12px; line-height:1.65; margin:12px 0 15px; }
+.project-preview-section-label { display:block; margin:14px 0 7px; color:var(--vsc-text-muted); font:600 9px/1.5 var(--font-mono); letter-spacing:.1em; }
+.project-architecture { margin-top:13px; padding:12px; border-left:2px solid var(--win-accent); background:var(--panel-bg-2); border-radius:0 7px 7px 0; }
+.project-architecture p { color:var(--vsc-text-muted); font-size:11px; line-height:1.6; }
+.project-preview-hero img[hidden], .project-preview-fallback[hidden] { display:none !important; }
+@media(max-width:650px) { .project-preview-image { height:120px; } .project-preview-hero-meta { font-size:9px; } }
