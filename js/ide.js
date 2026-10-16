@@ -403,16 +403,19 @@ ${expMethods}
           <div class="preview-avatar"><img src="assets/images/avatar-profile-card.png" alt="Saif Ul Rehman" /></div>
           <div class="preview-name">Saif Ul Rehman</div>
           <div class="preview-role">Senior Software Engineer &middot; Founder of ANGUNET</div>
-          <div class="preview-status">● Available for hire</div>
-          <p class="preview-quote">Bridging the gap between robust backend systems and intuitive user interfaces — I specialize in enterprise-grade applications that demand high performance and reliability.</p>
-          <div class="preview-tags">
-            <span class="preview-tag">.NET</span><span class="preview-tag">Angular</span>
-            <span class="preview-tag">React</span><span class="preview-tag">MCP</span><span class="preview-tag">Agentic AI</span>
+          <div class="preview-status">● Open to selected opportunities</div>
+          <p class="preview-quote">I build dependable products at the intersection of enterprise engineering and thoughtful user experience. My focus is scalable .NET architecture, modern Angular interfaces, and practical AI developer tooling.</p>
+          <div class="about-highlights">
+            <div class="about-highlight"><span class="about-highlight-label">CURRENT FOCUS</span><strong>Senior Software Engineer · Cedar Financial</strong><p>Building reliable financial software with a focus on maintainability, performance, and architecture.</p></div>
+            <div class="about-highlight"><span class="about-highlight-label">OPEN SOURCE</span><strong>ANGUNET · Angular + .NET</strong><p>Full-stack developer starter with Docker tooling and Model Context Protocol integration.</p></div>
           </div>
-          <div class="preview-stats">
-            <div class="preview-stat"><strong>6+</strong><span>Years Exp</span></div>
-            <div class="preview-stat"><strong>17</strong><span>Projects</span></div>
-            <div class="preview-stat"><strong>20+</strong><span>Clients</span></div>
+          <div class="preview-tags">
+            <span class="preview-tag">ASP.NET Core</span><span class="preview-tag">Angular</span><span class="preview-tag">React</span><span class="preview-tag">Microservices</span><span class="preview-tag">MCP</span>
+          </div>
+          <div class="about-actions">
+            <a class="about-action about-action-primary" href="Saif_Ul_Rehman_Resume_eng_2026.pdf" target="_blank" rel="noopener">View résumé ↗</a>
+            <a class="about-action" href="https://www.linkedin.com/in/saif-ul-rehman777" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <a class="about-action" href="mailto:saifighourii000@gmail.com">Email ↗</a>
           </div>
         </div>
       </aside>
