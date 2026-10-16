@@ -3011,3 +3011,18 @@ button.win-dot-red:hover {
   .dija-ask-controls input,
   .dija-ask-controls button { transition: none; }
 }
+
+/* About: editorial information hierarchy, no decorative gradients */
+.about-highlights { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:18px 0; }
+.about-highlight { border:1px solid #30343e; background:#191c25; border-radius:9px; padding:14px; min-width:0; }
+.about-highlight-label { display:block; color:#a8a0c9; font:600 10px/1.5 var(--font-mono); letter-spacing:.09em; margin-bottom:9px; }
+.about-highlight strong { display:block; color:#f2f1f6; font-size:13px; line-height:1.45; }
+.about-highlight p { margin-top:8px; color:#aeb2bd; font-size:12px; line-height:1.65; }
+.about-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:18px; }
+.about-action { display:inline-flex; align-items:center; justify-content:center; min-height:36px; padding:8px 12px; border:1px solid #3a3c48; border-radius:7px; color:#e5e6eb; font-size:12px; font-weight:600; background:#1c1f28; transition:background .18s,border-color .18s; }
+.about-action:hover { background:#292d38; border-color:#8b78c7; }
+.about-action:focus-visible { outline:2px solid #b6a0ff; outline-offset:3px; }
+.about-action-primary { background:#7153bb; border-color:#7153bb; color:white; }
+.about-action-primary:hover { background:#8062c8; }
+@media(max-width:650px) { .about-highlights { grid-template-columns:1fr; } .about-actions { flex-direction:column; } .about-action { width:100%; } }
+@media(prefers-reduced-motion:reduce) { .about-action { transition:none; } }
