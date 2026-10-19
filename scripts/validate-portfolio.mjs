@@ -1,0 +1,48 @@
+import assert from "node:assert/strict";
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
+
+const read = (path) => readFileSync(resolve(path), "utf8");
+const html = read("index.html");
+const data = read("js/data.js");
+const ide = read("js/ide.js");
+const dija = read("js/dija.js");
+const css = read("css/os.css");
+
+const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
+const duplicateIds = ids.filter((id, index) => ids.indexOf(id) !== index);
+assert.deepEqual([...new Set(duplicateIds)], [], "index.html must not contain duplicate IDs");
+
+for (const match of html.matchAll(/(?:src|href)="([^"]+)"/g)) {
+  const raw = match[1];
+  if (/^(?:https?:|mailto:|tel:|#|data:|javascript:)/i.test(raw)) continue;
+  const localPath = decodeURIComponent(raw.split("?")[0]);
+  if (!localPath || localPath.endsWith("/")) continue;
+  assert.ok(existsSync(resolve(localPath)), `Missing local HTML asset: ${raw}`);
+}
+
+const projectStart = data.indexOf("const PROJECTS = [");
+const projectEnd = data.indexOf("\n];", projectStart);
+assert.ok(projectStart >= 0 && projectEnd > projectStart, "PROJECTS data block must exist");
+const projectBlock = data.slice(projectStart, projectEnd);
+assert.doesNotMatch(projectBlock, /\[ADD[^\]]*\]/i, "Project UI must not contain editorial placeholders");
+assert.doesNotMatch(projectBlock, /--|—|–/, "Project copy must not use double-hyphen or dash separators");
+for (const match of projectBlock.matchAll(/image:\s*"([^"]+)"/g)) {
+  assert.ok(existsSync(resolve(match[1])), `Missing project image: ${match[1]}`);
+}
+
+assert.match(html, /Hi! I’m Saif’s portfolio assistant\./, "DIJA must have its static welcome message");
+assert.doesNotMatch(html, /Free AI endpoint\s*·\s*avoid sharing sensitive information/i, "Remove the AI endpoint disclaimer from the chat UI");
+for (const action of ["projects", "experience", "expertise", "explore"]) {
+  assert.match(html, new RegExp(`data-nav-action="${action}"`), `Missing taskbar action: ${action}`);
+}
+assert.doesNotMatch(ide, /localhost:4200/, "Preview chrome must not display a local development host");
+assert.doesNotMatch(ide, /'Deployed'<\/span>/, "Private or internal projects must not be falsely labelled deployed");
+
+const versions = [...html.matchAll(/(?:src|href)="([^"]+\.(?:css|js))\?v=([^"]+)"/g)];
+assert.ok(versions.some(([, path]) => path === "css/os.css"), "Stylesheet must be cache-busted");
+assert.ok(versions.some(([, path]) => path === "js/ide.js"), "IDE script must be cache-busted");
+assert.ok(versions.some(([, path]) => path === "js/dija.js"), "DIJA script must be cache-busted");
+assert.ok(versions.some(([, path]) => path === "js/data.js"), "Project data must be cache-busted");
+
+console.log(`Portfolio quality checks passed: ${ids.length} unique HTML IDs, ${[...projectBlock.matchAll(/image:\s*"([^"]+)"/g)].length} project images, ${versions.length} versioned assets.`);
