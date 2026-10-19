@@ -78,6 +78,31 @@
     FILES[p.id] = { label: `${p.name.replace(/\s+/g, "")}.tsx`, icon: fileIconSvg("#4fc1ff") };
   });
 
+  /* ---------------- Project shortcuts: each project is a desktop app ---------------- */
+  const desktop = document.getElementById("desktop");
+  if (desktop && !document.getElementById("desktopProjectApps")) {
+    const projectApps = document.createElement("div");
+    projectApps.id = "desktopProjectApps";
+    projectApps.className = "desktop-project-apps";
+    projectApps.setAttribute("aria-label", "Project applications");
+    projectApps.innerHTML = PROJECTS.map((p) => `
+      <button class="desktop-icon desktop-project-app" type="button" data-project-app="${esc(p.id)}" aria-label="Open ${esc(p.name)} project" title="${esc(p.name)}">
+        <span class="desktop-project-app-tile">
+          ${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback'); this.nextElementSibling.hidden=false;" />` : ""}
+          <span class="desktop-project-app-fallback" ${p.image ? "hidden" : ""}>${esc(p.icon || iconFor(p))}</span>
+        </span>
+        <span class="desktop-icon-label">${esc(p.name)}</span>
+      </button>`).join("");
+    projectApps.addEventListener("click", (event) => {
+      const app = event.target.closest("[data-project-app]");
+      if (!app) return;
+      const id = app.getAttribute("data-project-app");
+      if (typeof window.osOpenWindow === "function") window.osOpenWindow();
+      openFile(id);
+    });
+    desktop.appendChild(projectApps);
+  }
+
   const SKILL_GROUPS = [
     {
       category: "Frameworks & Languages",

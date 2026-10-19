@@ -206,34 +206,33 @@
   ];
 
   /* ---------------- Panel builders ---------------- */
-  function projectRowMarkup(p) {
-    const thumb = p.image
-      ? `<img src="${p.image}" alt="${esc(p.name)} screenshot" loading="lazy" />`
-      : `<div class="dija-project-thumb-fallback">${p.icon || "📦"}</div>`;
-
-    return `<div class="dija-project-row" data-id="${p.id}">
-      <div class="dija-project-thumb">${thumb}</div>
-      <div class="dija-project-info">
-        <div class="dija-project-info-head">
-          <div>
-            <div class="dija-project-name">${esc(p.name)}</div>
-            <div class="dija-project-tagline">${esc(p.tagline || "")}</div>
-          </div>
-          <svg class="dija-project-chevron" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="dija-project-tags">${(p.tech || []).map((t) => `<span class="dija-project-tag">${esc(t)}</span>`).join("")}</div>
-      </div>
-    </div>`;
+  function projectAppMarkup(p) {
+    const image = p.image
+      ? `<img src="${esc(p.image)}" alt="" loading="lazy" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback'); this.nextElementSibling.hidden=false;" />`
+      : "";
+    return `<button class="dija-project-app-card" type="button" data-id="${esc(p.id)}" aria-label="Open ${esc(p.name)} project">
+      <span class="dija-project-app-icon">
+        ${image}
+        <span class="dija-project-app-fallback" ${p.image ? "hidden" : ""}>${esc(p.icon || "📦")}</span>
+      </span>
+      <span class="dija-project-app-name">${esc(p.name)}</span>
+      <span class="dija-project-app-tagline">${esc(p.tagline || p.categoryLabel || "Software project")}</span>
+      <span class="dija-project-app-tags">${(p.tech || []).slice(0, 4).map((t) => `<span>${esc(t)}</span>`).join("")}</span>
+      <span class="dija-project-app-open">Open project <span aria-hidden="true">↗</span></span>
+    </button>`;
   }
 
   function buildProjectsPanel() {
     const panel = document.createElement("div");
-    panel.className = "dija-panel";
-    panel.innerHTML = PROJECTS.map(projectRowMarkup).join("");
+    panel.className = "dija-panel dija-project-app-grid";
+    panel.innerHTML = `<p class="dija-project-app-hint">Choose a project application to open its workspace on the desktop.</p>` + PROJECTS.map(projectAppMarkup).join("");
     panel.addEventListener("click", (e) => {
-      const row = e.target.closest(".dija-project-row");
-      if (!row) return;
-      openProjectDrawer(row.dataset.id);
+      const app = e.target.closest(".dija-project-app-card");
+      if (!app) return;
+      const id = app.dataset.id;
+      closeCarousel();
+      if (typeof window.osOpenWindow === "function") window.osOpenWindow();
+      if (typeof window.ideOpenFile === "function") window.ideOpenFile(id);
     });
     return panel;
   }
