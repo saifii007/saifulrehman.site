@@ -3174,3 +3174,62 @@ button.win-dot-red:hover {
   .taskbar-pinned .taskbar-icon:not(.taskbar-nav-app) { width:34px; height:38px; }
   .taskbar-pinned { gap:1px; }
 }
+
+
+/* Unified taskbar icon sizing and hover behavior across every pinned app */
+.taskbar-pinned .taskbar-icon {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 42px;
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+.taskbar-pinned .taskbar-icon:hover,
+.taskbar-pinned .taskbar-icon:focus-visible {
+  background: rgba(255,255,255,.11);
+  border-color: rgba(255,255,255,.13);
+  transform: translateY(-2px);
+  outline: none;
+}
+.taskbar-pinned .taskbar-icon svg {
+  display: block;
+  width: 23px;
+  height: 23px;
+  flex: 0 0 23px;
+}
+.taskbar-pinned .taskbar-nav-app .taskbar-nav-glyph {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  font-size: 19px;
+  border-radius: 8px;
+}
+.taskbar-pinned .taskbar-nav-app:hover .taskbar-nav-glyph,
+.taskbar-pinned .taskbar-nav-app:focus-visible .taskbar-nav-glyph {
+  filter: brightness(1.13);
+}
+.taskbar-pinned .taskbar-nav-app:hover .taskbar-nav-label,
+.taskbar-pinned .taskbar-nav-app:focus-visible .taskbar-nav-label {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+@media(max-width:760px) {
+  .taskbar-pinned .taskbar-icon,
+  .taskbar-pinned .taskbar-nav-app {
+    flex-basis: 36px;
+    width: 36px;
+    min-width: 36px;
+    height: 38px;
+  }
+  .taskbar-pinned .taskbar-icon svg { width: 20px; height: 20px; flex-basis: 20px; }
+  .taskbar-pinned .taskbar-nav-app .taskbar-nav-glyph { width: 28px; height: 28px; flex-basis: 28px; }
+}

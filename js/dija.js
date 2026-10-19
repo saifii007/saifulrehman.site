@@ -360,6 +360,20 @@
     }, prefersReducedMotion ? 0 : 340);
   }
 
+  // Shared router for the four taskbar apps.
+  window.dijaOpenSection = function (action) {
+    if (action === "explore") {
+      closeCarousel();
+      minimizeAlert();
+      if (typeof window.osOpenWindow === "function") window.osOpenWindow();
+      if (typeof window.ideOpenFile === "function") window.ideOpenFile("about");
+      return;
+    }
+    if (action === "projects" || action === "experience" || action === "expertise") {
+      openCarousel(action);
+    }
+  };
+
   const navApps = document.getElementById("taskbarPinned");
   if (navApps) navApps.addEventListener("click", event => {
     const app = event.target.closest("[data-nav-action]");
