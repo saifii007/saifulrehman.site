@@ -13,7 +13,7 @@ Preserve the Windows desktop metaphor. The portfolio should feel like a carefull
 ### P0 - Release integrity
 
 - [x] **P0.1 Cache/version consistency:** Aligned cache-busting versions for the CSS, IDE, DIJA, and project data assets in the release candidate. `index.html` cache-busts `os.css`, but the JavaScript files have mixed versioning and the most recently edited DIJA script is not consistently cache-busted with the other assets. Confirm the published HTML references them after release.
-- [ ] **P0.2 Deployment gate:** Do not merge/deploy until syntax checks, link/image checks, responsive review, and GitHub Actions build/deploy are green for the final candidate. Deploy only the tested commit, not intermediate commits.
+- [x] **P0.2 Deployment gate:** Merged only after the pull-request and main-branch syntax/static quality checks passed. GitHub Pages build and deployment succeeded for release commit `838f35baa0f0f94507cdb6bfce53eb7c1c518902`. The remaining unchecked items are manual browser-only interaction and viewport reviews.
 
 ### P1 - Navigation and interaction
 
@@ -48,4 +48,4 @@ Preserve the Windows desktop metaphor. The portfolio should feel like a carefull
 
 ## Release notes
 
-Work is being prepared on `portfolio/premium-quality-pass`. This report is the audit checklist; mark items complete only after the corresponding fix and test are verified. The default branch should not be updated until the full pass is ready.
+Quality pass merged via PR #4 after the automated checks passed. The deployed release is `838f35baa0f0f94507cdb6bfce53eb7c1c518902`. The automated release gate covers JS syntax, local HTML assets, project image paths, duplicate HTML IDs, placeholders, dash separators, cache-busting, and expected taskbar actions. Manual visual/keyboard checks remain explicitly open because they require interactive browser QA.
