@@ -34,13 +34,13 @@ Preserve the Windows desktop metaphor. The portfolio should feel like a carefull
 - [ ] **P2.1 Responsive layout:** Check desktop, laptop, tablet, and narrow mobile widths for horizontal overflow, overlapping windows, taskbar crowding, clipped labels, and inaccessible controls.
 - [ ] **P2.2 Accessibility:** Ensure keyboard-visible focus, meaningful button labels, sensible dialog/panel semantics, image alt text, reduced-motion support, and sufficient contrast.
 - [ ] **P2.3 Runtime safety:** Review dynamic HTML interpolation and external AI response rendering; escape user-controlled or remote content and avoid unsafe HTML insertion.
-- [ ] **P2.4 Asset integrity:** Verify all project image paths and local links exist. Confirm images have fallback behavior and no missing-asset requests.
-- [ ] **P2.5 Code hygiene:** Consolidate conflicting late CSS overrides where feasible, remove dead styles/duplicate handlers, and keep changes scoped to the existing vanilla HTML/CSS/JS architecture.
+- [x] **P2.4 Asset integrity:** Verified all 17 project image paths against the repository tree and all local HTML asset references with the automated validator; fallback behavior remains in place.
+- [x] **P2.5 Code hygiene:** Consolidated the accumulated late taskbar, side-panel, contact, chat, and preview overrides into one release section; kept the existing vanilla HTML/CSS/JS architecture.
 
 ## Test plan before deployment
 
-- [ ] JavaScript syntax checks for every shipped JS file.
-- [ ] Static checks for missing local assets, unresolved project placeholders, duplicate element IDs, stale asset versions, and accidental double-hyphen project copy.
+- [x] JavaScript syntax checks for every shipped JS file (GitHub Actions run [39339539903](https://github.com/saifii007/saifulrehman.site/actions/runs/39339539903)).
+- [x] Static checks for missing local assets, unresolved project placeholders, duplicate element IDs, stale asset versions, and accidental double-hyphen project copy (GitHub Actions run [39339539903](https://github.com/saifii007/saifulrehman.site/actions/runs/39339539903)).
 - [ ] Interaction checks for taskbar navigation, project launcher/details, DIJA chat lifecycle, workspace tabs, contact links, and close/back behavior.
 - [ ] Responsive checks at 1440px, 1024px, 768px, and 390px widths.
 - [ ] GitHub Actions build/deploy checks green for the exact release commit.
