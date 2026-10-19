@@ -1443,11 +1443,17 @@ pre.code-block {
 
 .dija-alert {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  z-index: 8;
-  width: min(500px, calc(100vw - 3rem));
-  padding: 1.4rem 1.9rem 2rem;
+  top: 1rem;
+  right: 1rem;
+  bottom: calc(var(--taskbar-h) + 1rem);
+  left: auto;
+  z-index: 220;
+  display: flex;
+  flex-direction: column;
+  width: min(430px, calc(100vw - 2rem));
+  max-height: calc(100dvh - var(--taskbar-h) - 2rem);
+  padding: 1rem;
+  overflow: hidden;
   background: var(--panel-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -1457,40 +1463,31 @@ pre.code-block {
   color: #fff;
   /* Baked into every keyframe below so the centering transform never gets
      clobbered by the animation's own transform values. */
-  animation: dijaCardIn 500ms var(--ease-out) both;
+  animation: dijaSideIn 280ms var(--ease-out) both;
 }
 
 .dija-alert[hidden] {
   display: none;
 }
 
-@keyframes dijaCardIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.94);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
+@keyframes dijaSideIn { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: translateX(0); } }
 
 @media (prefers-reduced-motion: reduce) {
   .dija-alert {
     animation: none;
-    transform: translate(-50%, -50%);
+    transform: none;
   }
 }
 
 /* Traffic-light titlebar, like a code editor window. */
 .dija-alert-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.35rem;
-  padding-bottom: 0.9rem;
-  border-bottom: 1px solid var(--panel-border);
+  display: flex; align-items: center; gap: .5rem; flex-shrink: 0;
+  margin: 0 0 .8rem; padding: 0 0 .7rem; border-bottom: 1px solid var(--panel-border);
 }
+.dija-alert-controls::before { content: "DIJA · AI Assistant"; order: 0; margin-right: auto; color: #e8e7f2; font-size: .9rem; font-weight: 700; }
+.dija-alert-controls::after { display: none; }
+.dija-alert-close { order: 3; width: 30px; height: 30px; font-size: 18px; color: #fff; background: rgba(255,95,87,.92); }
+.dija-alert-min { order: 2; width: 30px; height: 30px; font-size: 18px; color: #fff; background: rgba(255,255,255,.12); }
 
 .dija-alert-controls::after {
   content: "";
@@ -1518,10 +1515,7 @@ pre.code-block {
 .dija-alert-close { order: 1; background: #ff5f57; }
 .dija-alert-min { order: 2; background: #febc2e; }
 
-.dija-alert-controls:hover .dija-alert-min,
-.dija-alert-controls:hover .dija-alert-close {
-  font-size: 9px;
-}
+
 
 .dija-alert-top {
   display: flex;
@@ -2933,91 +2927,6 @@ button.win-dot-red:hover {
 
 
 /* ---------------- DIJA question guide: polished, compact, accessible ---------------- */
-.dija-ask {
-  margin: 1rem 0 0;
-  padding-top: 0.9rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.09);
-}
-.dija-ask-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #c7c9d4;
-  font-size: 0.76rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-}
-.dija-ask-controls {
-  display: flex;
-  align-items: stretch;
-  gap: 0.45rem;
-}
-.dija-ask-controls input {
-  min-width: 0;
-  flex: 1;
-  padding: 0.72rem 0.8rem;
-  color: #f3f4f8;
-  background: rgba(8, 10, 16, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 9px;
-  font: inherit;
-  font-size: 0.8rem;
-  outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease;
-}
-.dija-ask-controls input::placeholder { color: #85899a; }
-.dija-ask-controls input:focus-visible {
-  border-color: var(--win-accent-tint);
-  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.18);
-}
-.dija-ask-controls button {
-  flex: 0 0 auto;
-  padding: 0.65rem 0.95rem;
-  border: 1px solid rgba(167, 139, 250, 0.45);
-  border-radius: 9px;
-  background: rgba(139, 92, 246, 0.2);
-  color: #eee7ff;
-  font-size: 0.8rem;
-  font-weight: 650;
-  transition: background 160ms ease, border-color 160ms ease;
-}
-.dija-ask-controls button:hover:not(:disabled) {
-  background: rgba(139, 92, 246, 0.34);
-  border-color: var(--win-accent-tint);
-}
-.dija-ask-controls button:disabled { opacity: 0.55; cursor: wait; }
-.dija-ask-status {
-  margin-top: 0.55rem;
-  color: #9da2b2;
-  font-size: 0.7rem;
-  line-height: 1.45;
-}
-.dija-ask-answer {
-  margin-top: 0.65rem;
-  padding: 0.75rem 0.85rem;
-  color: #e3e4ec;
-  background: rgba(167, 139, 250, 0.09);
-  border: 1px solid rgba(167, 139, 250, 0.2);
-  border-left: 2px solid var(--win-accent-tint);
-  border-radius: 8px;
-  font-size: 0.78rem;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-.dija-ask-answer[hidden] { display: none; }
-.dija-ask button:focus-visible,
-.dija-ask input:focus-visible {
-  outline: 2px solid var(--win-accent-tint);
-  outline-offset: 2px;
-}
-@media (max-width: 520px) {
-  .dija-ask-controls input { font-size: 16px; }
-  .dija-ask-controls button { padding-inline: 0.8rem; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .dija-ask-controls input,
-  .dija-ask-controls button { transition: none; }
-}
-
 /* About: editorial information hierarchy, no decorative gradients */
 .about-highlights { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:18px 0; }
 .about-highlight { border:1px solid #30343e; background:#191c25; border-radius:9px; padding:14px; min-width:0; }
@@ -3160,4 +3069,34 @@ button.win-dot-red:hover {
   }
   .desktop-quick-app { padding: .35rem .2rem; font-size: .63rem; gap: .25rem; }
   .desktop-quick-app-icon { width: 32px; height: 32px; border-radius: 9px; font-size: 1.1rem; }
+}
+
+/* DIJA right-side chat panel */
+.dija-alert[hidden] { display:none !important; }
+.dija-backdrop { display:none !important; }
+.dija-alert-top { flex-shrink:0; gap:.75rem; }
+.dija-alert-top .dija-alert-avatar { width:42px; height:42px; }
+.dija-alert-text { min-height:0; margin:0; font-size:.8rem; }
+.dija-chat { display:flex; flex:1; min-height:0; flex-direction:column; margin-top:.8rem; }
+.dija-chat-intro { margin:0 0 .65rem; color:#aeb2c1; font-size:.78rem; line-height:1.5; }
+.dija-chat-messages { display:flex; flex:1; min-height:100px; flex-direction:column; gap:.65rem; overflow-y:auto; padding:.15rem .15rem .75rem 0; scrollbar-width:thin; }
+.dija-chat-message { max-width:94%; white-space:pre-wrap; overflow-wrap:anywhere; padding:.72rem .82rem; border-radius:13px; font-size:.82rem; line-height:1.55; }
+.dija-chat-message.assistant { align-self:flex-start; color:#e6e7ef; background:rgba(255,255,255,.065); border:1px solid rgba(255,255,255,.08); border-top-left-radius:4px; }
+.dija-chat-message.user { align-self:flex-end; color:#fff; background:rgba(124,88,235,.28); border:1px solid rgba(167,139,250,.3); border-top-right-radius:4px; }
+.dija-chat-form { display:flex; align-items:flex-end; gap:.55rem; flex-shrink:0; padding:.6rem; border:1px solid rgba(255,255,255,.14); border-radius:15px; background:rgba(6,8,13,.82); }
+.dija-chat-form textarea { flex:1; min-width:0; max-height:120px; resize:none; border:0; outline:0; color:#f5f5fa; background:transparent; font:inherit; font-size:16px; line-height:1.45; }
+.dija-chat-form textarea::placeholder { color:#7f8494; }
+.dija-chat-form button { display:grid; place-items:center; flex:0 0 36px; width:36px; height:36px; border-radius:11px; color:#fff; background:#7c55e8; font-size:1.1rem; }
+.dija-chat-form button:disabled { opacity:.55; cursor:wait; }
+.dija-chat-footnote { flex-shrink:0; margin:.5rem 0 0; color:#777d8d; font-size:.65rem; line-height:1.4; }
+.taskbar { height: calc(var(--taskbar-h) + 8px); }
+.taskbar-nav-app { width:auto; min-width:72px; height:48px; padding:3px 7px; flex-direction:column; gap:2px; }
+.taskbar-nav-glyph { display:grid; place-items:center; width:25px; height:25px; border-radius:7px; color:#fff; font-size:1.1rem; line-height:1; }
+.nav-projects { background:#7651dc; } .nav-experience { background:#087fb8; } .nav-expertise { background:#07865e; } .nav-explore { background:#c76a08; }
+.taskbar-nav-label { font-size:.78rem; line-height:1.1; color:rgba(255,255,255,.94); }
+@media(max-width:760px) {
+ .dija-alert { top:.5rem; right:.5rem; bottom:calc(var(--taskbar-h) + .5rem); width:calc(100vw - 1rem); max-height:calc(100dvh - var(--taskbar-h) - 1rem); padding:.8rem; }
+ .taskbar-nav-app { min-width:48px; padding:2px 3px; }
+ .taskbar-nav-label { font-size:.65rem; }
+ .taskbar-nav-glyph { width:22px; height:22px; }
 }

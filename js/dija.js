@@ -14,7 +14,7 @@
   const backdrop = document.getElementById("dijaBackdrop");
   const mini = document.getElementById("dijaMini");
   const greetingText = document.getElementById("dijaGreetingText");
-  const prompts = document.getElementById("dijaPrompts");
+
 
   const carousel = document.getElementById("dijaCarousel");
   const carouselTitle = document.getElementById("dijaCarouselTitle");
@@ -43,75 +43,66 @@
   setTimeout(startGreeting, prefersReducedMotion ? 300 : 2050);
 
 
-  /* ---------------- DIJA question box: local answers + optional secure AI endpoint ---------------- */
-  // The assistant works without a backend using verified portfolio data. To enable a real
-  // model later, define window.PORTFOLIO_AI_ENDPOINT as your serverless endpoint URL.
-  // Never place a model API key in this public frontend.
+  /* ---------------- DIJA chat: public free AI with local fallback ---------------- */
   function installQuestionBox() {
-    if (!alertEl || alertEl.querySelector(".dija-ask")) return;
-    const box = document.createElement("section");
-    box.className = "dija-ask";
-    box.setAttribute("aria-label", "Ask DIJA about Saif");
-    box.innerHTML = `
-      <form class="dija-ask-form" id="dijaAskForm">
-        <label class="dija-ask-label" for="dijaAskInput">Ask about Saif's work</label>
-        <div class="dija-ask-controls">
-          <input id="dijaAskInput" name="question" type="text" maxlength="240"
-            placeholder="e.g. Which projects use .NET?" autocomplete="off" />
-          <button type="submit" aria-label="Ask question">Ask</button>
-        </div>
-      </form>
-      <p class="dija-ask-status" id="dijaAskStatus" role="status" aria-live="polite">
-        Try a question about projects, skills, or experience.
-      </p>
-      <div class="dija-ask-answer" id="dijaAskAnswer" hidden></div>`;
-    if (prompts) prompts.insertAdjacentElement("afterend", box);
-    else alertEl.appendChild(box);
-
-    const form = box.querySelector("#dijaAskForm");
-    const input = box.querySelector("#dijaAskInput");
-    const status = box.querySelector("#dijaAskStatus");
-    const answer = box.querySelector("#dijaAskAnswer");
-    form.addEventListener("submit", async (event) => {
+    const form = document.getElementById("dijaChatForm");
+    const input = document.getElementById("dijaChatInput");
+    const messages = document.getElementById("dijaChatMessages");
+    if (!form || !input || !messages || form.dataset.ready) return;
+    form.dataset.ready = "true";
+    const history = [];
+    const addMessage = (role, text) => {
+      const node = document.createElement("div");
+      node.className = "dija-chat-message " + role;
+      node.textContent = text;
+      messages.appendChild(node);
+      messages.scrollTop = messages.scrollHeight;
+      return node;
+    };
+    const systemContext = () => {
+      const projects = (typeof PROJECTS !== "undefined" ? PROJECTS : []).map(p =>
+        p.name + " — " + (p.tagline || "") + "; stack: " + (p.tech || []).join(", ") + "; " + (p.description || "")
+      ).join("\\n");
+      return "You are DIJA, a friendly portfolio assistant for Saif Ul Rehman, a software engineer. Answer accurately and concisely from this context. Never invent missing facts; say when something is not listed. Experience includes Cedar Financial, Solvefy, EraTech, and Sizdom Technologies. Skills include .NET, ASP.NET Core, Angular, React, TypeScript, JavaScript, SQL Server, MongoDB, Docker, and MCP. Contact links are in the portfolio Contact item and LinkedIn icon. Projects:\\n" + projects;
+    };
+    async function askAI(question) {
+      const prompt = systemContext() + "\\n\\n" + history.map(m => (m.role === "user" ? "Visitor: " : "DIJA: ") + m.content).join("\\n") + "\\nVisitor: " + question + "\\nDIJA:";
+      const response = await fetch("https://text.pollinations.ai/" + encodeURIComponent(prompt), { method: "GET", headers: { Accept: "text/plain" }, cache: "no-store" });
+      if (!response.ok) throw new Error("AI endpoint unavailable");
+      const answer = (await response.text()).trim();
+      if (!answer || answer.length > 12000) throw new Error("Invalid AI response");
+      return answer;
+    }
+    form.addEventListener("submit", async event => {
       event.preventDefault();
       const question = input.value.trim();
-      if (!question) {
-        status.textContent = "Type a question first.";
-        input.focus();
-        return;
-      }
-      const askButton = form.querySelector('button[type="submit"]');
-      askButton.disabled = true;
-      status.textContent = "Looking through the portfolio…";
-      answer.hidden = true;
+      if (!question) return;
+      addMessage("user", question);
+      input.value = "";
+      input.style.height = "auto";
+      history.push({ role: "user", content: question });
+      const button = form.querySelector('button[type="submit"]');
+      button.disabled = true;
+      button.textContent = "…";
+      const pending = addMessage("assistant", "Thinking…");
       try {
-        const endpoint = window.PORTFOLIO_AI_ENDPOINT;
-        let reply;
-        if (typeof endpoint === "string" && endpoint.startsWith("https://")) {
-          const response = await fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ question }),
-          });
-          if (!response.ok) throw new Error("Assistant service is temporarily unavailable.");
-          const payload = await response.json();
-          reply = typeof payload.answer === "string" ? payload.answer : "";
-          if (!reply) throw new Error("The assistant returned an empty answer.");
-        } else {
-          reply = answerFromPortfolio(question);
-        }
-        answer.textContent = reply;
-        answer.hidden = false;
-        status.textContent = endpoint ? "DIJA's answer" : "Portfolio guide · local mode";
+        const answer = await askAI(question);
+        pending.textContent = answer;
+        history.push({ role: "assistant", content: answer });
+        if (history.length > 12) history.splice(0, 2);
       } catch (error) {
-        const fallback = answerFromPortfolio(question);
-        answer.textContent = fallback + " The live AI service is unavailable, so I used the local portfolio guide instead.";
-        answer.hidden = false;
-        status.textContent = "Local fallback";
+        const answer = answerFromPortfolio(question);
+        pending.textContent = answer + "\\n\\n(The free AI service is unavailable right now, so this is the local portfolio answer.)";
+        history.push({ role: "assistant", content: answer });
       } finally {
-        askButton.disabled = false;
+        button.disabled = false;
+        button.textContent = "➤";
+        messages.scrollTop = messages.scrollHeight;
+        input.focus();
       }
     });
+    input.addEventListener("input", () => { input.style.height = "auto"; input.style.height = Math.min(input.scrollHeight, 120) + "px"; });
+    input.addEventListener("keydown", event => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); form.requestSubmit(); } });
   }
 
   function answerFromPortfolio(question) {
@@ -369,37 +360,13 @@
     }, prefersReducedMotion ? 0 : 340);
   }
 
-  if (prompts) {
-    prompts.addEventListener("click", (e) => {
-      const btn = e.target.closest(".dija-prompt");
-      if (!btn) return;
-      const topic = btn.dataset.topic;
-      if (topic === "explore") {
-        minimizeAlert();
-        if (typeof window.osOpenWindow === "function") window.osOpenWindow();
-        if (typeof window.ideOpenFile === "function") window.ideOpenFile("about");
-        return;
-      }
-      openCarousel(topic);
-    });
-  }
-
-  // Desktop quick-launch apps share the exact navigation actions used by DIJA.
-  const quickApps = document.getElementById("desktopQuickApps");
-  if (quickApps) {
-    quickApps.addEventListener("click", (e) => {
-      const app = e.target.closest("[data-quick-action]");
-      if (!app) return;
-      const action = app.dataset.quickAction;
-      if (action === "explore") {
-        minimizeAlert();
-        if (typeof window.osOpenWindow === "function") window.osOpenWindow();
-        if (typeof window.ideOpenFile === "function") window.ideOpenFile("about");
-        return;
-      }
-      openCarousel(action);
-    });
-  }
+  const navApps = document.getElementById("taskbarPinned");
+  if (navApps) navApps.addEventListener("click", event => {
+    const app = event.target.closest("[data-nav-action]");
+    if (!app) return;
+    const action = app.dataset.navAction;
+    if (window.dijaOpenSection) window.dijaOpenSection(action);
+  });
 
   if (carouselBack) carouselBack.addEventListener("click", closeCarousel);
 
