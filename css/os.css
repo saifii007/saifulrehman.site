@@ -3239,3 +3239,95 @@ button.win-dot-red:hover {
 .dija-alert-top,
 .dija-chat-intro { display:none !important; }
 .dija-chat-messages:empty::before { content:""; display:none; }
+
+
+/* Right-side information panel for Experience and Expertise */
+.dija-carousel.is-sidepanel {
+  inset: 0 0 var(--taskbar-h) auto;
+  width: min(560px, calc(100vw - 1rem));
+  border-left: 1px solid rgba(255,255,255,.14);
+  box-shadow: -22px 0 70px rgba(0,0,0,.4);
+  background: rgba(14,16,23,.98);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+.dija-carousel.is-sidepanel .dija-carousel-header { padding: .9rem 1rem; }
+.dija-carousel.is-sidepanel .dija-carousel-title { text-align: left; padding-left: .75rem; }
+.dija-carousel.is-sidepanel .dija-carousel-spacer { display:none; }
+.dija-carousel.is-sidepanel .dija-carousel-body { padding: 1rem; }
+.dija-carousel.is-sidepanel .dija-panel { gap: .75rem; }
+.dija-carousel.is-sidepanel .dija-exp-row,
+.dija-carousel.is-sidepanel .dija-expertise-tile { border-radius: 13px; }
+.dija-carousel.is-sidepanel .dija-exp-row { padding: .9rem; gap: .8rem; background:rgba(255,255,255,.045); }
+.dija-carousel.is-sidepanel .dija-exp-desc { line-height:1.55; }
+.dija-carousel.is-sidepanel .dija-expertise-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; }
+.dija-carousel.is-sidepanel .dija-expertise-tile { min-height:94px; padding:.85rem .6rem; background:rgba(255,255,255,.045); }
+@media(max-width:600px) {
+  .dija-carousel.is-sidepanel { width:100vw; }
+}
+
+/* Contact preview: compact portfolio contact card instead of a loose, oversized grid */
+.ide-pane-split:has(.contact-method-grid) {
+  grid-template-columns: minmax(250px,.85fr) minmax(0,1.15fr);
+  gap: 1.1rem;
+  align-items: stretch;
+}
+.ide-pane-split:has(.contact-method-grid) .code-block {
+  padding: 1.1rem 1rem;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;
+  background:rgba(255,255,255,.018);
+  font-size:.78rem;
+  line-height:1.9;
+}
+.ide-pane-split:has(.contact-method-grid) .preview-card {
+  position:relative;
+  top:auto;
+  height:auto;
+  min-height:430px;
+  max-height:calc(100vh - 190px);
+  border-radius:18px;
+  border-color:rgba(167,139,250,.22);
+  background:linear-gradient(160deg,#171923 0%,#11131b 65%,#171525 100%);
+  box-shadow:0 18px 48px rgba(0,0,0,.22);
+}
+.ide-pane-split:has(.contact-method-grid) .preview-card-body {
+  padding:1.1rem;
+  overflow-y:auto;
+}
+.ide-pane-split:has(.contact-method-grid) .preview-avatar {
+  width:58px;
+  height:58px;
+  margin:0 0 .75rem;
+  border:2px solid #a78bfa;
+  box-shadow:0 0 0 4px rgba(167,139,250,.09);
+}
+.ide-pane-split:has(.contact-method-grid) .preview-name { font-size:1.2rem; letter-spacing:-.025em; }
+.ide-pane-split:has(.contact-method-grid) .preview-role { margin-top:.25rem; font-size:.78rem; line-height:1.5; }
+.ide-pane-split:has(.contact-method-grid) .preview-status { display:inline-flex; margin-top:.75rem; padding:.35rem .65rem; border-radius:999px; font-size:.7rem; background:rgba(16,185,129,.12); }
+.ide-pane-split:has(.contact-method-grid) .contact-method-grid {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.65rem;
+  margin-top:1rem;
+}
+.ide-pane-split:has(.contact-method-grid) .contact-method-card {
+  min-height:74px;
+  flex-direction:row;
+  justify-content:flex-start;
+  padding:.8rem;
+  gap:.7rem;
+  text-align:left;
+  border-radius:12px;
+  background:rgba(255,255,255,.035);
+  border-color:rgba(255,255,255,.09);
+}
+.ide-pane-split:has(.contact-method-grid) .contact-method-card:hover {
+  background:rgba(167,139,250,.09);
+  border-color:rgba(167,139,250,.45);
+}
+.ide-pane-split:has(.contact-method-grid) .contact-method-icon { width:36px; height:36px; font-size:1.05rem; }
+.ide-pane-split:has(.contact-method-grid) .contact-method-label { font-size:.78rem; }
+@media(max-width:1100px) {
+  .ide-pane-split:has(.contact-method-grid) { grid-template-columns:1fr; }
+  .ide-pane-split:has(.contact-method-grid) .preview-card { max-height:none; min-height:400px; }
+}
