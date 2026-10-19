@@ -52,7 +52,7 @@
       <span class="preview-browser-nav">⟳</span>
       <div class="preview-browser-url">
         <svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><rect x="5" y="10" width="14" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-        <span>localhost:4200${esc(urlPath)}</span>
+        <span>saifulrehman.site${esc(urlPath)}</span>
       </div>
     </div>`;
   }
@@ -555,7 +555,7 @@ ${importLines}
 <span class="ln">${baseLn + 3}</span>  <span class="tok-key">id</span><span class="tok-punct">:</span> <span class="tok-string">'${esc(p.id)}'</span><span class="tok-punct">,</span>
 <span class="ln">${baseLn + 4}</span>  <span class="tok-key">title</span><span class="tok-punct">:</span> <span class="tok-string">'${esc(p.name)}'</span><span class="tok-punct">,</span>
 <span class="ln">${baseLn + 5}</span>  <span class="tok-key">role</span><span class="tok-punct">:</span> <span class="tok-string">'${esc(p.tagline || "")}'</span><span class="tok-punct">,</span>
-<span class="ln">${baseLn + 6}</span>  <span class="tok-key">status</span><span class="tok-punct">:</span> <span class="tok-string">'Deployed'</span><span class="tok-punct">,</span>
+<span class="ln">${baseLn + 6}</span>  <span class="tok-key">status</span><span class="tok-punct">:</span> <span class="tok-string">'Portfolio case study'</span><span class="tok-punct">,</span>
 <span class="ln">${baseLn + 7}</span>
 <span class="ln">${baseLn + 8}</span>  <span class="tok-key">technologies</span><span class="tok-punct">: [</span>${(p.tech || []).map((t) => `<span class="tok-string">'${esc(t)}'</span>`).join(", ")}<span class="tok-punct">],</span>
 <span class="ln">${baseLn + 9}</span>

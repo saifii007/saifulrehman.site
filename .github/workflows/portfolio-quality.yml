@@ -1,0 +1,33 @@
+name: Portfolio quality gate
+
+on:
+  push:
+    branches:
+      - main
+      - "portfolio/**"
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Static and syntax checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check JavaScript syntax
+        run: |
+          set -eu
+          for file in js/*.js; do
+            node --check "$file"
+          done
+      - name: Validate portfolio assets and UI content
+        run: node scripts/validate-portfolio.mjs
