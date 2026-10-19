@@ -281,37 +281,9 @@ img {
   gap: 0.25rem;
 }
 
-.desktop-project-apps {
-  position: absolute;
-  top: 1.5rem;
-  left: 8.5rem;
-  z-index: 5;
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(6, 84px);
-  grid-auto-columns: 84px;
-  gap: 0.25rem;
-  max-width: calc(100% - 10rem);
-  overflow-x: auto;
-  scrollbar-width: thin;
-}
-.desktop-project-app { min-width: 0; width: 84px; height: 84px; padding: 0.35rem 0.25rem; gap: 0.3rem; }
-.desktop-project-app-tile {
-  position: relative; display: grid; place-items: center; width: 52px; height: 42px;
-  overflow: hidden; border: 1px solid rgba(255,255,255,.16); border-radius: 8px;
-  background: rgba(20,22,29,.92); box-shadow: 0 4px 12px rgba(0,0,0,.35);
-}
-.desktop-project-app-tile img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.desktop-project-app-tile.is-fallback { background: linear-gradient(145deg, rgba(139,92,246,.32), rgba(32,36,48,.95)); }
-.desktop-project-app-fallback { font-size: 1.35rem; line-height: 1; }
-.desktop-project-app .desktop-icon-label {
-  width: 100%; max-height: 2.4em; overflow: hidden; font-size: .66rem; text-overflow: ellipsis;
-  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
-}
 @media (max-width: 760px) {
   .desktop-icons { top: .75rem; left: .5rem; grid-template-rows: repeat(3, 76px); grid-auto-columns: 68px; }
-  .desktop-project-apps { top: .75rem; left: 4.8rem; grid-template-rows: repeat(3, 76px); grid-auto-columns: 68px; max-width: calc(100% - 5.2rem); }
-  .desktop-project-app { width: 68px; height: 76px; }
+
 }
 
 .desktop-icon {
@@ -3128,4 +3100,64 @@ button.win-dot-red:hover {
   .dija-project-app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
   .dija-project-app-card { padding: .65rem; }
   .dija-project-app-icon { height: 82px; }
+}
+
+
+/* Four desktop quick-launch apps mirror DIJA navigation */
+.desktop-quick-apps {
+  position: absolute;
+  top: 1.35rem;
+  right: 1.5rem;
+  z-index: 6;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(76px, 94px));
+  gap: .55rem;
+}
+.desktop-quick-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .45rem;
+  min-width: 0;
+  padding: .6rem .4rem;
+  color: #f7f7fb;
+  font-size: .72rem;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.8);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: rgba(18,20,27,.34);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.desktop-quick-app:hover,.desktop-quick-app:focus-visible {
+  background: rgba(35,38,48,.82);
+  border-color: rgba(255,255,255,.18);
+  transform: translateY(-2px);
+  outline: none;
+}
+.desktop-quick-app-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 7px 18px rgba(0,0,0,.24), inset 0 1px rgba(255,255,255,.24);
+}
+.quick-projects { background: linear-gradient(145deg,#8b5cf6,#5b3cc4); }
+.quick-experience { background: linear-gradient(145deg,#0ea5e9,#155eaa); }
+.quick-expertise { background: linear-gradient(145deg,#10b981,#047857); }
+.quick-explore { background: linear-gradient(145deg,#f59e0b,#c2410c); }
+@media(max-width:760px) {
+  .desktop-quick-apps {
+    top: .7rem; right: .5rem;
+    grid-template-columns: repeat(2, minmax(66px, 76px));
+    gap: .25rem;
+  }
+  .desktop-quick-app { padding: .35rem .2rem; font-size: .63rem; gap: .25rem; }
+  .desktop-quick-app-icon { width: 32px; height: 32px; border-radius: 9px; font-size: 1.1rem; }
 }

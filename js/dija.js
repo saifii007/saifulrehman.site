@@ -384,6 +384,23 @@
     });
   }
 
+  // Desktop quick-launch apps share the exact navigation actions used by DIJA.
+  const quickApps = document.getElementById("desktopQuickApps");
+  if (quickApps) {
+    quickApps.addEventListener("click", (e) => {
+      const app = e.target.closest("[data-quick-action]");
+      if (!app) return;
+      const action = app.dataset.quickAction;
+      if (action === "explore") {
+        minimizeAlert();
+        if (typeof window.osOpenWindow === "function") window.osOpenWindow();
+        if (typeof window.ideOpenFile === "function") window.ideOpenFile("about");
+        return;
+      }
+      openCarousel(action);
+    });
+  }
+
   if (carouselBack) carouselBack.addEventListener("click", closeCarousel);
 
   document.addEventListener("keydown", (e) => {
