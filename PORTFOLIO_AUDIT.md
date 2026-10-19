@@ -12,7 +12,7 @@ Preserve the Windows desktop metaphor. The portfolio should feel like a carefull
 
 ### P0 - Release integrity
 
-- [ ] **P0.1 Cache/version consistency:** `index.html` cache-busts `os.css`, but the JavaScript files have mixed versioning and the most recently edited DIJA script is not consistently cache-busted with the other assets. Align asset versions in one pass and confirm the published HTML references them.
+- [x] **P0.1 Cache/version consistency:** Aligned cache-busting versions for the CSS, IDE, DIJA, and project data assets in the release candidate. `index.html` cache-busts `os.css`, but the JavaScript files have mixed versioning and the most recently edited DIJA script is not consistently cache-busted with the other assets. Confirm the published HTML references them after release.
 - [ ] **P0.2 Deployment gate:** Do not merge/deploy until syntax checks, link/image checks, responsive review, and GitHub Actions build/deploy are green for the final candidate. Deploy only the tested commit, not intermediate commits.
 
 ### P1 - Navigation and interaction
@@ -26,8 +26,8 @@ Preserve the Windows desktop metaphor. The portfolio should feel like a carefull
 
 - [ ] **P1.5 Preview composition:** Standardize VS Code-like editor/preview split layouts, spacing, card proportions, browser chrome, overflow, typography, and responsive stacking. Avoid sticky or fixed preview cards that feel detached from their editor.
 - [ ] **P1.6 Contact preview:** Present contact details in a compact, balanced card system. Long email/URL values must wrap without clipping; actions must remain usable on small screens.
-- [ ] **P1.7 Project case studies:** Keep the Windows project-launcher experience. Improve detail hierarchy, image handling/fallback, metadata, technology chips, feature lists, and external-link states. Avoid double hyphens and awkward dash separators in project UI copy.
-- [ ] **P1.8 Content integrity:** Remove visible `[ADD PROJECT DESCRIPTION ...]` placeholders. Where reliable facts are not available, use a truthful concise summary based on the supplied project metadata rather than inventing metrics or claims.
+- [x] **P1.7 Project case studies:** Keep the Windows project-launcher experience. Improve detail hierarchy, image handling/fallback, metadata, technology chips, feature lists, and external-link states. Removed placeholder copy and normalized project separators to avoid double-dash styling.
+- [x] **P1.8 Content integrity:** Remove visible `[ADD PROJECT DESCRIPTION ...]` placeholders. Unknown CRM and inventory details are explicitly described as undocumented; no features or technology claims are invented.
 
 ### P2 - Reliability, accessibility, and maintainability
 
