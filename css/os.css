@@ -3433,3 +3433,67 @@ button.win-dot-red:hover {
   .ide-pane-split .preview-card,
   .ide-pane-split:has(.contact-method-grid) .preview-card { min-height:380px; max-height:none; }
 }
+
+
+/* Release candidate: cohesive Windows workspace and restrained premium previews */
+.ide-pane-split {
+  grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr);
+  gap: clamp(1rem, 1.8vw, 1.65rem);
+  align-items: stretch;
+}
+.ide-pane-split .code-block {
+  min-width: 0; overflow: auto; overscroll-behavior: contain;
+  padding: clamp(.9rem, 1.3vw, 1.2rem);
+  border: 1px solid rgba(255,255,255,.075); border-radius: 12px;
+  background: #17191f; line-height: 1.75; font-size: clamp(.73rem, .78vw, .82rem);
+}
+.ide-pane-split .preview-card {
+  position: relative; top: auto; width: 100%; min-width: 0; height: auto;
+  min-height: 420px; max-height: min(690px, calc(100dvh - 180px));
+  border-radius: 14px; border-color: rgba(255,255,255,.1);
+  background: #13151c; box-shadow: 0 14px 36px rgba(0,0,0,.2);
+}
+.ide-pane-split .preview-card-body { min-width: 0; padding: clamp(.9rem, 1.35vw, 1.25rem); overflow-x: hidden; }
+.ide-pane-split .preview-name { overflow-wrap: anywhere; }
+.ide-pane-split .preview-tags { gap: .4rem; }
+.ide-pane-split .preview-tag { max-width: 100%; overflow-wrap: anywhere; }
+.project-preview-hero { border-radius: 10px; border-color: rgba(255,255,255,.09); }
+.project-preview-image { aspect-ratio: 16 / 9; height: auto; max-height: 190px; object-fit: cover; }
+.project-preview-hero-meta { align-items: center; padding: .65rem .75rem; }
+.project-preview-title { gap: .5rem; flex-wrap: wrap; }
+.project-preview-title .preview-name { font-size: 1.12rem; line-height: 1.3; }
+.project-preview-description { font-size: .82rem; line-height: 1.7; }
+.project-preview-section-label { font-size: .65rem; letter-spacing: .09em; }
+.project-architecture { padding: .85rem .95rem; border-radius: 0 8px 8px 0; }
+.project-architecture p { overflow-wrap: anywhere; }
+.preview-links { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.preview-links .preview-btn { max-width: 100%; }
+.ide-pane-split:has(.contact-method-grid) { grid-template-columns: minmax(260px, .78fr) minmax(0, 1.22fr); gap: clamp(.9rem, 1.6vw, 1.4rem); }
+.ide-pane-split:has(.contact-method-grid) .code-block { align-self: start; gap: .45rem; padding: .85rem; font-size: .74rem; line-height: 1.65; }
+.ide-pane-split:has(.contact-method-grid) .contact-line { grid-template-columns: 76px minmax(0,1fr); gap: .4rem; padding: .5rem .55rem; }
+.ide-pane-split:has(.contact-method-grid) .preview-card { min-height: 420px; max-height: min(650px, calc(100dvh - 180px)); }
+.ide-pane-split:has(.contact-method-grid) .preview-card-body { padding: clamp(1rem, 1.5vw, 1.35rem); }
+.ide-pane-split:has(.contact-method-grid) .preview-name { font-size: 1.25rem; }
+.ide-pane-split:has(.contact-method-grid) .contact-method-grid { gap: .65rem; }
+.ide-pane-split:has(.contact-method-grid) .contact-method-card { min-width: 0; min-height: 72px; padding: .75rem; gap: .65rem; }
+.ide-pane-split:has(.contact-method-grid) .contact-method-label { overflow-wrap: anywhere; }
+.dija-project-app-card { border-color: rgba(255,255,255,.09); background: #171920; }
+.dija-project-app-card:hover, .dija-project-app-card:focus-visible { border-color: rgba(167,139,250,.55); background: #1b1d27; }
+.dija-project-app-icon { aspect-ratio: 16 / 9; height: auto; min-height: 100px; }
+.dija-project-app-icon img { object-fit: cover; }
+.dija-project-app-tagline { min-height: 2.8em; }
+@media (max-width: 1050px) {
+  .ide-pane-split, .ide-pane-split:has(.contact-method-grid) { grid-template-columns: minmax(0,1fr); }
+  .ide-pane-split .preview-card, .ide-pane-split:has(.contact-method-grid) .preview-card { min-height: 390px; max-height: none; }
+  .ide-pane-split .code-block { max-height: 42vh; }
+}
+@media (max-width: 600px) {
+  .ide-pane { padding: .9rem; }
+  .ide-pane-split .preview-card, .ide-pane-split:has(.contact-method-grid) .preview-card { min-height: 360px; }
+  .ide-pane-split:has(.contact-method-grid) .contact-line { grid-template-columns: 1fr; }
+  .ide-pane-split:has(.contact-method-grid) .contact-method-grid { grid-template-columns: 1fr; }
+  .project-preview-image { max-height: 150px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dija-project-app-card, .ide-pane-split .preview-card { transition: none; }
+}

@@ -24,8 +24,8 @@ Preserve the Windows desktop metaphor. The portfolio should feel like a carefull
 
 ### P1 - Premium workspace and previews
 
-- [ ] **P1.5 Preview composition:** Standardize VS Code-like editor/preview split layouts, spacing, card proportions, browser chrome, overflow, typography, and responsive stacking. Avoid sticky or fixed preview cards that feel detached from their editor.
-- [ ] **P1.6 Contact preview:** Present contact details in a compact, balanced card system. Long email/URL values must wrap without clipping; actions must remain usable on small screens.
+- [x] **P1.5 Preview composition:** Standardize VS Code-like editor/preview split layouts, spacing, card proportions, browser chrome, overflow, typography, and responsive stacking. Removed sticky preview behavior and standardized proportions, overflow, browser chrome, and responsive stacking.
+- [x] **P1.6 Contact preview:** Present contact details in a compact, balanced card system. Contact rows now wrap long values, use consistent card spacing, and collapse to a single column on narrow screens.
 - [x] **P1.7 Project case studies:** Keep the Windows project-launcher experience. Improve detail hierarchy, image handling/fallback, metadata, technology chips, feature lists, and external-link states. Removed placeholder copy and normalized project separators to avoid double-dash styling.
 - [x] **P1.8 Content integrity:** Remove visible `[ADD PROJECT DESCRIPTION ...]` placeholders. Unknown CRM and inventory details are explicitly described as undocumented; no features or technology claims are invented.
 
