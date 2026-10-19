@@ -3100,3 +3100,77 @@ button.win-dot-red:hover {
  .taskbar-nav-label { font-size:.65rem; }
  .taskbar-nav-glyph { width:22px; height:22px; }
 }
+
+
+/* Taskbar polish: consistent app tiles, labels appear only as hover tooltips */
+.taskbar-pinned .taskbar-nav-app {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 42px;
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: transparent;
+}
+.taskbar-pinned .taskbar-nav-glyph {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 9px;
+  font-size: 21px;
+  line-height: 1;
+}
+.taskbar-pinned .taskbar-nav-label {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 9px);
+  transform: translate(-50%, 4px);
+  padding: 6px 9px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 7px;
+  color: #fff;
+  background: rgba(18,20,28,.96);
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 120ms ease, transform 120ms ease, visibility 120ms ease;
+}
+.taskbar-pinned .taskbar-nav-app:hover .taskbar-nav-label,
+.taskbar-pinned .taskbar-nav-app:focus-visible .taskbar-nav-label {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+.taskbar-pinned .taskbar-nav-app:hover,
+.taskbar-pinned .taskbar-nav-app:focus-visible { background: rgba(255,255,255,.1); }
+.taskbar-pinned .taskbar-nav-app:hover .taskbar-nav-glyph { filter: brightness(1.16); }
+.taskbar-pinned .taskbar-icon:not(.taskbar-nav-app) { width:42px; height:42px; }
+.taskbar-pinned .taskbar-icon:not(.taskbar-nav-app) svg { width:22px; height:22px; }
+.taskbar-pinned { align-items:center; gap:4px; }
+.taskbar-center { gap:6px; }
+.dija-alert-controls::before { content:"DIJA · AI Assistant"; }
+.dija-alert-controls .dija-alert-min { display:none !important; }
+.dija-alert-controls .dija-alert-close {
+  order:3; width:30px; height:30px; border-radius:8px;
+  font-size:0; color:#fff; background:transparent;
+}
+.dija-alert-controls .dija-alert-close::before { content:"×"; font-size:25px; font-weight:400; line-height:1; }
+.dija-alert-controls .dija-alert-close:hover { background:rgba(255,255,255,.1); }
+.dija-alert-controls::after { display:none !important; }
+/* Hide the previous injected mini form so only the conversational chat remains. */
+.dija-alert .dija-ask { display:none !important; }
+@media (max-width:760px) {
+  .taskbar-pinned .taskbar-nav-app { flex-basis:36px; width:36px; min-width:36px; height:38px; }
+  .taskbar-pinned .taskbar-nav-glyph { width:30px; height:30px; flex-basis:30px; }
+  .taskbar-pinned .taskbar-icon:not(.taskbar-nav-app) { width:34px; height:38px; }
+  .taskbar-pinned { gap:1px; }
+}
