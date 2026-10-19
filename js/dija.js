@@ -362,15 +362,26 @@
 
   // Shared router for the four taskbar apps.
   window.dijaOpenSection = function (action) {
+    // Each pinned app has its own destination: Projects opens the app grid;
+    // Experience and Expertise open their corresponding IDE tabs.
+    if (action === "projects") {
+      openCarousel("projects");
+      return;
+    }
+    if (action === "experience" || action === "expertise") {
+      closeCarousel();
+      minimizeAlert();
+      if (typeof window.osOpenWindow === "function") window.osOpenWindow();
+      if (typeof window.ideOpenFile === "function") {
+        window.ideOpenFile(action === "experience" ? "experience" : "skills");
+      }
+      return;
+    }
     if (action === "explore") {
       closeCarousel();
       minimizeAlert();
       if (typeof window.osOpenWindow === "function") window.osOpenWindow();
       if (typeof window.ideOpenFile === "function") window.ideOpenFile("about");
-      return;
-    }
-    if (action === "projects" || action === "experience" || action === "expertise") {
-      openCarousel(action);
     }
   };
 

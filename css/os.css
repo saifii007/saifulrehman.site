@@ -3233,3 +3233,9 @@ button.win-dot-red:hover {
   .taskbar-pinned .taskbar-icon svg { width: 20px; height: 20px; flex-basis: 20px; }
   .taskbar-pinned .taskbar-nav-app .taskbar-nav-glyph { width: 28px; height: 28px; flex-basis: 28px; }
 }
+
+
+/* DIJA starts directly at the conversation; no scripted intro or duplicate prompt */
+.dija-alert-top,
+.dija-chat-intro { display:none !important; }
+.dija-chat-messages:empty::before { content:""; display:none; }
