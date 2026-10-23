@@ -605,23 +605,102 @@ ${importLines}
     if (browserPreviewBackdrop) browserPreviewBackdrop.hidden = true;
     setTimeout(() => { browserPreview.hidden = true; }, prefersReducedMotion ? 0 : 180);
   }
-  function openBrowserPreview(id, pane) {
-    if (!browserPreview || !browserPreviewPage || !pane) return;
-    const file = FILES[id] || { label: id };
-    browserPreviewTabTitle.textContent = file.label || id;
-    browserPreviewAddress.textContent = "saifulrehman.site/" + (id === "about" ? "" : id === "contact" ? "contact" : id === "skills" ? "expertise" : id === "experience" ? "experience" : "projects/" + id);
-    browserPreviewPage.replaceChildren();
-    const source = pane.querySelector(".preview-card-body") || pane.querySelector(".resume-pane") || pane.querySelector(".preview-card");
+  function browserPagePath(id) {
+    if (id === "about") return "/";
+    if (id === "skills") return "/expertise";
+    if (id === "experience") return "/experience";
+    if (id === "contact") return "/contact";
+    if (id === "resume") return "/Saif_Ul_Rehman_Resume_eng_2026.pdf";
+    return PROJECTS.some((project) => project.id === id) ? "/projects/" + id : "/";
+  }
+
+  function browserContentFor(id) {
+    if (id === "resume") {
+      const template = document.createElement("template");
+      template.innerHTML = aboutMarkup();
+      const about = template.content.querySelector(".preview-card-body");
+      const wrapper = document.createElement("article");
+      wrapper.className = "browser-resume-page";
+      if (about) wrapper.appendChild(about.cloneNode(true));
+      const link = document.createElement("a");
+      link.className = "browser-resume-download";
+      link.href = RESUME_PATH;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Open official resume PDF ↗";
+      wrapper.appendChild(link);
+      return wrapper;
+    }
+    const template = document.createElement("template");
+    template.innerHTML = buildPaneMarkup(id);
+    const source = template.content.querySelector(".preview-card-body")
+      || template.content.querySelector(".skills-pane")
+      || template.content.querySelector(".dija-project-detail-inner")
+      || template.content.querySelector(".preview-card")
+      || template.content.querySelector(".resume-pane");
     if (source) {
       const copy = source.cloneNode(true);
       copy.querySelectorAll("button.preview-btn-next, [data-next-project], [data-open-resume-pdf]").forEach((el) => el.remove());
-      browserPreviewPage.appendChild(copy);
-    } else {
-      const fallback = document.createElement("div");
-      fallback.className = "browser-preview-fallback";
-      fallback.innerHTML = "<div class='browser-preview-eyebrow'>SAIF UL REHMAN · PORTFOLIO</div><h1>Explore the work</h1><p>Open a file from the Explorer to view its portfolio page.</p>";
-      browserPreviewPage.appendChild(fallback);
+      return copy;
     }
+    const fallback = document.createElement("div");
+    fallback.className = "browser-preview-fallback";
+    fallback.innerHTML = "<div class='browser-preview-eyebrow'>SAIF UL REHMAN · PORTFOLIO</div><h1>Page unavailable</h1><p>This file does not have a browser view yet.</p>";
+    return fallback;
+  }
+
+  function renderBrowserPreviewPage(id) {
+    if (!browserPreviewPage) return;
+    const file = FILES[id] || { label: "About-Me.md" };
+    browserPreviewTabTitle.textContent = file.label || id;
+    browserPreviewAddress.textContent = "saifulrehman.site" + browserPagePath(id);
+    browserPreviewPage.replaceChildren();
+
+    const shell = document.createElement("div");
+    shell.className = "browser-site-shell";
+    const sidebar = document.createElement("aside");
+    sidebar.className = "browser-site-sidebar";
+    sidebar.setAttribute("aria-label", "Portfolio website navigation");
+    sidebar.innerHTML = '<a class="browser-site-brand" href="#" data-browser-page="about"><span class="browser-site-brand-mark">SR</span><span><strong>Saif Ul Rehman</strong><small>Software Engineer</small></span></a><div class="browser-site-nav-label">PORTFOLIO</div><nav class="browser-site-nav"></nav><div class="browser-site-sidebar-footer"><span class="browser-site-online-dot"></span> Open to work</div>';
+    const nav = sidebar.querySelector(".browser-site-nav");
+    const groups = [
+      { title: "PROFILE", items: [["about", "About Me", "⌂"], ["skills", "Expertise", "✳"], ["experience", "Experience", "◷"], ["contact", "Contact", "✉"], ["resume", "Resume", "▤"]] },
+      { title: "PROJECTS", items: PROJECTS.map((project) => [project.id, project.name, "◇"]) }
+    ];
+    groups.forEach((group) => {
+      const label = document.createElement("div");
+      label.className = "browser-site-nav-label";
+      label.textContent = group.title;
+      nav.appendChild(label);
+      group.items.forEach(([pageId, title, icon]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "browser-site-nav-item";
+        button.dataset.browserPage = pageId;
+        button.setAttribute("aria-current", pageId === id ? "page" : "false");
+        button.innerHTML = '<span class="browser-site-nav-icon" aria-hidden="true"></span><span class="browser-site-nav-text"></span>';
+        button.querySelector(".browser-site-nav-icon").textContent = icon;
+        button.querySelector(".browser-site-nav-text").textContent = title;
+        if (pageId === id) button.classList.add("is-active");
+        nav.appendChild(button);
+      });
+    });
+    const main = document.createElement("main");
+    main.className = "browser-site-main";
+    main.appendChild(browserContentFor(id));
+    shell.append(sidebar, main);
+    browserPreviewPage.appendChild(shell);
+    browserPreviewPage.querySelectorAll("[data-browser-page]").forEach((control) => {
+      control.addEventListener("click", (event) => {
+        event.preventDefault();
+        renderBrowserPreviewPage(control.dataset.browserPage);
+      });
+    });
+  }
+
+  function openBrowserPreview(id, pane) {
+    if (!browserPreview || !pane) return;
+    renderBrowserPreviewPage(id);
     browserPreview.hidden = false;
     if (browserPreviewBackdrop) browserPreviewBackdrop.hidden = false;
     void browserPreview.offsetWidth;

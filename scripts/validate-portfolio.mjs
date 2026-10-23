@@ -47,6 +47,12 @@ assert.match(css, /\.ide-pane \.preview-card \{ display:none !important; \}/, "E
 assert.match(css, /\.browser-preview-window\[hidden\].*display:none !important/, "Closed browser preview must remain hidden");
 assert.match(dija, /carousel\.classList\.add\("is-sidepanel"\)/, "Projects taskbar panel should use the same right-side panel layout");
 
+
+assert.match(ide, /function renderBrowserPreviewPage/, "Browser preview must render a full navigable website shell");
+assert.match(ide, /PROJECTS\.map\(\(project\) => \[project\.id, project\.name/, "Browser sidebar must list all portfolio projects");
+assert.match(ide, /control\.dataset\.browserPage/, "Browser sidebar navigation must switch pages in place");
+assert.match(css, /\.browser-site-shell \{ display:grid/, "Browser preview must use a website sidebar and content layout");
+
 const versions = [...html.matchAll(/(?:src|href)="([^"]+\.(?:css|js))\?v=([^"]+)"/g)];
 assert.ok(versions.some(([, path]) => path === "css/os.css"), "Stylesheet must be cache-busted");
 assert.ok(versions.some(([, path]) => path === "js/ide.js"), "IDE script must be cache-busted");
