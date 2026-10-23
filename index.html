@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/os.css?v=20261020-12" />
+  <link rel="stylesheet" href="css/os.css?v=20261023-1" />
 </head>
 <body>
   <a class="skip-link" href="#vscodeWindow">Skip to portfolio content</a>
@@ -227,6 +227,14 @@
     </section>
   </main>
 
+  <!-- Browser preview, opened on demand from VS Code -->
+  <div class="browser-preview-backdrop" id="browserPreviewBackdrop" hidden></div>
+  <section class="browser-preview-window" id="browserPreviewWindow" role="dialog" aria-label="Portfolio browser preview" aria-modal="true" hidden>
+    <header class="browser-preview-titlebar"><div class="browser-preview-tab"><span class="browser-preview-tab-dot"></span><span id="browserPreviewTabTitle">Saif Ul Rehman</span></div><button type="button" class="browser-preview-close" id="browserPreviewClose" aria-label="Close preview">×</button></header>
+    <div class="browser-preview-toolbar"><span aria-hidden="true">‹</span><span aria-hidden="true">›</span><span aria-hidden="true">⟳</span><div class="browser-preview-address"><span aria-hidden="true">🔒</span><span id="browserPreviewAddress">saifulrehman.site</span></div><span aria-hidden="true">⋮</span></div>
+    <div class="browser-preview-page" id="browserPreviewPage"></div>
+  </section>
+
   <!-- ============ START MENU ============ -->
   <div class="start-backdrop" id="startBackdrop" hidden></div>
   <div class="start-menu" id="startMenu" hidden role="dialog" aria-label="Start">
@@ -347,7 +355,7 @@
   <script src="js/data.js?v=20261020-1" defer></script>
   <script src="js/stream.js" defer></script>
   <script src="js/os.js" defer></script>
-  <script src="js/ide.js?v=20261020-3" defer></script>
-  <script src="js/dija.js?v=20261020-3" defer></script>
+  <script src="js/ide.js?v=20261023-1" defer></script>
+  <script src="js/dija.js?v=20261023-1" defer></script>
   </body>
 </html>

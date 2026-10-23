@@ -3281,3 +3281,39 @@ button.win-dot-red:hover {
   .dija-project-app-card,
   .ide-pane-split .preview-card { transition:none; }
 }
+
+/* Release: code-first VS Code + on-demand browser */
+.ide-pane-split { display:block; }
+.ide-pane-split > .code-block { width:100%; max-width:none; }
+.ide-pane .preview-card { display:none !important; }
+.ide-pane .resume-pane { display:block; }
+.ide-pane .resume-left { display:none; }
+.ide-pane .resume-right { min-width:0; }
+.ide-preview-toolbar { position:sticky; top:-1.5rem; z-index:5; display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:-1.5rem calc(clamp(1rem, 3vw, 2.5rem) * -1) 1.15rem; padding:.55rem clamp(1rem, 3vw, 2.5rem); background:rgba(24,26,32,.97); border-bottom:1px solid var(--vsc-border); backdrop-filter:blur(14px); }
+.ide-preview-file-label { color:var(--vsc-text-muted); font:500 .76rem var(--font-mono); }
+.ide-preview-open-btn { display:inline-flex; align-items:center; gap:.45rem; padding:.42rem .78rem; border:1px solid rgba(167,139,250,.42); border-radius:6px; background:rgba(139,92,246,.17); color:#eee9ff; font-size:.78rem; font-weight:600; }
+.ide-preview-open-btn:hover,.ide-preview-open-btn:focus-visible { background:rgba(139,92,246,.3); outline:2px solid rgba(167,139,250,.5); outline-offset:2px; }
+.browser-preview-backdrop { position:fixed; inset:0; z-index:1000; background:rgba(3,4,8,.28); }
+.browser-preview-window { position:fixed; z-index:1001; top:7vh; right:2vw; bottom:calc(var(--taskbar-h) + 1.5rem); width:min(900px,calc(100vw - 360px)); min-width:420px; display:flex; flex-direction:column; overflow:hidden; border:1px solid rgba(255,255,255,.18); border-radius:12px; background:#f4f5f7; box-shadow:0 28px 90px rgba(0,0,0,.62); opacity:0; transform:translateY(10px) scale(.99); transition:opacity 180ms ease,transform 180ms ease; }
+.browser-preview-window.is-open { opacity:1; transform:translateY(0) scale(1); }
+.browser-preview-titlebar { display:flex; align-items:center; justify-content:space-between; min-height:42px; padding:0 .55rem; background:#202127; color:#e5e7eb; }
+.browser-preview-tab { display:flex; align-items:center; gap:.55rem; min-width:0; max-width:80%; padding:.55rem .85rem; border-radius:8px 8px 0 0; background:#303139; font-size:.76rem; }
+.browser-preview-tab > span:last-child { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.browser-preview-tab-dot { width:8px; height:8px; flex:none; border-radius:50%; background:#43c98b; }
+.browser-preview-close { width:32px; height:30px; border-radius:5px; color:#ddd; font-size:1.25rem; }
+.browser-preview-close:hover { background:#c42b3a; color:white; }
+.browser-preview-toolbar { display:flex; align-items:center; gap:.85rem; padding:.55rem .8rem; color:#bfc2ca; background:#292a31; }
+.browser-preview-address { display:flex; align-items:center; gap:.55rem; flex:1; min-width:0; padding:.48rem .7rem; border:1px solid #41434c; border-radius:20px; background:#1b1c22; color:#d5d7de; font:.75rem var(--font-mono); }
+.browser-preview-page { flex:1; min-height:0; overflow:auto; padding:clamp(1rem,2.2vw,2rem); color:#e7e8ee; background:#11131a; }
+#browserPreviewPage .preview-card-body { display:block; width:100%; max-width:none; height:auto; max-height:none; overflow:visible; padding:0; }
+#browserPreviewPage .preview-card-body > * { max-width:100%; }
+#browserPreviewPage .project-preview-image { display:block; width:100%; max-height:300px; object-fit:cover; }
+#browserPreviewPage .resume-left { display:block; max-width:220px; margin-bottom:1.5rem; }
+#browserPreviewPage .resume-pane { display:block; }
+#browserPreviewPage .resume-right { min-width:0; }
+.browser-preview-fallback { max-width:680px; margin:3rem auto; }
+.browser-preview-eyebrow { color:#a78bfa; font-size:.75rem; letter-spacing:.15em; font-weight:700; }
+.browser-preview-fallback h1 { margin:.75rem 0; font-size:clamp(2rem,5vw,3.8rem); }
+.browser-preview-fallback p { color:#a5a9b7; line-height:1.7; }
+.browser-preview-window[hidden], .browser-preview-backdrop[hidden] { display:none !important; }
+@media (max-width:760px) { .browser-preview-window { inset:4vh .5rem calc(var(--taskbar-h) + .5rem); width:auto; min-width:0; } .browser-preview-toolbar { gap:.5rem; } .ide-preview-toolbar { top:-.9rem; margin:-.9rem -.9rem 1rem; padding:.55rem .9rem; } }

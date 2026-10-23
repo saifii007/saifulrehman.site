@@ -344,7 +344,7 @@
     carouselTitle.textContent = panel.title;
     carouselBody.innerHTML = "";
     carouselBody.appendChild(panel.build());
-    carousel.classList.toggle("is-sidepanel", topic === "experience" || topic === "expertise");
+    carousel.classList.add("is-sidepanel");
 
     carousel.hidden = false;
     void carousel.offsetWidth;

@@ -1,7 +1,7 @@
 /**
  * ide.js
  * Renders the VS Code editor's content: file tree (from PROJECTS in
- * data.js), tab bar, and each file's code + live-preview pane. Exposes
+ * data.js), tab bar, and each file's code pane plus an on-demand browser preview. Exposes
  * window.ideOpenFile(id) for os.js (desktop icons / taskbar) to call.
  */
 (function () {
@@ -13,6 +13,12 @@
   const panes = document.getElementById("idePanes");
   const statusCursor = document.getElementById("statusCursor");
   const breadcrumbs = document.getElementById("ideBreadcrumbs");
+  const browserPreview = document.getElementById("browserPreviewWindow");
+  const browserPreviewBackdrop = document.getElementById("browserPreviewBackdrop");
+  const browserPreviewPage = document.getElementById("browserPreviewPage");
+  const browserPreviewAddress = document.getElementById("browserPreviewAddress");
+  const browserPreviewTabTitle = document.getElementById("browserPreviewTabTitle");
+  const browserPreviewClose = document.getElementById("browserPreviewClose");
 
   if (!tree || typeof PROJECTS === "undefined") return;
 
@@ -219,6 +225,7 @@
   function runBootSequence(pane, id) {
     if (prefersReducedMotion) {
       pane.innerHTML = buildPaneMarkup(id);
+      installPreviewControl(pane, id);
       wirePaneStreaming(pane, id);
       return;
     }
@@ -235,6 +242,7 @@
           logEl.textContent = "> portfolio@1.0.0 dev\n> vite\n\n  compiling…";
           setTimeout(() => {
             pane.innerHTML = buildPaneMarkup(id);
+            installPreviewControl(pane, id);
             wirePaneStreaming(pane, id);
           }, 900 + Math.random() * 500);
         }, 300);
@@ -589,6 +597,51 @@ ${importLines}
       </aside>
     </div>`;
   }
+
+  /* ---------------- On-demand browser preview ---------------- */
+  function closeBrowserPreview() {
+    if (!browserPreview) return;
+    browserPreview.classList.remove("is-open");
+    if (browserPreviewBackdrop) browserPreviewBackdrop.hidden = true;
+    setTimeout(() => { browserPreview.hidden = true; }, prefersReducedMotion ? 0 : 180);
+  }
+  function openBrowserPreview(id, pane) {
+    if (!browserPreview || !browserPreviewPage || !pane) return;
+    const file = FILES[id] || { label: id };
+    browserPreviewTabTitle.textContent = file.label || id;
+    browserPreviewAddress.textContent = "saifulrehman.site/" + (id === "about" ? "" : id === "contact" ? "contact" : id === "skills" ? "expertise" : id === "experience" ? "experience" : "projects/" + id);
+    browserPreviewPage.replaceChildren();
+    const source = pane.querySelector(".preview-card-body") || pane.querySelector(".resume-pane") || pane.querySelector(".preview-card");
+    if (source) {
+      const copy = source.cloneNode(true);
+      copy.querySelectorAll("button.preview-btn-next, [data-next-project], [data-open-resume-pdf]").forEach((el) => el.remove());
+      browserPreviewPage.appendChild(copy);
+    } else {
+      const fallback = document.createElement("div");
+      fallback.className = "browser-preview-fallback";
+      fallback.innerHTML = "<div class='browser-preview-eyebrow'>SAIF UL REHMAN · PORTFOLIO</div><h1>Explore the work</h1><p>Open a file from the Explorer to view its portfolio page.</p>";
+      browserPreviewPage.appendChild(fallback);
+    }
+    browserPreview.hidden = false;
+    if (browserPreviewBackdrop) browserPreviewBackdrop.hidden = false;
+    void browserPreview.offsetWidth;
+    browserPreview.classList.add("is-open");
+    if (browserPreviewClose) browserPreviewClose.focus();
+  }
+  function installPreviewControl(pane, id) {
+    if (!pane || pane.querySelector(".ide-preview-toolbar")) return;
+    const toolbar = document.createElement("div");
+    toolbar.className = "ide-preview-toolbar";
+    toolbar.innerHTML = '<span class="ide-preview-file-label"></span><button type="button" class="ide-preview-open-btn"><span aria-hidden="true">↗</span> Preview</button>';
+    toolbar.querySelector(".ide-preview-file-label").textContent = (FILES[id] && FILES[id].label) || id;
+    toolbar.querySelector("button").addEventListener("click", () => openBrowserPreview(id, pane));
+    pane.prepend(toolbar);
+  }
+  if (browserPreviewClose) browserPreviewClose.addEventListener("click", closeBrowserPreview);
+  if (browserPreviewBackdrop) browserPreviewBackdrop.addEventListener("click", closeBrowserPreview);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && browserPreview && !browserPreview.hidden) closeBrowserPreview();
+  });
 
   /* ---------------- Streaming reveal + skill-bar animation per pane ---------------- */
   function wirePaneStreaming(pane, id) {

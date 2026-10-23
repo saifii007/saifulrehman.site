@@ -39,6 +39,14 @@ for (const action of ["projects", "experience", "expertise", "explore"]) {
 assert.doesNotMatch(ide, /localhost:4200/, "Preview chrome must not display a local development host");
 assert.doesNotMatch(ide, /'Deployed'<\/span>/, "Private or internal projects must not be falsely labelled deployed");
 
+
+assert.match(html, /id="browserPreviewWindow"/, "On-demand browser preview window must exist");
+assert.match(ide, /function installPreviewControl/, "IDE files need an on-demand Preview control");
+assert.match(ide, /function openBrowserPreview/, "Preview controls must open the browser-style window");
+assert.match(css, /\.ide-pane \.preview-card \{ display:none !important; \}/, "Embedded previews must stay hidden in the editor");
+assert.match(css, /\.browser-preview-window\[hidden\].*display:none !important/, "Closed browser preview must remain hidden");
+assert.match(dija, /carousel\.classList\.add\("is-sidepanel"\)/, "Projects taskbar panel should use the same right-side panel layout");
+
 const versions = [...html.matchAll(/(?:src|href)="([^"]+\.(?:css|js))\?v=([^"]+)"/g)];
 assert.ok(versions.some(([, path]) => path === "css/os.css"), "Stylesheet must be cache-busted");
 assert.ok(versions.some(([, path]) => path === "js/ide.js"), "IDE script must be cache-busted");
