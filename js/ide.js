@@ -492,11 +492,11 @@ ${expMethods}
         <div class="preview-card-body contact-form-page">
           <div class="contact-form-intro"><div class="preview-avatar"><img src="assets/images/avatar-profile-card.png" alt="Saif Ul Rehman" /></div><div class="preview-name">Send me a message</div><div class="preview-role">Your message will be sent to Saif Ul Rehman by email.</div></div>
           <form class="portfolio-email-form" data-email-form>
-            <div class="contact-form-row"><label for="contactName">Your name</label><input id="contactName" name="from_name" type="text" autocomplete="name" maxlength="100" placeholder="Jane Smith" required /></div>
-            <div class="contact-form-row"><label for="contactEmail">Your email</label><input id="contactEmail" name="reply_to" type="email" autocomplete="email" maxlength="254" placeholder="jane@example.com" required /></div>
-            <div class="contact-form-row"><label for="contactSubject">Subject</label><input id="contactSubject" name="subject" type="text" maxlength="140" placeholder="Project inquiry" required /></div>
-            <div class="contact-form-row"><label for="contactMessage">Message</label><textarea id="contactMessage" name="message" rows="5" maxlength="4000" placeholder="Tell me a little about what you have in mind..." required></textarea></div>
-            <div class="contact-form-honeypot" aria-hidden="true"><label for="contactWebsite">Leave this field empty</label><input id="contactWebsite" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+            <div class="contact-form-row"><label>Your name<input name="from_name" type="text" autocomplete="name" maxlength="100" placeholder="Jane Smith" required /></label></div>
+            <div class="contact-form-row"><label>Your email<input name="reply_to" type="email" autocomplete="email" maxlength="254" placeholder="jane@example.com" required /></label></div>
+            <div class="contact-form-row"><label>Subject<input name="subject" type="text" maxlength="140" placeholder="Project inquiry" required /></label></div>
+            <div class="contact-form-row"><label>Message<textarea name="message" rows="5" maxlength="4000" placeholder="Tell me a little about what you have in mind..." required></textarea></label></div>
+            <div class="contact-form-honeypot" aria-hidden="true"><label>Leave this field empty<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
             <button class="contact-send-button" type="submit"><span aria-hidden="true">↗</span> Send message</button>
             <p class="contact-form-status" data-email-status role="status" aria-live="polite">Email delivery is being configured. You can also contact me directly at <a href="mailto:saifighourii000@gmail.com">saifighourii000@gmail.com</a>.</p>
           </form>
