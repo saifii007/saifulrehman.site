@@ -3360,3 +3360,49 @@ button.win-dot-red:hover {
  .browser-site-main .about-highlights,.browser-site-main .contact-method-grid,.browser-site-main .skills-grid { grid-template-columns:minmax(0,1fr); }
 }
 @media (max-width:420px) { .browser-site-shell { grid-template-columns:112px minmax(0,1fr); } .browser-site-brand small { display:none; } .browser-site-nav-item { font-size:.62rem; } }
+
+.browser-preview-backdrop { inset:0 0 var(--taskbar-h,52px) 0; background:rgba(3,4,8,.18); }
+.browser-preview-window { top:8px; left:10px; right:10px; bottom:calc(var(--taskbar-h,52px) + 8px); width:auto; min-width:0; border-radius:12px; }
+.browser-preview-page { padding:0; background:#101219; }
+.browser-site-shell { grid-template-columns:244px minmax(0,1fr); min-height:100%; height:100%; }
+.browser-site-sidebar { min-height:0; overflow:auto; }
+.browser-site-main { min-width:0; overflow:auto; padding:clamp(1.25rem,3vw,3rem); }
+.browser-taskbar-app.is-running { background:rgba(255,255,255,.14); }
+.browser-taskbar-glyph { display:block; width:26px; height:26px; border-radius:50%; border:3px solid #4285f4; background:conic-gradient(#34a853 0 120deg,#fbbc05 120deg 240deg,#ea4335 240deg); box-shadow:inset 0 0 0 3px #202127; }
+.profile-page { max-width:1000px; margin:0 auto; }
+.profile-hero { padding:clamp(1.1rem,2.5vw,2rem); border:1px solid #2c3040; border-radius:18px; background:radial-gradient(ellipse at top right,rgba(124,92,246,.15),transparent 48%),#151821; }
+.profile-identity { display:flex; align-items:center; gap:1.1rem; }
+.profile-avatar { width:82px; height:82px; flex:none; border:2px solid #8b5cf6; box-shadow:0 0 0 5px rgba(139,92,246,.12); }
+.profile-eyebrow { margin-bottom:.45rem; color:#a78bfa; font-size:.67rem; font-weight:800; letter-spacing:.13em; }
+.profile-name { margin:.15rem 0 .3rem; font-size:clamp(1.8rem,3.2vw,2.65rem); line-height:1.1; letter-spacing:-.035em; }
+.profile-location { margin-top:.45rem; color:#a8afc0; font-size:.8rem; }
+.profile-status { display:inline-flex; margin-top:1rem; }
+.profile-summary { max-width:850px; margin:1.25rem 0 0; padding:1rem 1.1rem; border-left:3px solid #8b5cf6; border-radius:0 10px 10px 0; background:#1b1c29; color:#e2e5ee; font-size:clamp(.92rem,1.3vw,1.08rem); line-height:1.8; }
+.profile-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; margin:1rem 0 1.8rem; }
+.profile-stat { display:flex; flex-direction:column; gap:.35rem; padding:1rem; border:1px solid #2d3140; border-radius:12px; background:#171a22; }
+.profile-stat strong { color:#f5f6fb; font-size:1rem; } .profile-stat span { color:#929aab; font-size:.75rem; }
+.profile-section { margin:1.8rem 0; }
+.profile-section-heading,.project-profile-section-heading { display:flex; align-items:center; gap:.7rem; margin-bottom:.75rem; }
+.profile-section-heading > span,.project-profile-section-heading > span { color:#a78bfa; font:700 .72rem var(--font-mono,monospace); }
+.profile-section-heading h2,.project-profile-section-heading h3 { margin:0; color:#f4f5fa; font-size:1.08rem; }
+.profile-body-copy { max-width:850px; color:#b9c0cf; font-size:.92rem; line-height:1.9; }
+.profile-feature-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; }
+.profile-feature-card { padding:1.1rem; border:1px solid #2c3040; border-radius:12px; background:#171a22; }
+.profile-feature-icon { display:grid; place-items:center; width:34px; height:34px; margin-bottom:.75rem; border-radius:9px; background:rgba(139,92,246,.17); color:#c4b5fd; }
+.profile-feature-card h3 { margin:0 0 .5rem; color:#f5f6fb; font-size:.9rem; }
+.profile-feature-card p { margin:0; color:#aeb5c5; font-size:.8rem; line-height:1.7; }
+.profile-tags { margin-top:.4rem; } .profile-actions { margin-top:1.4rem; }
+.project-profile-heading { padding-bottom:1.3rem; border-bottom:1px solid #2b2e3a; }
+.project-profile-kicker { margin-bottom:.8rem; color:#a78bfa; font-size:.68rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.project-profile-kicker span { padding:0 .3rem; color:#687083; }
+.project-profile-section { margin:1.4rem 0; padding:1.1rem 1.2rem; border:1px solid #2b2f3b; border-radius:12px; background:#151821; }
+.project-profile-section > p { margin:.2rem 0 0; color:#b9c0cf; font-size:.87rem; line-height:1.85; }
+.project-profile-feature-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem 1.2rem; margin:.6rem 0 0; padding-left:1.1rem; color:#c4cad7; font-size:.84rem; line-height:1.7; }
+.project-profile-feature-list li::marker { color:#a78bfa; } .project-detail-note { color:#929aab !important; font-size:.8rem !important; }
+.project-profile-footer { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-top:1.2rem; }
+.project-role-card { display:flex; flex-direction:column; gap:.35rem; padding:.8rem 1rem; border:1px solid #343044; border-radius:10px; background:rgba(139,92,246,.09); }
+.project-role-card span { color:#a78bfa; font-size:.63rem; font-weight:800; letter-spacing:.12em; } .project-role-card strong { color:#ece9ff; font-size:.85rem; }
+.project-profile-footer .preview-links { margin-top:0; }
+.browser-resume-frame { display:block; width:100%; height:100%; min-height:650px; border:0; background:#fff; }
+@media (max-width:760px) { .browser-site-shell { grid-template-columns:190px minmax(0,1fr); } .profile-stats,.profile-feature-grid { grid-template-columns:1fr; } .project-profile-feature-list { grid-template-columns:1fr; } .browser-site-main { padding:1rem; } }
+@media (max-width:520px) { .browser-preview-window { inset:4px 4px calc(var(--taskbar-h,52px) + 4px); } .browser-site-shell { grid-template-columns:132px minmax(0,1fr); } .browser-site-sidebar { padding:.65rem .35rem; } .browser-site-brand { gap:.35rem; padding:.2rem .2rem .8rem; } .browser-site-brand-mark { width:28px; height:28px; } .browser-site-brand strong { font-size:.62rem; } .browser-site-nav-item { font-size:.62rem; padding:.5rem .3rem; } .browser-site-main { padding:.75rem; } .profile-identity { align-items:flex-start; gap:.75rem; } .profile-avatar { width:58px; height:58px; } .profile-eyebrow { font-size:.55rem; } .profile-location { font-size:.7rem; } }

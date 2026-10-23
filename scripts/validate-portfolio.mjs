@@ -53,6 +53,14 @@ assert.match(ide, /PROJECTS\.map\(\(project\) => \[project\.id, project\.name/, 
 assert.match(ide, /control\.dataset\.browserPage/, "Browser sidebar navigation must switch pages in place");
 assert.match(css, /\.browser-site-shell \{ display:grid/, "Browser preview must use a website sidebar and content layout");
 
+
+assert.match(css, /\.browser-preview-window \{ top:8px; left:10px; right:10px;/, "Browser preview must use the full desktop width");
+assert.match(ide, /taskbarBrowserPreview/, "Browser preview must have a taskbar app button");
+assert.match(ide, /profile-page/, "About page must use the professional profile layout");
+assert.match(ide, /project-profile-section-heading/, "Project pages must use a structured case-study layout");
+assert.match(ide, /frame.src = RESUME_PATH/, "Resume browser page must render the official PDF");
+assert.doesNotMatch(projectBlock, /--|—|–/, "Project details must not contain double or long dash separators");
+
 const versions = [...html.matchAll(/(?:src|href)="([^"]+\.(?:css|js))\?v=([^"]+)"/g)];
 assert.ok(versions.some(([, path]) => path === "css/os.css"), "Stylesheet must be cache-busted");
 assert.ok(versions.some(([, path]) => path === "js/ide.js"), "IDE script must be cache-busted");

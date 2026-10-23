@@ -407,25 +407,7 @@ ${expMethods}
       </div>
       <aside class="preview-card">
         ${browserChrome("about.md", "/about")}
-        <div class="preview-card-body">
-          <div class="preview-avatar"><img src="assets/images/avatar-profile-card.png" alt="Saif Ul Rehman" /></div>
-          <div class="preview-name">Saif Ul Rehman</div>
-          <div class="preview-role">Senior Software Engineer &middot; Founder of ANGUNET</div>
-          <div class="preview-status">● Open to selected opportunities</div>
-          <p class="preview-quote">I build dependable products at the intersection of enterprise engineering and thoughtful user experience. My focus is scalable .NET architecture, modern Angular interfaces, and practical AI developer tooling.</p>
-          <div class="about-highlights">
-            <div class="about-highlight"><span class="about-highlight-label">CURRENT FOCUS</span><strong>Senior Software Engineer · Cedar Financial</strong><p>Building reliable financial software with a focus on maintainability, performance, and architecture.</p></div>
-            <div class="about-highlight"><span class="about-highlight-label">OPEN SOURCE</span><strong>ANGUNET · Angular + .NET</strong><p>Full-stack developer starter with Docker tooling and Model Context Protocol integration.</p></div>
-          </div>
-          <div class="preview-tags">
-            <span class="preview-tag">ASP.NET Core</span><span class="preview-tag">Angular</span><span class="preview-tag">React</span><span class="preview-tag">Microservices</span><span class="preview-tag">MCP</span>
-          </div>
-          <div class="about-actions">
-            <a class="about-action about-action-primary" href="Saif_Ul_Rehman_Resume_eng_2026.pdf" target="_blank" rel="noopener">View résumé ↗</a>
-            <a class="about-action" href="https://www.linkedin.com/in/saif-ul-rehman777" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-            <a class="about-action" href="mailto:saifighourii000@gmail.com">Email ↗</a>
-          </div>
-        </div>
+        <div class="preview-card-body profile-page"><section class="profile-hero"><div class="profile-identity"><div class="preview-avatar profile-avatar"><img src="assets/images/avatar-profile-card.png" alt="Portrait of Saif Ul Rehman" /></div><div><div class="profile-eyebrow">SOFTWARE ENGINEERING · PRODUCT DELIVERY</div><div class="preview-name profile-name">Saif Ul Rehman</div><div class="preview-role">Senior Software Engineer &amp; Founder of ANGUNET</div><div class="profile-location">Lahore, Pakistan · Available for selected opportunities</div></div></div><span class="preview-status profile-status">● Open to selected opportunities</span><p class="preview-quote profile-summary">I design and deliver dependable software for real business needs. My work spans scalable .NET systems, modern web applications, thoughtful architecture, and practical AI developer tooling.</p></section><section class="profile-stats" aria-label="Professional summary"><div class="profile-stat"><strong>6+ years</strong><span>Software development</span></div><div class="profile-stat"><strong>Cedar Financial</strong><span>Current focus</span></div><div class="profile-stat"><strong>ANGUNET</strong><span>Creator and founder</span></div></section><section class="profile-section"><div class="profile-section-heading"><span>01</span><h2>Professional profile</h2></div><p class="profile-body-copy">I work across the full product lifecycle, from structuring maintainable backend services to building clear frontend experiences and supporting reliable delivery. I value readable code, sound engineering decisions, and solutions that are practical to operate and extend.</p></section><section class="profile-feature-grid"><article class="profile-feature-card"><span class="profile-feature-icon">⌘</span><h3>Engineering focus</h3><p>.NET and ASP.NET Core, API design, Clean Architecture, microservices, and data-driven business applications.</p></article><article class="profile-feature-card"><span class="profile-feature-icon">✳</span><h3>Product delivery</h3><p>Angular and React interfaces, maintainable component structures, workflow design, and cross-stack integration.</p></article><article class="profile-feature-card"><span class="profile-feature-icon">◇</span><h3>Developer tooling</h3><p>ANGUNET, Docker-based workflows, project scaffolding, and Model Context Protocol integrations for AI-assisted development.</p></article></section><section class="profile-section"><div class="profile-section-heading"><span>02</span><h2>Core technologies</h2></div><div class="preview-tags profile-tags"><span class="preview-tag">C#</span><span class="preview-tag">ASP.NET Core</span><span class="preview-tag">Angular</span><span class="preview-tag">React</span><span class="preview-tag">SQL Server</span><span class="preview-tag">MongoDB</span><span class="preview-tag">Docker</span><span class="preview-tag">MCP</span></div></section><div class="about-actions profile-actions"><a class="about-action about-action-primary" href="Saif_Ul_Rehman_Resume_eng_2026.pdf" target="_blank" rel="noopener">View resume</a><a class="about-action" href="https://www.linkedin.com/in/saif-ul-rehman777" target="_blank" rel="noopener noreferrer">LinkedIn profile</a><a class="about-action" href="mailto:saifighourii000@gmail.com">Contact by email</a></div></div>
       </aside>
     </div>`;
   }
@@ -582,27 +564,39 @@ ${importLines}
             ${p.image ? `<img class="project-preview-image" src="${esc(p.image)}" alt="${esc(p.name)} project preview" loading="lazy" onerror="this.hidden=true; this.nextElementSibling.hidden=false;" /><div class="project-preview-fallback" hidden><span>${iconFor(p)}</span><span>Project preview</span></div>` : `<div class="project-preview-fallback"><span>${iconFor(p)}</span><span>Project overview</span></div>`}
             <div class="project-preview-hero-meta"><span>${esc(p.categoryLabel || "Software project")}</span><span class="project-preview-status"><i></i> Portfolio case study</span></div>
           </div>
-          <div class="preview-name-row project-preview-title">
-            <div class="preview-name">${esc(p.name)}</div>
-            ${p.contribution ? `<span class="preview-contribution">${esc(p.contribution)}</span>` : ""}
-          </div>
-          <div class="preview-role">${esc(p.tagline || "")}</div>
-          <p class="project-preview-description">${esc(p.description || "Project details will be added when verified information is available.")}</p>
-          <div class="project-preview-section-label">TECHNOLOGY</div>
-          <div class="preview-tags">${(p.tech || []).map((t) => `<span class="preview-tag">${esc(t)}</span>`).join("")}</div>
-          ${p.features && p.features.length ? `<div class="dija-project-detail-inner"><h4>What it delivers</h4><ul>${p.features.filter((f) => !/^\[ADD/i.test(f)).map((f) => `<li>${esc(f)}</li>`).join("")}</ul></div>` : ""}
-          ${p.architecture && !/^\[ADD/i.test(p.architecture) ? `<div class="project-architecture"><span class="project-preview-section-label">ENGINEERING NOTES</span><p>${esc(p.architecture)}</p></div>` : ""}
-          <div class="preview-links">${links.join("")}</div>
+          <section class="project-profile-heading"><div class="project-profile-kicker">${esc(p.categoryLabel || "Software project")} <span>·</span> PORTFOLIO CASE STUDY</div><div class="preview-name-row project-preview-title"><div class="preview-name">${esc(p.name)}</div>${p.contribution ? `<span class="preview-contribution">${esc(p.contribution)}</span>` : ""}</div><div class="preview-role">${esc(p.tagline || "")}</div><p class="project-preview-description">${esc(p.description || "This portfolio entry has a limited public project record. Contact me for further verified details.")}</p></section><section class="project-profile-section"><div class="project-profile-section-heading"><span>01</span><h3>Project overview</h3></div><p>${esc(p.description || "This portfolio entry has a limited public project record. Contact me for further verified details.")}</p></section><section class="project-profile-section"><div class="project-profile-section-heading"><span>02</span><h3>Technology stack</h3></div>${(p.tech || []).length ? `<div class="preview-tags">${p.tech.map((t) => `<span class="preview-tag">${esc(t)}</span>`).join("")}</div>` : '<p class="project-detail-note">The available project record does not specify the full technology stack.</p>'}</section><section class="project-profile-section"><div class="project-profile-section-heading"><span>03</span><h3>Scope and capabilities</h3></div>${p.features && p.features.length ? `<ul class="project-profile-feature-list">${p.features.filter((f) => !/^\[ADD/i.test(f)).map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : '<p class="project-detail-note">Detailed feature documentation is not available in the current portfolio record. This page avoids presenting unverified functionality as fact.</p>'}</section><section class="project-profile-section"><div class="project-profile-section-heading"><span>04</span><h3>Engineering approach</h3></div>${p.architecture && !/^\[ADD/i.test(p.architecture) ? `<p>${esc(p.architecture)}</p>` : '<p class="project-detail-note">Specific architecture details are not documented in the current portfolio record.</p>'}</section><div class="project-profile-footer">${p.contribution ? `<div class="project-role-card"><span>MY ROLE</span><strong>${esc(p.contribution)}</strong></div>` : ""}<div class="preview-links">${links.join("")}</div></div>
         </div>
       </aside>
     </div>`;
   }
 
   /* ---------------- On-demand browser preview ---------------- */
+  const taskbarPinned = document.getElementById("taskbarPinned");
+  let browserTaskbarButton = document.getElementById("taskbarBrowserPreview");
+  if (!browserTaskbarButton && taskbarPinned) {
+    browserTaskbarButton = document.createElement("button");
+    browserTaskbarButton.type = "button";
+    browserTaskbarButton.id = "taskbarBrowserPreview";
+    browserTaskbarButton.className = "taskbar-icon browser-taskbar-app";
+    browserTaskbarButton.setAttribute("aria-label", "Chrome portfolio preview");
+    browserTaskbarButton.title = "Chrome portfolio preview";
+    browserTaskbarButton.innerHTML = '<span class="browser-taskbar-glyph" aria-hidden="true"></span>';
+    const social = taskbarPinned.querySelector("[data-social]");
+    taskbarPinned.insertBefore(browserTaskbarButton, social || null);
+    browserTaskbarButton.addEventListener("click", () => {
+      if (browserPreview && !browserPreview.hidden && browserPreview.classList.contains("is-open")) closeBrowserPreview();
+      else {
+        const id = activeId || "about";
+        if (!document.getElementById("pane-" + id)) openFile(id);
+        openBrowserPreview(id, document.getElementById("pane-" + id));
+      }
+    });
+  }
   function closeBrowserPreview() {
     if (!browserPreview) return;
     browserPreview.classList.remove("is-open");
     if (browserPreviewBackdrop) browserPreviewBackdrop.hidden = true;
+    if (browserTaskbarButton) browserTaskbarButton.classList.remove("is-running");
     setTimeout(() => { browserPreview.hidden = true; }, prefersReducedMotion ? 0 : 180);
   }
   function browserPagePath(id) {
@@ -616,20 +610,12 @@ ${importLines}
 
   function browserContentFor(id) {
     if (id === "resume") {
-      const template = document.createElement("template");
-      template.innerHTML = aboutMarkup();
-      const about = template.content.querySelector(".preview-card-body");
-      const wrapper = document.createElement("article");
-      wrapper.className = "browser-resume-page";
-      if (about) wrapper.appendChild(about.cloneNode(true));
-      const link = document.createElement("a");
-      link.className = "browser-resume-download";
-      link.href = RESUME_PATH;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = "Open official resume PDF ↗";
-      wrapper.appendChild(link);
-      return wrapper;
+      const frame = document.createElement("iframe");
+      frame.className = "browser-resume-frame";
+      frame.title = "Saif Ul Rehman resume PDF";
+      frame.src = RESUME_PATH;
+      frame.loading = "lazy";
+      return frame;
     }
     const template = document.createElement("template");
     template.innerHTML = buildPaneMarkup(id);
@@ -705,6 +691,7 @@ ${importLines}
     if (browserPreviewBackdrop) browserPreviewBackdrop.hidden = false;
     void browserPreview.offsetWidth;
     browserPreview.classList.add("is-open");
+    if (browserTaskbarButton) browserTaskbarButton.classList.add("is-running");
     if (browserPreviewClose) browserPreviewClose.focus();
   }
   function installPreviewControl(pane, id) {
