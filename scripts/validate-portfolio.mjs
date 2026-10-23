@@ -68,3 +68,11 @@ assert.ok(versions.some(([, path]) => path === "js/dija.js"), "DIJA script must 
 assert.ok(versions.some(([, path]) => path === "js/data.js"), "Project data must be cache-busted");
 
 console.log(`Portfolio quality checks passed: ${ids.length} unique HTML IDs, ${[...projectBlock.matchAll(/image:\s*"([^"]+)"/g)].length} project images, ${versions.length} versioned assets.`);
+
+assert.ok(html.includes("@emailjs/browser@4"), "EmailJS browser SDK must be loaded");
+assert.ok(html.includes("js/email-config.js"), "EmailJS config must be loaded before the IDE");
+assert.ok(ide.includes("function installEmailForm"), "Browser preview must wire up the EmailJS contact form");
+assert.ok(ide.includes("window.emailjs.sendForm(config.serviceId, config.templateId, form)"), "Contact form must submit through EmailJS");
+assert.ok(ide.includes("data-email-form"), "Contact form must be rendered in the browser preview");
+assert.ok(css.includes(".portfolio-email-form"), "Email contact form must be styled");
+assert.ok(ide.includes('maxlength="4000"'), "Contact message length must be limited");

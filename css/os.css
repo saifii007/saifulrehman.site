@@ -3406,3 +3406,26 @@ button.win-dot-red:hover {
 .browser-resume-frame { display:block; width:100%; height:100%; min-height:650px; border:0; background:#fff; }
 @media (max-width:760px) { .browser-site-shell { grid-template-columns:190px minmax(0,1fr); } .profile-stats,.profile-feature-grid { grid-template-columns:1fr; } .project-profile-feature-list { grid-template-columns:1fr; } .browser-site-main { padding:1rem; } }
 @media (max-width:520px) { .browser-preview-window { inset:4px 4px calc(var(--taskbar-h,52px) + 4px); } .browser-site-shell { grid-template-columns:132px minmax(0,1fr); } .browser-site-sidebar { padding:.65rem .35rem; } .browser-site-brand { gap:.35rem; padding:.2rem .2rem .8rem; } .browser-site-brand-mark { width:28px; height:28px; } .browser-site-brand strong { font-size:.62rem; } .browser-site-nav-item { font-size:.62rem; padding:.5rem .3rem; } .browser-site-main { padding:.75rem; } .profile-identity { align-items:flex-start; gap:.75rem; } .profile-avatar { width:58px; height:58px; } .profile-eyebrow { font-size:.55rem; } .profile-location { font-size:.7rem; } }
+
+/* EmailJS contact form, shown inside the full-width browser preview. */
+.contact-form-page { max-width:760px; margin:0 auto; padding:clamp(1rem,2.8vw,2rem); }
+.contact-form-intro { margin-bottom:1.35rem; }
+.contact-form-intro .preview-avatar { margin-bottom:.8rem; }
+.contact-form-intro .preview-name { font-size:clamp(1.4rem,2.5vw,2rem); }
+.contact-form-intro .preview-role { max-width:550px; line-height:1.7; }
+.portfolio-email-form { display:grid; gap:1rem; margin-top:1.3rem; }
+.contact-form-row { display:grid; gap:.45rem; }
+.contact-form-row label { color:#dce0eb; font-size:.8rem; font-weight:650; }
+.contact-form-row input,.contact-form-row textarea { width:100%; min-width:0; padding:.8rem .9rem; border:1px solid #34394a; border-radius:9px; outline:none; background:#171a23; color:#f4f5fb; font:inherit; font-size:.88rem; transition:border-color .16s,box-shadow .16s; }
+.contact-form-row input::placeholder,.contact-form-row textarea::placeholder { color:#777f91; }
+.contact-form-row input:focus,.contact-form-row textarea:focus { border-color:#9b7afa; box-shadow:0 0 0 3px rgba(139,92,246,.16); }
+.contact-form-row textarea { resize:vertical; min-height:125px; line-height:1.6; }
+.contact-send-button { display:inline-flex; justify-content:center; align-items:center; gap:.55rem; min-height:44px; padding:.75rem 1.1rem; border:1px solid #8b6be8; border-radius:9px; background:#7953cf; color:#fff; font:inherit; font-size:.86rem; font-weight:750; cursor:pointer; transition:filter .15s,transform .15s; }
+.contact-send-button:hover:not(:disabled) { filter:brightness(1.12); transform:translateY(-1px); }
+.contact-send-button:disabled { cursor:wait; opacity:.65; }
+.contact-form-status { margin:0; color:#9ca5b8; font-size:.76rem; line-height:1.7; overflow-wrap:anywhere; }
+.contact-form-status a,.contact-form-direct a { color:#b8a2ff; text-decoration:underline; text-underline-offset:3px; }
+.contact-form-status.is-success { color:#6ee7b7; } .contact-form-status.is-error { color:#fca5a5; } .contact-form-status.is-setup-pending { color:#fcd34d; }
+.contact-form-honeypot { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important; }
+.contact-form-direct { display:flex; justify-content:space-between; flex-wrap:wrap; gap:.5rem; margin-top:1.25rem; padding-top:1rem; border-top:1px solid #2c3040; color:#9ca5b8; font-size:.78rem; }
+@media(max-width:560px) { .contact-form-page { padding:.8rem; } .contact-form-direct { flex-direction:column; } }

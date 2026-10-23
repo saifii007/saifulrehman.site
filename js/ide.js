@@ -478,44 +478,29 @@ ${expMethods}
   function contactMarkup() {
     return `<div class="ide-pane-split">
       <div class="code-block">
-<span class="tok-comment"># Contact.env — reach out any time</span>
+<span class="tok-comment"># Contact.env - reach out any time</span>
 <span class="contact-line"><span class="tok-key">EMAIL</span><span class="tok-punct">=</span><a href="mailto:saifighourii000@gmail.com">saifighourii000@gmail.com</a></span>
 <span class="contact-line"><span class="tok-key">PHONE</span><span class="tok-punct">=</span><a href="tel:+923249705067">+92 324 970 5067</a></span>
 <span class="contact-line"><span class="tok-key">WHATSAPP</span><span class="tok-punct">=</span><a href="https://wa.me/923249705067" target="_blank" rel="noopener noreferrer">wa.me/923249705067</a></span>
 <span class="contact-line"><span class="tok-key">LINKEDIN</span><span class="tok-punct">=</span><a href="https://www.linkedin.com/in/saif-ul-rehman777/" target="_blank" rel="noopener noreferrer">linkedin.com/in/saif-ul-rehman777</a></span>
 <span class="contact-line"><span class="tok-key">GITHUB</span><span class="tok-punct">=</span><a href="https://github.com/saifii007" target="_blank" rel="noopener noreferrer">github.com/saifii007</a></span>
-<span class="contact-line"><span class="tok-key">LOCATION</span><span class="tok-punct">=</span><span class="tok-string">"Lahore, Punjab, Pakistan"</span></span>
-<span class="contact-line"><span class="tok-key">STATUS</span><span class="tok-punct">=</span><span class="tok-string">"open_to_work"</span></span>
+<span class="contact-line"><span class="tok-key">EMAIL_SERVICE</span><span class="tok-punct">=</span><span class="tok-string">"EmailJS"</span></span>
+<span class="contact-line"><span class="tok-key">EMAIL_DELIVERY</span><span class="tok-punct">=</span><span class="tok-string">"Configure service and template IDs"</span></span>
       </div>
       <aside class="preview-card">
-        ${browserChrome("CONTACT.ENV", "/contact")}
-        <div class="preview-card-body">
-          <div class="preview-avatar"><img src="assets/images/avatar-profile-card.png" alt="Saif Ul Rehman" /></div>
-          <div class="preview-name">Get in touch</div>
-          <div class="preview-role">Saif Ul Rehman &middot; Lahore, Pakistan</div>
-          <div class="preview-status">● Open to work</div>
-          <div class="contact-method-grid">
-            <a class="contact-method-card" href="mailto:saifighourii000@gmail.com">
-              <span class="contact-method-icon">✉️</span>
-              <span class="contact-method-label">Email</span>
-            </a>
-            <a class="contact-method-card" href="tel:+923249705067">
-              <span class="contact-method-icon">📞</span>
-              <span class="contact-method-label">Call</span>
-            </a>
-            <a class="contact-method-card" href="https://wa.me/923249705067" target="_blank" rel="noopener noreferrer">
-              <span class="contact-method-icon">💬</span>
-              <span class="contact-method-label">WhatsApp</span>
-            </a>
-            <a class="contact-method-card" href="https://www.linkedin.com/in/saif-ul-rehman777/" target="_blank" rel="noopener noreferrer">
-              <span class="contact-method-icon">💼</span>
-              <span class="contact-method-label">LinkedIn</span>
-            </a>
-            <a class="contact-method-card" href="https://github.com/saifii007" target="_blank" rel="noopener noreferrer">
-              <span class="contact-method-icon">🐙</span>
-              <span class="contact-method-label">GitHub</span>
-            </a>
-          </div>
+        ${browserChrome("CONTACT.FORM", "/contact")}
+        <div class="preview-card-body contact-form-page">
+          <div class="contact-form-intro"><div class="preview-avatar"><img src="assets/images/avatar-profile-card.png" alt="Saif Ul Rehman" /></div><div class="preview-name">Send me a message</div><div class="preview-role">Your message will be sent to Saif Ul Rehman by email.</div></div>
+          <form class="portfolio-email-form" data-email-form>
+            <div class="contact-form-row"><label>Your name<input name="from_name" type="text" autocomplete="name" maxlength="100" placeholder="Jane Smith" required /></label></div>
+            <div class="contact-form-row"><label>Your email<input name="reply_to" type="email" autocomplete="email" maxlength="254" placeholder="jane@example.com" required /></label></div>
+            <div class="contact-form-row"><label>Subject<input name="subject" type="text" maxlength="140" placeholder="Project inquiry" required /></label></div>
+            <div class="contact-form-row"><label>Message<textarea name="message" rows="5" maxlength="4000" placeholder="Tell me a little about what you have in mind..." required></textarea></label></div>
+            <div class="contact-form-honeypot" aria-hidden="true"><label>Leave this field empty<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+            <button class="contact-send-button" type="submit"><span aria-hidden="true">↗</span> Send message</button>
+            <p class="contact-form-status" data-email-status role="status" aria-live="polite">Email delivery is being configured. You can also contact me directly at <a href="mailto:saifighourii000@gmail.com">saifighourii000@gmail.com</a>.</p>
+          </form>
+          <div class="contact-form-direct"><span>Prefer email?</span><a href="mailto:saifighourii000@gmail.com">Open your email app ↗</a></div>
         </div>
       </aside>
     </div>`;
@@ -676,11 +661,62 @@ ${importLines}
     main.appendChild(browserContentFor(id));
     shell.append(sidebar, main);
     browserPreviewPage.appendChild(shell);
+    installEmailForm(browserPreviewPage);
+
     browserPreviewPage.querySelectorAll("[data-browser-page]").forEach((control) => {
       control.addEventListener("click", (event) => {
         event.preventDefault();
         renderBrowserPreviewPage(control.dataset.browserPage);
       });
+    });
+  }
+
+  function installEmailForm(root) {
+    const form = root.querySelector("[data-email-form]");
+    if (!form || form.dataset.emailBound === "true") return;
+    form.dataset.emailBound = "true";
+    const status = form.querySelector("[data-email-status]");
+    const submit = form.querySelector('button[type="submit"]');
+    const config = window.PORTFOLIO_EMAIL_CONFIG || {};
+    const configured = config.publicKey && config.serviceId && config.templateId &&
+      !/YOUR_|REPLACE_ME|CHANGE_ME/i.test([config.publicKey, config.serviceId, config.templateId].join(" "));
+    if (!configured || !window.emailjs) {
+      status.classList.add("is-setup-pending");
+      status.textContent = "Email delivery is not connected yet. Configure the EmailJS public key, service ID, and template ID to activate this form. You can email Saif directly at saifighourii000@gmail.com.";
+      return;
+    }
+    try {
+      window.emailjs.init({ publicKey: config.publicKey });
+    } catch (error) {
+      status.textContent = "Email service could not be initialized. Please use the direct email link below.";
+      return;
+    }
+    status.textContent = "Your message will be sent directly to Saif's inbox. Please do not include passwords or sensitive information.";
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      if (form.elements.website && form.elements.website.value.trim()) return;
+      const lastSent = Number(sessionStorage.getItem("portfolioEmailLastSentAt") || 0);
+      if (Date.now() - lastSent < 10000) {
+        status.textContent = "Please wait a few seconds before sending another message.";
+        return;
+      }
+      submit.disabled = true;
+      submit.textContent = "Sending message...";
+      status.textContent = "Sending your message securely through EmailJS...";
+      try {
+        await window.emailjs.sendForm(config.serviceId, config.templateId, form);
+        sessionStorage.setItem("portfolioEmailLastSentAt", String(Date.now()));
+        form.reset();
+        status.textContent = "Message sent successfully. Thank you for reaching out. Saif will get back to you as soon as possible.";
+        status.classList.add("is-success");
+      } catch (error) {
+        status.textContent = "Your message could not be sent right now. Please try again later or email saifighourii000@gmail.com directly.";
+        status.classList.add("is-error");
+      } finally {
+        submit.disabled = false;
+        submit.innerHTML = '<span aria-hidden="true">↗</span> Send message';
+      }
     });
   }
 
