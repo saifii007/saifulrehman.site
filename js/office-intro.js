@@ -1,4 +1,4 @@
-/* Animated portfolio intro. Keeps the existing desktop and taskbar intact. */
+/* Animated portfolio intro. Uses the supplied office panorama asset when it is present. Keeps the existing desktop and taskbar intact. */
 (() => {
   "use strict";
   if (sessionStorage.getItem("saifIntroSeen") === "1") return;
@@ -7,7 +7,7 @@
   style.textContent = `
     #saif-office-intro{position:fixed;inset:0 0 var(--taskbar-h,48px);z-index:9998;overflow:hidden;color:#f8fafc;font-family:var(--font-ui,"Segoe UI",sans-serif);background:#101a23;isolation:isolate}
     #saif-office-intro *{box-sizing:border-box}
-    #saif-office-intro .office-scene{position:absolute;inset:-4%;background:linear-gradient(90deg,rgba(8,15,23,.84),rgba(8,15,23,.28) 58%,rgba(8,15,23,.6)),linear-gradient(0deg,#17212b 0%,transparent 38%),radial-gradient(ellipse at 72% 25%,#9aaeb7 0%,#506b79 25%,transparent 48%),linear-gradient(125deg,#344a55 0%,#172b37 45%,#71858b 70%,#263c48 100%);animation:saifOfficePan 18s ease-in-out infinite alternate}
+    #saif-office-intro .office-scene{position:absolute;inset:-4%;background-image:linear-gradient(90deg,rgba(8,15,23,.76),rgba(8,15,23,.20) 58%,rgba(8,15,23,.46)),linear-gradient(0deg,rgba(23,33,43,.9) 0%,transparent 38%),url("office-panorama.jpg"),linear-gradient(125deg,#344a55 0%,#172b37 45%,#71858b 70%,#263c48 100%);background-size:cover,cover,cover,cover;background-position:center,center,center,center;background-repeat:no-repeat;animation:saifOfficePan 18s ease-in-out infinite alternate}
     #saif-office-intro .office-scene:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 12%,rgba(4,12,19,.42) 12.2% 12.8%,transparent 13% 24%),linear-gradient(180deg,rgba(255,255,255,.09),transparent 32%);transform:perspective(900px) rotateY(-8deg) scale(1.08)}
     #saif-office-intro .office-scene:after{content:"";position:absolute;left:15%;right:8%;bottom:-10%;height:46%;background:linear-gradient(165deg,#293842,#111c25 70%);clip-path:polygon(0 14%,100% 0,100% 100%,0 100%);box-shadow:0 -1px rgba(255,255,255,.12)}
     #saif-office-intro .scene-glow{position:absolute;width:38vw;height:38vw;right:8%;top:-18%;border-radius:50%;background:rgba(170,207,221,.13);filter:blur(40px);animation:saifGlow 8s ease-in-out infinite alternate}
