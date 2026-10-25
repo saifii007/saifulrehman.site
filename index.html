@@ -1,223 +1,363 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f5f1">
-  <meta name="description" content="Meet Saif Ul Rehman — software engineer, builder, and the person behind a portfolio of real products.">
-  <title>Saif Ul Rehman — Portfolio Introduction</title>
-  <link rel="preload" as="image" href="office-panorama.jpg" fetchpriority="high">
-  <style>
-    :root {
-      color-scheme: light;
-      --ink: #192a35;
-      --muted: #526572;
-      --blue: #155fba;
-      --line: #d9e1e5;
-      --panel: rgba(255,255,255,.96);
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; width: 100%; min-height: 100%; }
-    body { font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f5f1; color: var(--ink); }
-    button, a { font: inherit; }
-    button:focus-visible, a:focus-visible { outline: 3px solid #6aa7e8; outline-offset: 3px; }
-    .stage { position: relative; width: 100%; min-height: 620px; height: 100svh; max-height: 1100px; overflow: hidden; isolation: isolate; background: #f5f5f1; }
-    .panorama {
-      position: absolute; inset: -1%;
-      background-image: url("office-panorama.jpg");
-      background-repeat: no-repeat;
-      background-size: auto 155%;
-      background-position: 52% center;
-      transform: scale(1.015);
-      transition: background-position 2.3s cubic-bezier(.2,.75,.2,1);
-      will-change: background-position;
-    }
-    .wash { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg,rgba(255,255,255,.20),transparent 42%),linear-gradient(0deg,rgba(8,20,30,.32),transparent 23%); }
-    .brand { position: absolute; z-index: 5; left: clamp(14px,3vw,42px); top: 20px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; background: #ffffffed; font-size: 11px; font-weight: 850; letter-spacing: .08em; color: #243946; box-shadow: 0 5px 20px #152e3b12; }
-    .controls { position: absolute; z-index: 10; right: clamp(12px,2vw,26px); top: 18px; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
-    .control { border: 1px solid #d9e0e4; background: #ffffffed; border-radius: 999px; padding: 10px 13px; font-size: 12px; font-weight: 700; color: #344955; cursor: pointer; box-shadow: 0 4px 14px #152e3b0b; }
-    .control:hover { background: white; border-color: #b8c7d0; }
-    .card { position: absolute; z-index: 6; left: clamp(18px,4vw,58px); top: clamp(100px,16vh,150px); width: min(410px,calc(100vw - 36px)); padding: 24px; border: 1px solid #dbe1e4; border-radius: 20px; background: var(--panel); box-shadow: 0 16px 52px #1d303d20; backdrop-filter: blur(12px); opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; pointer-events: none; }
-    .card.show { opacity: 1; transform: translateY(0); }
-    .eyebrow { font-size: 10px; font-weight: 850; letter-spacing: .16em; text-transform: uppercase; color: #71818a; margin-bottom: 10px; }
-    h1 { font-size: clamp(28px,3.5vw,44px); line-height: 1.04; letter-spacing: -.045em; margin: 0 0 12px; color: #1a2a35; }
-    h1 span, .final h2 span { color: var(--blue); }
-    p { font-size: 14px; line-height: 1.65; color: var(--muted); margin: 0; }
-    .toast { position: absolute; z-index: 7; right: clamp(18px,4vw,58px); top: clamp(92px,16vh,150px); width: min(350px,calc(100vw - 36px)); padding: 18px; border: 1px solid #d8e0e5; border-radius: 17px; background: white; box-shadow: 0 18px 55px #1a2f3e24; opacity: 0; transform: translateY(-10px) scale(.985); transition: opacity .45s ease, transform .45s ease; pointer-events: none; }
-    .toast.show { opacity: 1; transform: translateY(0) scale(1); animation: reminderArrive .55s cubic-bezier(.16,1,.3,1) both; }
-    .toast-head { display: flex; gap: 11px; align-items: center; }
-    .teams-icon { width: 40px; height: 40px; flex: 0 0 40px; border-radius: 11px; display: grid; place-items: center; background: #eef0ff; color: #4f5bb0; font-size: 19px; font-weight: 900; }
-    .toast-title { font-weight: 850; font-size: 13px; }
-    .meta { font-size: 11px; color: #798791; margin-top: 3px; }
-    .toast-body { margin-top: 13px; padding: 11px 12px; border-radius: 10px; background: #f4f6f8; font-size: 12px; line-height: 1.55; color: #3d4d58; }
-    .final { position: absolute; z-index: 8; right: clamp(18px,4vw,58px); bottom: clamp(100px,14vh,145px); width: min(370px,calc(100vw - 36px)); padding: 24px; border: 1px solid #d8e1e6; border-radius: 21px; background: var(--panel); box-shadow: 0 20px 60px #1b303e2c; opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; pointer-events: none; }
-    .final.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    .final h2 { font-size: clamp(23px,2.5vw,31px); line-height: 1.12; letter-spacing: -.03em; margin: 0 0 10px; }
-    .final p { margin-bottom: 18px; }
-    .cta { display: inline-flex; align-items: center; gap: 12px; border: 0; border-radius: 999px; padding: 14px 19px; background: var(--blue); color: white; font-weight: 850; font-size: 13px; cursor: pointer; box-shadow: 0 8px 22px #155fba30; text-decoration: none; transition: transform .2s, background .2s; }
-    .cta:hover { transform: translateY(-2px); background: #0d4e9d; }
-    .stage.animation-hidden .card, .stage.animation-hidden .toast, .stage.animation-hidden .final, .stage.animation-hidden .ticker, .stage.animation-hidden .brand, .stage.animation-hidden .controls, .stage.animation-hidden .wash { display: none !important; }
-    .stage.animation-hidden .panorama { background-position: 100% center !important; transition: none; }
-    .arrow { font-size: 18px; }
-    .ticker { position: absolute; z-index: 9; left: 0; right: 0; bottom: 0; height: 62px; display: flex; align-items: center; background: rgba(9,18,30,.96); border-top: 1px solid #9db5c7; box-shadow: 0 -8px 25px #14273520; overflow: hidden; }
-    .ticker-label { height: 100%; width: 145px; flex: 0 0 145px; padding-left: 18px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid #ffffff2a; color: #fff; font-size: 11px; font-weight: 900; letter-spacing: .07em; }
-    .ticker-label small { margin-top: 4px; font-size: 9px; color: #a9c3d4; letter-spacing: .1em; }
-    .track-window { flex: 1; overflow: hidden; mask-image: linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent); }
-    .track { display: flex; width: max-content; animation: tickerScroll 55s linear infinite; }
-    .track:hover { animation-play-state: paused; }
-    .project { white-space: nowrap; padding: 0 21px; font-size: 12px; font-weight: 750; color: #f1f6f9; }
-    .project::before { content: "✦"; color: #7cb5d7; margin-right: 12px; }
-    .status { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-    @keyframes tickerScroll { to { transform: translateX(-50%); } }
-    @keyframes reminderArrive { 0% { filter: blur(3px); } 100% { filter: blur(0); } }
-    @media (max-width: 700px) {
-      .stage { min-height: 650px; }
-      .panorama { background-size: auto 115%; background-position: 52% 36%; background-color: #f5f5f1; }
-      .wash { background: linear-gradient(0deg,rgba(255,255,255,.95),rgba(255,255,255,.05) 58%); }
-      .brand { top: 12px; font-size: 9px; }
-      .controls { top: 57px; left: 12px; right: 12px; justify-content: flex-end; }
-      .control { padding: 9px 10px; font-size: 11px; }
-      .card { top: 112px; padding: 18px; width: min(350px,calc(100vw - 30px)); }
-      .toast { top: auto; right: 15px; bottom: 105px; }
-      .final { right: 15px; bottom: 105px; width: min(340px,calc(100vw - 30px)); padding: 19px; }
-      .ticker { height: 55px; }
-      .ticker-label { width: 105px; flex-basis: 105px; padding-left: 10px; font-size: 9px; }
-      .project { font-size: 10px; padding: 0 13px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *,*::before,*::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saif Ul Rehman — Senior Software Engineer &amp; Founder of ANGUNET</title>
+  <meta name="description" content="Portfolio of Saif Ul Rehman, Senior Software Engineer at Cedar Financial and founder of ANGUNET — presented as an interactive Windows 11 desktop with a VS Code IDE." />
+  <meta name="keywords" content="Saif Ul Rehman, Senior Software Engineer, .NET Developer, Angular Developer, System Architect, ANGUNET, Model Context Protocol, MCP, Agentic AI, Lahore Pakistan Software Engineer" />
+  <meta name="author" content="Saif Ul Rehman" />
+  <meta name="theme-color" content="#0b0e14" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Saif Ul Rehman — Senior Software Engineer & Founder of ANGUNET" />
+  <meta property="og:description" content="6 years building SaaS platforms, microservices, and AI-powered applications — explore it as a Windows 11 desktop with a live VS Code IDE." />
+  <meta property="og:image" content="assets/images/og-cover.svg" />
+  <meta property="og:url" content="https://saifii007.github.io/saifulrehman.site/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Saif Ul Rehman — Senior Software Engineer & Founder of ANGUNET" />
+  <meta name="twitter:description" content="6 years building SaaS platforms, microservices, and AI-powered applications — explore it as a Windows 11 desktop with a live VS Code IDE." />
+  <meta name="twitter:image" content="assets/images/og-cover.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  <link rel="canonical" href="https://saifii007.github.io/saifulrehman.site/" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/os.css?v=20261023-4" />
 </head>
 <body>
-<main class="stage" id="stage">
-  <div class="panorama" id="panorama" aria-hidden="true"></div>
-  <div class="wash" aria-hidden="true"></div>
-  <div class="brand">SAIF UL REHMAN · SOFTWARE ENGINEER & PRODUCT BUILDER</div>
-  <div class="controls" aria-label="Animation controls">
-    <button class="control" id="sound" type="button" aria-pressed="false">♬ Enable sound</button>
-    <button class="control" id="replay" type="button">↻ Replay</button>
-    <button class="control" id="skip" type="button">Skip ↗</button>
-  </div>
-  <section class="card show" id="intro" aria-live="polite">
-    <div class="eyebrow">Hello there 👋</div>
-    <h1>Hey, I’m <span>Saif Ul Rehman.</span></h1>
-    <p>I build thoughtful digital products with .NET, Angular, and modern web technologies. I’m glad you stopped by.</p>
-  </section>
-  <section class="toast" id="toast" aria-label="Meeting notification">
-    <div class="toast-head"><div class="teams-icon" aria-hidden="true">◷</div><div><div class="toast-title">Calendar reminder</div><div class="meta">Saif’s calendar · Just now</div></div></div>
-    <div class="toast-body"><strong>Your team meeting is about to start.</strong><br>That’s my cue — I need to step away and join the meeting.</div>
-  </section>
-  <section class="final" id="final">
-    <div class="eyebrow">Before I go…</div>
-    <h2>I’m here — but I need to run to a meeting.</h2>
-    <p>While I’m away, take a look around. Explore the products I’ve built, my experience, and how I solve problems. Make yourself at home.</p>
-    <button class="cta" type="button" id="open">Hide Animation <span class="arrow" aria-hidden="true">→</span></button>
-  </section>
-  <div class="ticker" aria-label="Featured projects">
-    <div class="ticker-label">MY PROJECTS<small>PORTFOLIO SHOWCASE</small></div>
-    <div class="track-window"><div class="track" id="track"></div></div>
-  </div>
-  <p class="status" id="status" aria-live="polite"></p>
-</main>
-<script>
-(() => {
-  const projects = ['ANGUNET','Daedalus','Consumer Portal','Collect Ware','Cedar_RPS','Payment Portal','NOKNOK','Twilio Call Center','AutoApply','PMS (HRMS)','Fastlane','BLOCKPOS','BLOCK-DailyBook','BLOCK-QSR','BLOCK-ECOM','Blogs App','Design Library'];
-  const track = document.getElementById('track');
-  // Duplicate once for a seamless ticker loop; project text is fixed, not user input.
-  track.innerHTML = [...projects, ...projects].map(name => `<span class="project">${name}</span>`).join('');
+  <a class="skip-link" href="#vscodeWindow">Skip to portfolio content</a>
 
-  const panorama = document.getElementById('panorama');
-  const intro = document.getElementById('intro');
-  const toast = document.getElementById('toast');
-  const finalCard = document.getElementById('final');
-  const soundButton = document.getElementById('sound');
-  const status = document.getElementById('status');
-  const stage = document.getElementById('stage');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let timers = [];
-  let soundOn = false;
-  let audioContext = null;
-  let paused = false;
+  <!-- ============ DESKTOP ============ -->
+  <main id="desktop" class="desktop" aria-label="Desktop">
+    <div class="wallpaper" aria-hidden="true"></div>
+    <div class="wallpaper-scrim" aria-hidden="true"></div>
 
-  function clearTimers() { timers.forEach(window.clearTimeout); timers = []; }
-  function showScene(which) {
-    intro.classList.toggle('show', which === 'intro');
-    toast.classList.toggle('show', which === 'toast');
-    finalCard.classList.toggle('show', which === 'final');
-  }
-  function chime() {
-    if (!soundOn) return;
-    try {
-      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
-      if (audioContext.state === 'suspended') audioContext.resume();
-      const start = audioContext.currentTime;
-      // Original two-note chime, not a copied recording of a proprietary notification.
-      [[740, 0, .13], [988, .14, .18]].forEach(([frequency, offset, duration]) => {
-        const oscillator = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        oscillator.type = 'sine';
-        oscillator.frequency.value = frequency;
-        gain.gain.setValueAtTime(.0001, start + offset);
-        gain.gain.exponentialRampToValueAtTime(.095, start + offset + .02);
-        gain.gain.exponentialRampToValueAtTime(.0001, start + offset + duration);
-        oscillator.connect(gain);
-        gain.connect(audioContext.destination);
-        oscillator.start(start + offset);
-        oscillator.stop(start + offset + duration + .02);
-      });
-    } catch (_) { /* Sound is optional; the animation continues silently. */ }
-  }
-  function play() {
-    stage.classList.remove('animation-hidden');
-    clearTimers();
-    paused = false;
-    showScene('intro');
-    panorama.style.backgroundPosition = window.matchMedia('(max-width: 700px)').matches ? '52% 36%' : '52% center';
-    if (reducedMotion) {
-      timers.push(setTimeout(() => { showScene('toast'); chime(); }, 4000));
-      timers.push(setTimeout(() => { showScene('final'); }, 7200));
-    } else {
-      timers.push(setTimeout(() => { showScene('toast'); panorama.style.backgroundPosition = window.matchMedia('(max-width: 700px)').matches ? '0% 36%' : '0% center'; chime(); status.textContent = 'Meeting reminder displayed.'; }, 4000));
-      timers.push(setTimeout(() => { showScene('final'); panorama.style.backgroundPosition = window.matchMedia('(max-width: 700px)').matches ? '0% 36%' : '0% center'; status.textContent = 'Saif has stepped into a meeting. Explore the portfolio.'; }, 7200));
-    }
-  }
-  soundButton.addEventListener('click', async () => {
-    soundOn = !soundOn;
-    soundButton.textContent = soundOn ? '♫ Sound on' : '♬ Enable sound';
-    soundButton.setAttribute('aria-pressed', String(soundOn));
-    if (soundOn) {
-      try {
-        audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
-        await audioContext.resume();
-        soundButton.textContent = '♫ Sound on';
-      } catch (_) { soundButton.textContent = 'Sound unavailable'; soundOn = false; }
-    }
-  });
-  document.getElementById('open').addEventListener('click', () => {
-    clearTimers();
-    stage.classList.add('animation-hidden');
-    status.textContent = 'Animation hidden.';
-  });
-  document.getElementById('replay').addEventListener('click', () => {
-    stage.classList.remove('animation-hidden');
-    play();
-  });
-  document.getElementById('skip').addEventListener('click', () => {
-    clearTimers();
-    showScene('final');
-    panorama.style.backgroundPosition = window.matchMedia('(max-width: 700px)').matches ? '0% 36%' : '0% center';
-    status.textContent = 'Skipped to portfolio invitation.';
-  });
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) clearTimers();
-  });
-  // If the tab was backgrounded, leave the visitor on a usable end card rather than a frozen scene.
-  window.addEventListener('pageshow', () => {
-    if (!document.hidden && !intro.classList.contains('show') && !toast.classList.contains('show') && !finalCard.classList.contains('show')) showScene('final');
-  });
-  play();
-})();
-</script>
-</body>
+    <!-- Boot overlay — plays once per session -->
+    <div class="boot-overlay" id="bootOverlay" aria-hidden="true">
+      <div class="boot-logo">
+        <span class="boot-logo-mark">&lt;/&gt;</span>
+      </div>
+      <div class="boot-spinner"><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+
+    <!-- Desktop icons -->
+    <div class="desktop-icons" id="desktopIcons" data-boot-reveal>
+      
+      <button class="desktop-icon" type="button" data-open="skills">
+        <span class="desktop-icon-glyph">🧠</span>
+        <span class="desktop-icon-label">Skills.json</span>
+      </button>
+      <button class="desktop-icon" type="button" data-open="experience">
+        <span class="desktop-icon-glyph">📜</span>
+        <span class="desktop-icon-label">Experience.json</span>
+      </button>
+      
+      <button class="desktop-icon" type="button" data-open="resume">
+        <span class="desktop-icon-glyph">📑</span>
+        <span class="desktop-icon-label">Resume.pdf</span>
+      </button>
+    
+      <button class="desktop-icon" type="button" data-open="about">
+        <span class="desktop-icon-glyph">📄</span>
+        <span class="desktop-icon-label">About-Me.md</span>
+      </button>
+      <button class="desktop-icon" type="button" data-open="contact">
+        <span class="desktop-icon-glyph">✉️</span>
+        <span class="desktop-icon-label">Contact.env</span>
+      </button>
+</div>
+
+    <!-- ============ DIJA assistant alert ============ -->
+    <div class="dija-backdrop" id="dijaBackdrop" hidden></div>
+    <div class="dija-alert" id="dijaAlert" role="dialog" aria-label="DIJA assistant">
+      <div class="dija-alert-controls">
+        <button type="button" class="dija-alert-min" id="dijaAlertMin" aria-label="Minimize">─</button>
+        <button type="button" class="dija-alert-close" id="dijaAlertClose" aria-label="Dismiss">×</button>
+      </div>
+      <section class="dija-chat" aria-label="Chat with DIJA">
+        <div class="dija-chat-messages" id="dijaChatMessages" role="log" aria-live="polite">
+          <div class="dija-chat-message assistant">Hi! I’m Saif’s portfolio assistant. I can help you explore projects, experience, skills, or contact details. What would you like to know?</div>
+        </div>
+        <form class="dija-chat-form" id="dijaChatForm">
+          <textarea id="dijaChatInput" rows="1" maxlength="1200" placeholder="Message DIJA…" aria-label="Message DIJA"></textarea>
+          <button type="submit" aria-label="Send message" title="Send message">➤</button>
+        </form>
+      </section>
+    </div>
+
+    <!-- Minimized launcher — robot-only, bottom-left -->
+    <button type="button" class="dija-mini" id="dijaMini" aria-label="Open DIJA assistant" hidden>
+      <svg viewBox="0 0 24 24" width="26" height="26"><rect x="5" y="8" width="14" height="11" rx="3" fill="#eef1f7"/><rect x="8" y="3.5" width="2" height="4" rx="1" fill="#eef1f7"/><circle cx="9" cy="3" r="1.4" fill="#a78bfa"/><circle cx="9.5" cy="13" r="1.6" fill="#1f2937"/><circle cx="14.5" cy="13" r="1.6" fill="#1f2937"/><path d="M9.5 16.3h5" stroke="#1f2937" stroke-width="1.3" stroke-linecap="round"/><rect x="2.5" y="11" width="2" height="4" rx="1" fill="#eef1f7"/><rect x="19.5" y="11" width="2" height="4" rx="1" fill="#eef1f7"/></svg>
+    </button>
+
+    <!-- ============ DIJA carousel (slides in right-to-left) ============ -->
+    <section class="dija-carousel" id="dijaCarousel" aria-label="DIJA assistant" hidden>
+      <header class="dija-carousel-header">
+        <button type="button" class="dija-carousel-back" id="dijaCarouselBack">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back
+        </button>
+        <h2 class="dija-carousel-title" id="dijaCarouselTitle">Projects</h2>
+        <span class="dija-carousel-spacer" aria-hidden="true"></span>
+      </header>
+      <div class="dija-carousel-body" id="dijaCarouselBody"></div>
+    </section>
+
+    <!-- ============ Project detail drawer (slides in from the left) ============ -->
+    <div class="project-drawer-backdrop" id="projectDrawerBackdrop" hidden></div>
+    <section class="project-drawer" id="projectDrawer" aria-label="Project details" hidden>
+      <div class="project-drawer-titlebar">
+        <button type="button" class="win-dot win-dot-red" id="projectDrawerClose" aria-label="Close project details"></button>
+        <span class="win-dot win-dot-yellow" aria-hidden="true"></span>
+        <span class="win-dot win-dot-green" aria-hidden="true"></span>
+      </div>
+      <div class="project-drawer-body" id="projectDrawerBody"></div>
+    </section>
+
+    <!-- ============ VS CODE WINDOW ============ -->
+    <section class="ide-window" id="vscodeWindow" role="dialog" aria-label="Portfolio — Visual Studio Code" hidden>
+      <header class="ide-titlebar" id="ideTitlebar">
+        <div class="ide-titlebar-left">
+          <button type="button" class="ide-mobile-menu-btn" id="ideMobileMenuBtn" aria-label="Toggle file explorer">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+          <span class="ide-titlebar-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M16.5 2.3 6.6 11.3 2.7 8.4 1 9.2v5.6l1.7.8 3.9-2.9 9.9 9 3.5-1.7V4L16.5 2.3Zm0 5.1v9.2L9 12l7.5-4.6Z" fill="#3794ff"/></svg></span>
+          <span class="ide-titlebar-text">portfolio-core — Saif Ul Rehman — Visual Studio Code</span>
+        </div>
+        <div class="ide-titlebar-controls">
+          <button type="button" class="ide-win-btn" id="ideMinimizeBtn" aria-label="Minimize">
+            <svg viewBox="0 0 10 10" width="10" height="10"><line x1="0" y1="5" x2="10" y2="5" stroke="currentColor" stroke-width="1"/></svg>
+          </button>
+          <button type="button" class="ide-win-btn" id="ideMaximizeBtn" aria-label="Maximize">
+            <svg viewBox="0 0 10 10" width="10" height="10"><rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+          </button>
+          <button type="button" class="ide-win-btn ide-win-btn-close" id="ideCloseBtn" aria-label="Close">
+            <svg viewBox="0 0 10 10" width="10" height="10"><line x1="0.5" y1="0.5" x2="9.5" y2="9.5" stroke="currentColor" stroke-width="1"/><line x1="9.5" y1="0.5" x2="0.5" y2="9.5" stroke="currentColor" stroke-width="1"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Menu bar (decorative, matches real VS Code chrome) -->
+      <div class="ide-menubar" aria-hidden="true">
+        <span>File</span><span>Edit</span><span>Selection</span><span>View</span>
+        <span>Go</span><span>Run</span><span>Terminal</span><span>Help</span>
+      </div>
+
+      <div class="ide-body">
+        <!-- Activity bar -->
+        <nav class="ide-activitybar" aria-label="Activity Bar">
+          <div class="activity-group">
+          <button type="button" class="activity-btn is-active" aria-label="Explorer" title="Explorer">
+            <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M4 3.5h7l2 2h7a1 1 0 0 1 1 1V19a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </button>
+          <button type="button" class="activity-btn" aria-label="Search" title="Search">
+            <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="20" y1="20" x2="15.2" y2="15.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </button>
+          <button type="button" class="activity-btn" aria-label="Source Control" title="Source Control">
+            <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="6" cy="5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="19" r="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="12" r="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 7.2V16.8M6 8c0 4 3 4 9 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          </button>
+          <button type="button" class="activity-btn" aria-label="Run and Debug" title="Run and Debug">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 4.5v15l13-7.5Z" fill="currentColor"/></svg>
+          </button>
+          <button type="button" class="activity-btn" aria-label="Extensions" title="Extensions">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 3.5h-3v3.8a1.4 1.4 0 0 1-2.8 0V3.5H5a1 1 0 0 0-1 1v3.2h3.8a1.4 1.4 0 0 1 0 2.8H4V14a1 1 0 0 0 1 1h3.2v-3.8a1.4 1.4 0 0 1 2.8 0V15H14a1 1 0 0 0 1-1v-3.2a1.4 1.4 0 1 1 0-2.8V4.5a1 1 0 0 0-1-1Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            <span class="activity-badge">1</span>
+          </button>
+          <button type="button" class="activity-btn" aria-label="Testing" title="Testing">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 3v4L4 17a2 2 0 0 0 1.8 3h12.4A2 2 0 0 0 20 17l-5-10V3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 3h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          </div>
+          <div class="activity-group activity-group-bottom">
+          <button type="button" class="activity-btn" aria-label="Account" title="Accounts">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="8.5" r="3.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <button type="button" class="activity-btn" aria-label="Settings" title="Settings">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 3.5v2M12 18.5v2M20.5 12h-2M5.5 12h-2M17.7 6.3l-1.4 1.4M7.7 16.3l-1.4 1.4M17.7 17.7l-1.4-1.4M7.7 7.7 6.3 6.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+          </div>
+        </nav>
+
+        <!-- Sidebar file explorer -->
+        <aside class="ide-sidebar" id="ideSidebar" aria-label="File Explorer">
+          <div class="ide-sidebar-title">Explorer</div>
+          <div class="ide-tree-root">Portfolio-Core</div>
+          <ul class="ide-tree" id="ideTree">
+            <li><button type="button" class="tree-file" data-file="about"><svg class="file-ico" viewBox="0 0 16 16" width="15" height="15"><path d="M3 1.5h6l4 4v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 .5-.5Z" fill="none" stroke="#8a8a8a" stroke-width="1"/><path d="M9 1.5V5h4" fill="none" stroke="#8a8a8a" stroke-width="1"/><rect x="4.5" y="8.6" width="7" height="1.7" rx="0.4" fill="#519aba"/></svg> About-Me.md</button></li>
+            <li><button type="button" class="tree-file" data-file="skills"><svg class="file-ico" viewBox="0 0 16 16" width="15" height="15"><path d="M3 1.5h6l4 4v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 .5-.5Z" fill="none" stroke="#8a8a8a" stroke-width="1"/><path d="M9 1.5V5h4" fill="none" stroke="#8a8a8a" stroke-width="1"/><rect x="4.5" y="8.6" width="7" height="1.7" rx="0.4" fill="#cbcb41"/></svg> Skills.json</button></li>
+            <li>
+              <button type="button" class="tree-folder is-open" data-folder="projects" aria-expanded="true"><svg class="file-ico" viewBox="0 0 24 24" width="15" height="15"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4.4l1.6 2H19.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5v-11Z" fill="#ffd15c"/><path d="M3 9h18v8.5A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5V9Z" fill="#ffc02e"/></svg> Projects</button>
+              <ul class="ide-tree-nested" id="ideProjectsTree"></ul>
+            </li>
+            <li><button type="button" class="tree-file" data-file="experience"><svg class="file-ico" viewBox="0 0 16 16" width="15" height="15"><path d="M3 1.5h6l4 4v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 .5-.5Z" fill="none" stroke="#8a8a8a" stroke-width="1"/><path d="M9 1.5V5h4" fill="none" stroke="#8a8a8a" stroke-width="1"/><rect x="4.5" y="8.6" width="7" height="1.7" rx="0.4" fill="#cbcb41"/></svg> Experience.json</button></li>
+            <li><button type="button" class="tree-file" data-file="contact"><svg class="file-ico" viewBox="0 0 16 16" width="15" height="15"><path d="M3 1.5h6l4 4v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 .5-.5Z" fill="none" stroke="#8a8a8a" stroke-width="1"/><path d="M9 1.5V5h4" fill="none" stroke="#8a8a8a" stroke-width="1"/><rect x="4.5" y="8.6" width="7" height="1.7" rx="0.4" fill="#8bc34a"/></svg> Contact.env</button></li>
+            <li><button type="button" class="tree-file" data-file="resume"><svg class="file-ico" viewBox="0 0 16 16" width="15" height="15"><path d="M3 1.5h6l4 4v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 .5-.5Z" fill="none" stroke="#8a8a8a" stroke-width="1"/><path d="M9 1.5V5h4" fill="none" stroke="#8a8a8a" stroke-width="1"/><rect x="4.5" y="8.6" width="7" height="1.7" rx="0.4" fill="#f44336"/></svg> Resume.pdf</button></li>
+          </ul>
+
+          <div class="ide-sidebar-section">
+            <button type="button" class="ide-sidebar-collapsible is-collapsed" data-collapsible="outline">
+              <svg class="collapse-chevron" viewBox="0 0 12 12" width="10" height="10"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+              OUTLINE
+            </button>
+            <div class="ide-sidebar-collapsible-body">The active editor cannot provide outline information.</div>
+          </div>
+          <div class="ide-sidebar-section">
+            <button type="button" class="ide-sidebar-collapsible is-collapsed" data-collapsible="timeline">
+              <svg class="collapse-chevron" viewBox="0 0 12 12" width="10" height="10"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+              TIMELINE
+            </button>
+            <div class="ide-sidebar-collapsible-body">No timeline information.</div>
+          </div>
+        </aside>
+
+        <!-- Editor -->
+        <div class="ide-editor">
+          <div class="ide-tabbar" id="ideTabbar" role="tablist"></div>
+          <div class="ide-breadcrumbs" id="ideBreadcrumbs"></div>
+          <div class="ide-panes" id="idePanes"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Browser preview, opened on demand from VS Code -->
+  <div class="browser-preview-backdrop" id="browserPreviewBackdrop" hidden></div>
+  <section class="browser-preview-window" id="browserPreviewWindow" role="dialog" aria-label="Portfolio browser preview" aria-modal="true" hidden>
+    <header class="browser-preview-titlebar"><div class="browser-preview-tab"><span class="browser-preview-tab-dot"></span><span id="browserPreviewTabTitle">Saif Ul Rehman</span></div><button type="button" class="browser-preview-close" id="browserPreviewClose" aria-label="Close preview">×</button></header>
+    <div class="browser-preview-toolbar"><span aria-hidden="true">‹</span><span aria-hidden="true">›</span><span aria-hidden="true">⟳</span><div class="browser-preview-address"><span aria-hidden="true">🔒</span><span id="browserPreviewAddress">saifulrehman.site</span></div><span aria-hidden="true">⋮</span></div>
+    <div class="browser-preview-page" id="browserPreviewPage"></div>
+  </section>
+
+  <!-- ============ START MENU ============ -->
+  <div class="start-backdrop" id="startBackdrop" hidden></div>
+  <div class="start-menu" id="startMenu" hidden role="dialog" aria-label="Start">
+    <div class="start-menu-dots" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="start-search">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="20" y1="20" x2="15.2" y2="15.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" id="startSearchInput" placeholder="Search for apps, projects, and files" autocomplete="off" />
+    </div>
+
+    <div class="start-body">
+      <div class="start-section-head">
+        <span>Pinned</span>
+      </div>
+      <div class="start-grid" id="startPinnedGrid"></div>
+
+      <div class="start-section-head" style="margin-top: 1.4rem;">
+        <span>Recommended</span>
+      </div>
+      <div class="start-recent" id="startRecentGrid"></div>
+    </div>
+
+    <div class="start-footer">
+      <button type="button" class="start-profile" id="startProfileBtn">
+        <img src="assets/images/avatar-profile-card.png" alt="" />
+        <span>Saif Ul Rehman</span>
+      </button>
+      <button type="button" class="start-power" id="startPowerBtn" aria-label="Power">
+        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 3v8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 5.5a8 8 0 1 0 10 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ TASKBAR ============ -->
+  <footer class="taskbar" aria-label="Taskbar">
+    <div class="taskbar-spacer" aria-hidden="true"></div>
+
+    <div class="taskbar-center">
+      <button type="button" class="taskbar-start" id="taskbarStart" aria-label="Start">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="2" y="2" width="9" height="9" fill="currentColor"/><rect x="13" y="2" width="9" height="9" fill="currentColor"/><rect x="2" y="13" width="9" height="9" fill="currentColor"/><rect x="13" y="13" width="9" height="9" fill="currentColor"/></svg>
+      </button>
+      <button type="button" class="taskbar-search" id="taskbarSearch" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="20" y1="20" x2="15.2" y2="15.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span class="taskbar-search-label">Search</span>
+      </button>
+
+      <div class="taskbar-pinned" id="taskbarPinned">
+        <button type="button" class="taskbar-icon taskbar-nav-app" data-nav-action="projects" aria-label="Projects" title="Projects"><span class="taskbar-nav-glyph nav-projects">▦</span><span class="taskbar-nav-label">Projects</span></button>
+        <button type="button" class="taskbar-icon taskbar-nav-app" data-nav-action="experience" aria-label="Experience" title="Experience"><span class="taskbar-nav-glyph nav-experience">◷</span><span class="taskbar-nav-label">Experience</span></button>
+        <button type="button" class="taskbar-icon taskbar-nav-app" data-nav-action="expertise" aria-label="Expertise" title="Expertise"><span class="taskbar-nav-glyph nav-expertise">✳</span><span class="taskbar-nav-label">Expertise</span></button>
+        <button type="button" class="taskbar-icon taskbar-nav-app" data-nav-action="explore" aria-label="Explore portfolio" title="Explore portfolio"><span class="taskbar-nav-glyph nav-explore">⌘</span><span class="taskbar-nav-label">Explore</span></button>
+
+        
+        
+        
+        <button type="button" class="taskbar-icon" id="taskbarGithub" data-social="github" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="#fff"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </button>
+        <button type="button" class="taskbar-icon" id="taskbarLinkedin" data-social="linkedin" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M7.12 9.4H4.4V19h2.72V9.4ZM5.76 8.2a1.58 1.58 0 1 0 0-3.16 1.58 1.58 0 0 0 0 3.16ZM19.6 19h-2.72v-5.02c0-1.2-.02-2.74-1.66-2.74-1.67 0-1.93 1.3-1.93 2.65V19H10.6V9.4h2.6v1.31h.04c.36-.68 1.25-1.4 2.58-1.4 2.76 0 3.27 1.82 3.27 4.18V19Z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="taskbar-tray">
+      <span class="tray-battery" title="Wi-Fi connected · Battery 82%">
+        <svg class="tray-icon-svg" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 20 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5.3 12a10 10 0 0 1 13.4 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M8.6 15.4a5.4 5.4 0 0 1 6.8 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="18.3" r="1.2" fill="currentColor"/></svg>
+        <svg class="tray-icon-svg" viewBox="0 0 26 14" width="22" height="12" aria-hidden="true"><rect x="1" y="1.5" width="21" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="23" y="4.5" width="2" height="5" rx="1" fill="currentColor"/><rect x="2.5" y="3" width="15" height="8" rx="1" fill="currentColor"/></svg>
+      </span>
+      <button type="button" class="tray-fullscreen" id="trayFullscreen" aria-label="Toggle fullscreen">
+        <svg class="tray-fs-expand" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="tray-fs-compress" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" hidden><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="tray-clock" id="trayClock" aria-label="Clock">
+        <span id="trayTime">--:--</span>
+        <span id="trayDate">--/--/----</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- ============ Small-screen fullscreen nudge ============ -->
+  <div class="fs-nudge" id="fsNudge" hidden>
+    <span>For the best experience, use fullscreen.</span>
+    <button type="button" id="fsNudgeBtn">Go Fullscreen</button>
+    <button type="button" id="fsNudgeDismiss" aria-label="Dismiss">×</button>
+  </div>
+
+  <!-- ============ Social link confirm modal (GitHub / LinkedIn) ============ -->
+  <div class="social-modal-backdrop" id="socialModalBackdrop" hidden></div>
+  <div class="social-modal" id="socialModal" role="dialog" aria-label="Leaving site" hidden>
+    <div class="social-modal-titlebar">
+      <button type="button" class="win-dot win-dot-red" id="socialModalClose" aria-label="Close"></button>
+      <span class="win-dot win-dot-yellow" aria-hidden="true"></span>
+      <span class="win-dot win-dot-green" aria-hidden="true"></span>
+    </div>
+    <div class="social-modal-icon" id="socialModalIcon"></div>
+    <div class="social-modal-title" id="socialModalTitle"></div>
+    <p class="social-modal-text" id="socialModalText"></p>
+    <a class="dija-prompt" id="socialModalVisit" target="_blank" rel="noopener noreferrer">Visit Site</a>
+  </div>
+
+  <!-- ============ Resume PDF viewer ============ -->
+  <div class="pdf-modal-backdrop" id="pdfModalBackdrop" hidden></div>
+  <section class="pdf-modal" id="pdfModal" role="dialog" aria-label="Resume PDF" hidden>
+    <header class="pdf-modal-header">
+      <span>Saif_Ul_Rehman_Resume_eng_2026.pdf</span>
+      <div class="pdf-modal-actions">
+        <a id="pdfModalDownload" href="Saif_Ul_Rehman_Resume_eng_2026.pdf" download>Download</a>
+        <button type="button" id="pdfModalClose" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="pdf-modal-body" id="pdfModalBody">
+      <div class="pdf-modal-loading" id="pdfModalLoading">Loading PDF…</div>
+    </div>
+  </section>
+
+  <script src="js/data.js?v=20261023-2" defer></script>
+  <script src="js/stream.js" defer></script>
+  <script src="js/os.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+  <script src="js/email-config.js?v=20261023-1" defer></script>
+  <script src="js/ide.js?v=20261023-4" defer></script>
+  <script src="js/dija.js?v=20261023-1" defer></script>
+  </body>
 </html>
