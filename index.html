@@ -56,6 +56,8 @@
     .final p { margin-bottom: 18px; }
     .cta { display: inline-flex; align-items: center; gap: 12px; border: 0; border-radius: 999px; padding: 14px 19px; background: var(--blue); color: white; font-weight: 850; font-size: 13px; cursor: pointer; box-shadow: 0 8px 22px #155fba30; text-decoration: none; transition: transform .2s, background .2s; }
     .cta:hover { transform: translateY(-2px); background: #0d4e9d; }
+    .stage.animation-hidden .card, .stage.animation-hidden .toast, .stage.animation-hidden .final, .stage.animation-hidden .ticker, .stage.animation-hidden .brand, .stage.animation-hidden .controls, .stage.animation-hidden .wash { display: none !important; }
+    .stage.animation-hidden .panorama { background-position: 100% center !important; transition: none; }
     .arrow { font-size: 18px; }
     .ticker { position: absolute; z-index: 9; left: 0; right: 0; bottom: 0; height: 62px; display: flex; align-items: center; background: rgba(9,18,30,.96); border-top: 1px solid #9db5c7; box-shadow: 0 -8px 25px #14273520; overflow: hidden; }
     .ticker-label { height: 100%; width: 145px; flex: 0 0 145px; padding-left: 18px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid #ffffff2a; color: #fff; font-size: 11px; font-weight: 900; letter-spacing: .07em; }
@@ -110,7 +112,7 @@
     <div class="eyebrow">Before I go…</div>
     <h2>I’m here — but I need to run to a meeting.</h2>
     <p>While I’m away, take a look around. Explore the products I’ve built, my experience, and how I solve problems. Make yourself at home.</p>
-    <a class="cta" href="https://github.com/saifii007/saifulrehman.site" id="open">Explore My Portfolio <span class="arrow" aria-hidden="true">→</span></a>
+    <button class="cta" type="button" id="open">Hide Animation <span class="arrow" aria-hidden="true">→</span></button>
   </section>
   <div class="ticker" aria-label="Featured projects">
     <div class="ticker-label">MY PROJECTS<small>PORTFOLIO SHOWCASE</small></div>
@@ -131,6 +133,7 @@
   const finalCard = document.getElementById('final');
   const soundButton = document.getElementById('sound');
   const status = document.getElementById('status');
+  const stage = document.getElementById('stage');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let timers = [];
   let soundOn = false;
@@ -166,6 +169,7 @@
     } catch (_) { /* Sound is optional; the animation continues silently. */ }
   }
   function play() {
+    stage.classList.remove('animation-hidden');
     clearTimers();
     paused = false;
     showScene('intro');
@@ -190,7 +194,15 @@
       } catch (_) { soundButton.textContent = 'Sound unavailable'; soundOn = false; }
     }
   });
-  document.getElementById('replay').addEventListener('click', play);
+  document.getElementById('open').addEventListener('click', () => {
+    clearTimers();
+    stage.classList.add('animation-hidden');
+    status.textContent = 'Animation hidden.';
+  });
+  document.getElementById('replay').addEventListener('click', () => {
+    stage.classList.remove('animation-hidden');
+    play();
+  });
   document.getElementById('skip').addEventListener('click', () => {
     clearTimers();
     showScene('final');
